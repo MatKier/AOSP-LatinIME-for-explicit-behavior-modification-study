@@ -1,30 +1,28 @@
 package com.android.inputmethod.keyStrokeLogging.activities;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
+import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class StudyMainActivity extends Activity implements View.OnClickListener {
+public class StudyMainActivity extends StudyAbstractActivity implements View.OnClickListener {
     private final int numberOfRepsPerTask = 10;
-    private final int numberOfTasks = 5;
 
     private int entryCounter = 0;
 
-    private Spinner sp_studyTaskSelector;
-    private Button btn_saveSelectedTask;
+    private String pid;
+    private int taskId;
+
+    private Button btn_nextTask;
     private EditText et_password;
     private Button btn_savePassword;
     private ProgressBar pb_taskProgress;
@@ -35,9 +33,8 @@ public class StudyMainActivity extends Activity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_main);
 
-        sp_studyTaskSelector = findViewById(R.id.sp_studyTaskSelector);
-        btn_saveSelectedTask = findViewById(R.id.btn_saveSelectedTask);
-        btn_saveSelectedTask.setOnClickListener(this);
+        btn_nextTask = findViewById(R.id.btn_nextTask);
+        btn_nextTask.setOnClickListener(this);
         et_password = findViewById(R.id.et_password);
         btn_savePassword = findViewById(R.id.btn_savePassword);
         btn_savePassword.setOnClickListener(this);
@@ -46,57 +43,48 @@ public class StudyMainActivity extends Activity implements View.OnClickListener 
         tv_taskProgress = findViewById(R.id.tv_taskProgress);
         setProgressCounter();
 
-        fillSpinner();
-
-        sp_studyTaskSelector.setEnabled(false);
-        btn_saveSelectedTask.setEnabled(false);
-        et_password.setEnabled(false);
-        btn_savePassword.setEnabled(false);
-        pb_taskProgress.setEnabled(false);
+        btn_nextTask.setEnabled(false);
+        et_password.setEnabled(true);
+        btn_savePassword.setEnabled(true);
+        pb_taskProgress.setEnabled(true);
     }
 
-    private void fillSpinner() {
-        List<String> list = new ArrayList<>();
-        for (int i = 1; i <= numberOfTasks; i++) {
-            list.add("Aufgabe " + i);
+    private void getStudyInfoFromExtras() {
+        Intent intent = getIntent();
+        this.pid = intent.getStringExtra(StudyConstants.INTENT_PID);
+        if (this.pid == null || pid.equals("")) {
+            Toast.makeText(this, "Keine ID gesetzt", Toast.LENGTH_LONG).show();
+            pid = "noPid";
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_studyTaskSelector.setAdapter(arrayAdapter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+        this.taskId = intent.getIntExtra(StudyConstants.INTENT_TASK_ID, -1);
+        if (this.taskId == -1) {
+            Toast.makeText(this, "Keine Task-ID gesetzt", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        getStudyInfoFromExtras();
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(btn_saveSelectedTask)) {
-            saveSelectedTaskAction();
+        if (v.equals(btn_nextTask)) {
+            launchNextTask();
         } else if (v.equals(btn_savePassword)) {
             savePasswordAction();
         }
     }
 
-    private void saveSelectedTaskAction() {
-        et_password.setEnabled(true);
-        btn_savePassword.setEnabled(true);
-        sp_studyTaskSelector.setEnabled(false);
-        btn_saveSelectedTask.setEnabled(false);
+    private void launchNextTask() {
+        // TODO launch next ExplainTaskActivity
 
         setProgressCounter();
     }
 
     private void savePasswordAction() {
-        // TODO add partId
-        String path = "/" + "ID_" + "PART_ID" + "/" + sp_studyTaskSelector.getSelectedItem().toString();
+        String path = "/" + "ID_" + pid + "/" + "TASK_" + taskId;
         KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
         et_password.setText("");
 
@@ -108,8 +96,7 @@ public class StudyMainActivity extends Activity implements View.OnClickListener 
 
             et_password.setEnabled(false);
             btn_savePassword.setEnabled(false);
-            sp_studyTaskSelector.setEnabled(true);
-            btn_saveSelectedTask.setEnabled(true);
+            btn_nextTask.setEnabled(true);
         }
     }
 
@@ -117,7 +104,4 @@ public class StudyMainActivity extends Activity implements View.OnClickListener 
         tv_taskProgress.setText("Aufgabenfortschritt: (" + entryCounter + "/" + numberOfRepsPerTask + ")");
         pb_taskProgress.setProgress(entryCounter);
     }
-
-    @Override
-    public void onBackPressed() { }
 }

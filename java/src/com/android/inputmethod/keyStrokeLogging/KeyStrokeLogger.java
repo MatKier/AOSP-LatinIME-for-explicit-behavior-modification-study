@@ -2,9 +2,14 @@ package com.android.inputmethod.keyStrokeLogging;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import com.android.inputmethod.keyStrokeLogging.activities.StudyExplainTaskActivity;
+import com.android.inputmethod.keyStrokeLogging.activities.StudyGeneralExplanationActivity;
+import com.android.inputmethod.keyStrokeLogging.activities.StudyLauncherActivity;
+import com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity;
 import com.android.inputmethod.keyboard.Key;
 import com.android.inputmethod.keyboard.KeyDetector;
 
@@ -39,10 +44,10 @@ public class KeyStrokeLogger {
      * @param context
      */
     public void writeToCSVFile(Context context) {
-        //if (!isStudyActive) {
-            LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
-            keyStrokeDataList.clear();
-       // }
+        if (!isStudyActive()) {
+        LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
+        keyStrokeDataList.clear();
+        }
     }
 
     /**
@@ -52,10 +57,10 @@ public class KeyStrokeLogger {
      * @param path    the file path after Documents/KeyStrokeLog
      */
     public void writeToCSVFile(Context context, String path) {
-        //if (isStudyActive) {
-            LogToFileHelper.logToFile(context, keyStrokeDataList, path);
-            keyStrokeDataList.clear();
-        //}
+        if (isStudyActive()) {
+        LogToFileHelper.logToFile(context, keyStrokeDataList, path);
+        keyStrokeDataList.clear();
+        }
     }
 
     public void clearKeyStrokeList() {
@@ -66,7 +71,10 @@ public class KeyStrokeLogger {
         LogToFileHelper.askForFilePermissions(activity);
     }
 
-    public void setIsStudyActive(boolean isStudyActive) {
-        this.isStudyActive = isStudyActive;
+    private boolean isStudyActive() {
+        Log.d("isStudyActive()", "isStudyActive: " + (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
+                || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning()));
+        return (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
+                || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning());
     }
 }

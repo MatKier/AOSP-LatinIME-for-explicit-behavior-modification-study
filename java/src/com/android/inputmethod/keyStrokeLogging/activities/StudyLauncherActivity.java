@@ -1,6 +1,5 @@
 package com.android.inputmethod.keyStrokeLogging.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
-public class StudyLauncherActivity extends Activity implements View.OnClickListener {
+public class StudyLauncherActivity extends StudyAbstractActivity implements View.OnClickListener {
 
     private EditText et_ParticipantId;
     private Button btn_saveParticipantId;
@@ -22,8 +21,6 @@ public class StudyLauncherActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_launcher);
-
-        KeyStrokeLogger.getInstance().setIsStudyActive(true);
 
         et_ParticipantId = findViewById(R.id.et_participantId);
         btn_saveParticipantId = findViewById(R.id.btn_startStudy);
@@ -56,9 +53,5 @@ public class StudyLauncherActivity extends Activity implements View.OnClickListe
         intent.putExtra(StudyConstants.INTENT_PID, participantIdText);
         startActivity(intent);
         this.finish();
-    }
-
-    @Override
-    public void onBackPressed() {
     }
 }

@@ -7,14 +7,6 @@
     tools:context="com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <Spinner
-        android:id="@+id/sp_studyTaskSelector"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -56,12 +48,12 @@
         app:layout_constraintTop_toBottomOf="@+id/pb_TaskProgress" />
 
     <Button
-        android:id="@+id/btn_saveSelectedTask"
+        android:id="@+id/btn_nextTask"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Auswählen"
+        android:layout_marginTop="16dp"
+        android:text="Nächste Aufgabe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,9 +74,32 @@
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Aufgabenfortschritt:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_studyTaskSelector" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+
+    <TextView
+        android:id="@+id/tv_currentTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Aufgabe 1"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/tv_taskDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text='Geben Sie 10 mal das Passwort "Hunter 2" ein.'
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_currentTask" />
 
 </android.support.constraint.ConstraintLayout>

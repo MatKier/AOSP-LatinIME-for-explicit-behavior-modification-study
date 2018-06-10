@@ -1,6 +1,5 @@
 package com.android.inputmethod.keyStrokeLogging.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.Toast;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
-public class StudyGeneralExplanationActivity extends Activity implements View.OnClickListener{
+public class StudyGeneralExplanationActivity extends StudyAbstractActivity implements View.OnClickListener{
 
     private String pid;
     private Button btn_startTaskExplanation;
@@ -22,11 +21,7 @@ public class StudyGeneralExplanationActivity extends Activity implements View.On
 
         btn_startTaskExplanation = findViewById(R.id.btnStart);
         btn_startTaskExplanation.setOnClickListener(this);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         getPidFromIntent();
     }
 
@@ -40,11 +35,11 @@ public class StudyGeneralExplanationActivity extends Activity implements View.On
     }
 
     @Override
-    public void onBackPressed() {
+    public void onClick(View view) {
+        launchExplainTaskActivity();
     }
 
-    @Override
-    public void onClick(View view) {
+    private void launchExplainTaskActivity() {
         Intent intent = new Intent(this, StudyExplainTaskActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, pid);
         intent.putExtra(StudyConstants.INTENT_TASK_ID, StudyConstants.TASK_ID_INITIAL);
