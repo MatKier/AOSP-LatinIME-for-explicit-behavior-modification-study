@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 import com.android.inputmethod.accessibility.AccessibilityUtils;
 import com.android.inputmethod.accessibility.MainKeyboardAccessibilityDelegate;
 import com.android.inputmethod.annotations.ExternallyReferenced;
+import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyboard.internal.DrawingPreviewPlacerView;
 import com.android.inputmethod.keyboard.internal.DrawingProxy;
 import com.android.inputmethod.keyboard.internal.GestureFloatingTextDrawingPreview;
@@ -736,6 +737,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     public void closing() {
         cancelAllOngoingEvents();
         mMoreKeysKeyboardCache.clear();
+
+        // Made a change to AOSP here
+        KeyStrokeLogger.getInstance().writeToCSVFile(getContext());
     }
 
     public void onHideWindow() {

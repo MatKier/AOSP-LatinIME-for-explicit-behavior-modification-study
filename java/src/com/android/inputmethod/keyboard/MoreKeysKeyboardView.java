@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 
 import com.android.inputmethod.accessibility.AccessibilityUtils;
 import com.android.inputmethod.accessibility.MoreKeysKeyboardAccessibilityDelegate;
+import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyboard.internal.KeyDrawParams;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.common.Constants;
@@ -183,6 +184,9 @@ public class MoreKeysKeyboardView extends KeyboardView implements MoreKeysPanel 
         // the following up event share the same coordinates.
         mCurrentKey = detectKey(x, y);
         if (mCurrentKey != null) {
+            // Made a change to AOSP here
+            KeyStrokeLogger.getInstance().logLongPress(mCurrentKey);
+
             updateReleaseKeyGraphics(mCurrentKey);
             onKeyInput(mCurrentKey, x, y);
             mCurrentKey = null;

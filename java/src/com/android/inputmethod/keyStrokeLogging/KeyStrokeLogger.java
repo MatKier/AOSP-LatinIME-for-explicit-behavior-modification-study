@@ -39,10 +39,10 @@ public class KeyStrokeLogger {
      * @param context
      */
     public void writeToCSVFile(Context context) {
-        if (!isStudyActive) {
+        //if (!isStudyActive) {
             LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
             keyStrokeDataList.clear();
-        }
+       // }
     }
 
     /**
@@ -52,10 +52,10 @@ public class KeyStrokeLogger {
      * @param path    the file path after Documents/KeyStrokeLog
      */
     public void writeToCSVFile(Context context, String path) {
-        if (isStudyActive) {
+        //if (isStudyActive) {
             LogToFileHelper.logToFile(context, keyStrokeDataList, path);
             keyStrokeDataList.clear();
-        }
+        //}
     }
 
     public void clearKeyStrokeList() {
