@@ -26,46 +26,46 @@
     <!-- Description for Task 1 -->
     <string name="task_desc_1">Ziel dieser Ausfgabe ist es das Passwort "Hunter2" zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
     <!-- Description for Task 2 -->
-    <string name="task_desc_2">Aufgabe 2</string>
+    <string name="task_desc_2">Aufgabe 2 Beschreibung</string>
     <!-- Description for Task 3 -->
-    <string name="task_desc_3">Aufgabe 3</string>
+    <string name="task_desc_3">Aufgabe 3 Beschreibung</string>
     <!-- Description for Task 4 -->
-    <string name="task_desc_4">Aufgabe 4</string>
+    <string name="task_desc_4">Aufgabe 4 Beschreibung</string>
     <!-- Description for Task 5 -->
-    <string name="task_desc_5">Aufgabe 5</string>
+    <string name="task_desc_5">Aufgabe 5 Beschreibung</string>
     <!-- Description for Task 6 -->
-    <string name="task_desc_6">Aufgabe 6</string>
+    <string name="task_desc_6">Aufgabe 6 Beschreibung</string>
     <!-- Description for Task 7 -->
-    <string name="task_desc_7">Aufgabe 7</string>
+    <string name="task_desc_7">Aufgabe 7 Beschreibung</string>
     <!-- Description for Task 8 -->
-    <string name="task_desc_8">Aufgabe 8</string>
+    <string name="task_desc_8">Aufgabe 8 Beschreibung</string>
     <!-- Description for Task 9 -->
-    <string name="task_desc_9">Aufgabe 9</string>
+    <string name="task_desc_9">Aufgabe 9 Beschreibung</string>
     <!-- Description for Task 10 -->
-    <string name="task_desc_10">Aufgabe 10</string>
+    <string name="task_desc_10">Aufgabe 10 Beschreibung</string>
 
 
     <!-- Task short descriptions -->
     <!-- Short description for Task 1 -->
-    <string name="task_short_desc_1">Aufgabe 1</string>
+    <string name="task_short_desc_1">Geben Sie 10 mal das Passwort "Hunter 2" ein.</string>
     <!-- Short description for Task 2 -->
-    <string name="task_short_desc_2">Aufgabe 2</string>
+    <string name="task_short_desc_2">Aufgabe 2 kurzbeschreibung</string>
     <!-- Short description for Task 3 -->
-    <string name="task_short_desc_3">Aufgabe 3</string>
+    <string name="task_short_desc_3">Aufgabe 3 kurzbeschreibung</string>
     <!-- Short description for Task 4 -->
-    <string name="task_short_desc_4">Aufgabe 4</string>
+    <string name="task_short_desc_4">Aufgabe 4 kurzbeschreibung</string>
     <!-- Short description for Task 5 -->
-    <string name="task_short_desc_5">Aufgabe 5</string>
+    <string name="task_short_desc_5">Aufgabe 5 kurzbeschreibung</string>
     <!-- Short description for Task 6 -->
-    <string name="task_short_desc_6">Aufgabe 6</string>
+    <string name="task_short_desc_6">Aufgabe 6 kurzbeschreibung</string>
     <!-- Short description for Task 7 -->
-    <string name="task_short_desc_7">Aufgabe 7</string>
+    <string name="task_short_desc_7">Aufgabe 7 kurzbeschreibung</string>
     <!-- Short description for Task 8 -->
-    <string name="task_short_desc_8">Aufgabe 8</string>
+    <string name="task_short_desc_8">Aufgabe 8 kurzbeschreibung</string>
     <!-- Short description for Task 9 -->
-    <string name="task_short_desc_9">Aufgabe 9</string>
+    <string name="task_short_desc_9">Aufgabe 9 kurzbeschreibung</string>
     <!-- Short description for Task 10 -->
-    <string name="task_short_desc_10">Aufgabe 10</string>
+    <string name="task_short_desc_10">Aufgabe 10 kurzbeschreibung</string>
 
     <!-- Task button labels -->
     <!-- Button label for Task 1 -->

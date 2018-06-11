@@ -1,6 +1,7 @@
 package com.android.inputmethod.keyStrokeLogging.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 
 public abstract class StudyAbstractActivity extends Activity {
 
@@ -16,6 +17,14 @@ public abstract class StudyAbstractActivity extends Activity {
     protected void onPause() {
         super.onPause();
         isActivityRunning = false;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            setIntent(intent);
+        }
     }
 
     public static boolean isActivityRunning() {

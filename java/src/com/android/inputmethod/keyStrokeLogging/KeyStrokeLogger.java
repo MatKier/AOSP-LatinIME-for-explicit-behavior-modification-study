@@ -43,10 +43,11 @@ public class KeyStrokeLogger {
      * @param context
      */
     public void writeToCSVFile(Context context) {
-        if (!isStudyActive()) {
-            LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
-            keyStrokeDataList.clear();
-        }
+        // TODO Remove for actual study
+        //if (!(isStudyActive())) {
+        //    LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
+        //    keyStrokeDataList.clear();
+        //}
     }
 
     /**

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
@@ -49,7 +50,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         }
     }
 
-    private void setUiElemetsToCurrentTask() {
+    private void setUiElementsToCurrentTask() {
         tv_title.setText(getResources().getIdentifier("task_title_" + taskId, "string", this.getPackageName()));
         tv_description.setText(getResources().getIdentifier("task_desc_" + taskId, "string", this.getPackageName()));
         btnStartTask.setText(getResources().getIdentifier("task_button_label_" + taskId, "string", this.getPackageName()));
@@ -59,16 +60,15 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     protected void onResume() {
         super.onResume();
         getStudyInfoFromExtras();
-        setUiElemetsToCurrentTask();
-        Toast.makeText(this, "onResume, taskID:" + taskId, Toast.LENGTH_LONG).show();
+        setUiElementsToCurrentTask();
     }
 
     @Override
     public void onClick(View view) {
+        et_trainingField.setText("");
+        KeyStrokeLogger.getInstance().clearKeyStrokeList();
         if (view.equals(btnStartTask)) {
             launchActualTask();
-        } else if(view.equals(btnClearField)) {
-            et_trainingField.setText("");
         }
     }
 
@@ -76,7 +76,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         Intent intent = new Intent(this, StudyMainActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, pid);
         intent.putExtra(StudyConstants.INTENT_TASK_ID, taskId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        //this.finish();
     }
 }

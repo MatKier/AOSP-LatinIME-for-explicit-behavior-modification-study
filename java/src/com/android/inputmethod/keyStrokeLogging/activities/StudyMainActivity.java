@@ -27,6 +27,8 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     private Button btn_savePassword;
     private ProgressBar pb_taskProgress;
     private TextView tv_taskProgress;
+    private TextView tv_currentTask;
+    private TextView tv_taskDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +43,20 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
         pb_taskProgress = findViewById(R.id.pb_TaskProgress);
         pb_taskProgress.setMax(numberOfRepsPerTask);
         tv_taskProgress = findViewById(R.id.tv_taskProgress);
-        setProgressCounter();
+        tv_currentTask = findViewById(R.id.tv_currentTask);
+        tv_taskDescription = findViewById(R.id.tv_taskDescription);
 
-        btn_nextTask.setEnabled(false);
-        et_password.setEnabled(true);
-        btn_savePassword.setEnabled(true);
-        pb_taskProgress.setEnabled(true);
+        initializeEnabledState();
+
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setProgressCounter();
+        getStudyInfoFromExtras();
+        setUiElementsToCurrentTask();
     }
 
     private void getStudyInfoFromExtras() {
@@ -62,17 +72,23 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getStudyInfoFromExtras();
+    private void setUiElementsToCurrentTask() {
+        tv_currentTask.setText(getResources().getIdentifier("task_title_" + taskId, "string", this.getPackageName()));
+        tv_taskDescription.setText(getResources().getIdentifier("task_short_desc_" + taskId, "string", this.getPackageName()));
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(btn_nextTask)) {
-            launchNextExplainTaskActivity();
+            if(taskId < StudyConstants.TASK_ID_LAST) {
+                initializeEnabledState();
+                entryCounter = 0;
+                launchNextExplainTaskActivity();
+            } else {
+                // TODO End Study
+            }
         } else if (v.equals(btn_savePassword)) {
+            // TODO check if password is valid (number of touchevents + actual string)
             savePasswordAction();
         }
     }
@@ -83,7 +99,6 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
         intent.putExtra(StudyConstants.INTENT_TASK_ID, (++taskId));
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        this.finish();
     }
 
     private void savePasswordAction() {
@@ -95,8 +110,6 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
         setProgressCounter();
 
         if (entryCounter >= numberOfRepsPerTask) {
-            entryCounter = 0;
-
             et_password.setEnabled(false);
             btn_savePassword.setEnabled(false);
             btn_nextTask.setEnabled(true);
@@ -106,5 +119,12 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     private void setProgressCounter() {
         tv_taskProgress.setText("Aufgabenfortschritt: (" + entryCounter + "/" + numberOfRepsPerTask + ")");
         pb_taskProgress.setProgress(entryCounter);
+    }
+
+    private void initializeEnabledState() {
+        btn_nextTask.setEnabled(false);
+        et_password.setEnabled(true);
+        btn_savePassword.setEnabled(true);
+        pb_taskProgress.setEnabled(true);
     }
 }
