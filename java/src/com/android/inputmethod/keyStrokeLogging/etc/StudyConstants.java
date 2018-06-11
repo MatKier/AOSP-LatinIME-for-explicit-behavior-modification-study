@@ -4,5 +4,6 @@ public class StudyConstants {
     public static final String INTENT_PID = "INTENT_PID";
     public static final String INTENT_TASK_ID = "TASK_ID";
 
-    public static final int TASK_ID_INITIAL = 0;
+    public static final int TASK_ID_INITIAL = 1;
+    public static final int TASK_ID_LAST = 10;
 }

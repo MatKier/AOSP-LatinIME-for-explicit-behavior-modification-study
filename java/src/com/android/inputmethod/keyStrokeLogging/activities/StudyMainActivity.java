@@ -15,7 +15,7 @@ import com.android.inputmethod.latin.R;
 
 
 public class StudyMainActivity extends StudyAbstractActivity implements View.OnClickListener {
-    private final int numberOfRepsPerTask = 10;
+    private final int numberOfRepsPerTask = 3;
 
     private int entryCounter = 0;
 
@@ -71,16 +71,19 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.equals(btn_nextTask)) {
-            launchNextTask();
+            launchNextExplainTaskActivity();
         } else if (v.equals(btn_savePassword)) {
             savePasswordAction();
         }
     }
 
-    private void launchNextTask() {
-        // TODO launch next ExplainTaskActivity
-
-        setProgressCounter();
+    private void launchNextExplainTaskActivity() {
+        Intent intent = new Intent(this, StudyExplainTaskActivity.class);
+        intent.putExtra(StudyConstants.INTENT_PID, pid);
+        intent.putExtra(StudyConstants.INTENT_TASK_ID, (++taskId));
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        this.finish();
     }
 
     private void savePasswordAction() {

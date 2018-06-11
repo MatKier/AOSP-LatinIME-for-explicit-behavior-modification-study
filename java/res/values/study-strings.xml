@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Task titles -->
+    <!-- Title for Task 1 -->
+    <string name="task_title_1">Aufgabe 1</string>
+    <!-- Title for Task 2 -->
+    <string name="task_title_2">Aufgabe 2</string>
+    <!-- Title for Task 3 -->
+    <string name="task_title_3">Aufgabe 3</string>
+    <!-- Title for Task 4 -->
+    <string name="task_title_4">Aufgabe 4</string>
+    <!-- Title for Task 5 -->
+    <string name="task_title_5">Aufgabe 5</string>
+    <!-- Title for Task 6 -->
+    <string name="task_title_6">Aufgabe 6</string>
+    <!-- Title for Task 7 -->
+    <string name="task_title_7">Aufgabe 7</string>
+    <!-- Title for Task 8 -->
+    <string name="task_title_8">Aufgabe 8</string>
+    <!-- Title for Task 9 -->
+    <string name="task_title_9">Aufgabe 9</string>
+    <!-- Title for Task 10 -->
+    <string name="task_title_10">Aufgabe 10</string>
+
+    <!-- Task descriptions -->
+    <!-- Description for Task 1 -->
+    <string name="task_desc_1">Ziel dieser Ausfgabe ist es das Passwort "Hunter2" zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
+    <!-- Description for Task 2 -->
+    <string name="task_desc_2">Aufgabe 2</string>
+    <!-- Description for Task 3 -->
+    <string name="task_desc_3">Aufgabe 3</string>
+    <!-- Description for Task 4 -->
+    <string name="task_desc_4">Aufgabe 4</string>
+    <!-- Description for Task 5 -->
+    <string name="task_desc_5">Aufgabe 5</string>
+    <!-- Description for Task 6 -->
+    <string name="task_desc_6">Aufgabe 6</string>
+    <!-- Description for Task 7 -->
+    <string name="task_desc_7">Aufgabe 7</string>
+    <!-- Description for Task 8 -->
+    <string name="task_desc_8">Aufgabe 8</string>
+    <!-- Description for Task 9 -->
+    <string name="task_desc_9">Aufgabe 9</string>
+    <!-- Description for Task 10 -->
+    <string name="task_desc_10">Aufgabe 10</string>
+
+
+    <!-- Task short descriptions -->
+    <!-- Short description for Task 1 -->
+    <string name="task_short_desc_1">Aufgabe 1</string>
+    <!-- Short description for Task 2 -->
+    <string name="task_short_desc_2">Aufgabe 2</string>
+    <!-- Short description for Task 3 -->
+    <string name="task_short_desc_3">Aufgabe 3</string>
+    <!-- Short description for Task 4 -->
+    <string name="task_short_desc_4">Aufgabe 4</string>
+    <!-- Short description for Task 5 -->
+    <string name="task_short_desc_5">Aufgabe 5</string>
+    <!-- Short description for Task 6 -->
+    <string name="task_short_desc_6">Aufgabe 6</string>
+    <!-- Short description for Task 7 -->
+    <string name="task_short_desc_7">Aufgabe 7</string>
+    <!-- Short description for Task 8 -->
+    <string name="task_short_desc_8">Aufgabe 8</string>
+    <!-- Short description for Task 9 -->
+    <string name="task_short_desc_9">Aufgabe 9</string>
+    <!-- Short description for Task 10 -->
+    <string name="task_short_desc_10">Aufgabe 10</string>
+
+    <!-- Task button labels -->
+    <!-- Button label for Task 1 -->
+    <string name="task_button_label_1">Aufgabe 1 starten</string>
+    <!-- Button label for Task 2 -->
+    <string name="task_button_label_2">Aufgabe 2 starten</string>
+    <!-- Button label for Task 3 -->
+    <string name="task_button_label_3">Aufgabe 3 starten</string>
+    <!-- Button label for Task 4 -->
+    <string name="task_button_label_4">Aufgabe 4 starten</string>
+    <!-- Button label for Task 5 -->
+    <string name="task_button_label_5">Aufgabe 5 starten</string>
+    <!-- Button label for Task 6 -->
+    <string name="task_button_label_6">Aufgabe 6 starten</string>
+    <!-- Button label for Task 7 -->
+    <string name="task_button_label_7">Aufgabe 7 starten</string>
+    <!-- Button label for Task 8 -->
+    <string name="task_button_label_8">Aufgabe 8 starten</string>
+    <!-- Button label for Task 9 -->
+    <string name="task_button_label_9">Aufgabe 9 starten</string>
+    <!-- Button label for Task 10 -->
+    <string name="task_button_label_10">Aufgabe 10 starten</string>
+</resources>

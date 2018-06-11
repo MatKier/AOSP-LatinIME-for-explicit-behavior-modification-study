@@ -20,7 +20,6 @@ public class KeyStrokeLogger {
     private static final KeyStrokeLogger instance = new KeyStrokeLogger();
 
     private List<KeyStrokeDataBean> keyStrokeDataList;
-    private boolean isStudyActive = false;
 
     private KeyStrokeLogger() {
         keyStrokeDataList = new ArrayList<>();
@@ -45,8 +44,8 @@ public class KeyStrokeLogger {
      */
     public void writeToCSVFile(Context context) {
         if (!isStudyActive()) {
-        LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
-        keyStrokeDataList.clear();
+            LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
+            keyStrokeDataList.clear();
         }
     }
 
@@ -58,8 +57,8 @@ public class KeyStrokeLogger {
      */
     public void writeToCSVFile(Context context, String path) {
         if (isStudyActive()) {
-        LogToFileHelper.logToFile(context, keyStrokeDataList, path);
-        keyStrokeDataList.clear();
+            LogToFileHelper.logToFile(context, keyStrokeDataList, path);
+            keyStrokeDataList.clear();
         }
     }
 
@@ -72,8 +71,6 @@ public class KeyStrokeLogger {
     }
 
     private boolean isStudyActive() {
-        Log.d("isStudyActive()", "isStudyActive: " + (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
-                || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning()));
         return (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
                 || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning());
     }
