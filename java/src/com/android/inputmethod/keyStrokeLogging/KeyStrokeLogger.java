@@ -15,6 +15,8 @@ import com.android.inputmethod.keyboard.KeyDetector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class KeyStrokeLogger {
     private static final KeyStrokeLogger instance = new KeyStrokeLogger();
@@ -74,5 +76,19 @@ public class KeyStrokeLogger {
     private boolean isStudyActive() {
         return (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
                 || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning());
+    }
+
+    public String getInfoForLastKeyEvent() {
+        if (keyStrokeDataList.size() >= 1) {
+            KeyStrokeDataBean lastKeyEvent = keyStrokeDataList.get(keyStrokeDataList.size() - 1);
+            Log.d("getInfoForLastKeyEvent", "eventType: " + lastKeyEvent.getEventType());
+            String offsetLR = lastKeyEvent.getOffsetX() > 25 ? "rechts" : (lastKeyEvent.getOffsetX() < -25 ? "links" : "");
+            String offsetOU = lastKeyEvent.getOffsetY() > 25 ? "unten" : (lastKeyEvent.getOffsetY() < -25 ? "oben" : "");
+            String info = "Letzte Taste: " + lastKeyEvent.getKeyValue() + ", Offset: " + offsetLR + " " + offsetOU
+                    + ", Haltedauer: " + lastKeyEvent.getHoldTime() + ", Druck: " + (lastKeyEvent.getPressure() < 0.25f ? "normal" : "fest");
+            return info;
+        } else {
+            return "";
+        }
     }
 }

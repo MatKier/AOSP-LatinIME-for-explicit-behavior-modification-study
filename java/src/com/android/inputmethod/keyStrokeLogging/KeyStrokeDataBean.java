@@ -80,6 +80,31 @@ class KeyStrokeDataBean {
         this.longPressKey = longPressKey;
     }
 
+    String getKeyValue() {
+        return keyValue;
+    }
+
+    int getOffsetX() {
+        return offsetX;
+    }
+
+    int getOffsetY() {
+        return offsetY;
+    }
+
+
+    long getHoldTime() {
+        return holdTime;
+    }
+
+    String getEventType() {
+        return eventType;
+    }
+
+    float getPressure() {
+        return pressure;
+    }
+
     String toCSVString() {
         return eventType + "; " + eventTime + "; " + keyValue + "; " + x + "; " + y + "; " + offsetX
                 + "; " + offsetY + "; " + keyCenterX + "; " + keyCenterY + "; " + orientation + "; "

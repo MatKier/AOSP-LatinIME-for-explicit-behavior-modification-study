@@ -2,6 +2,9 @@ package com.android.inputmethod.keyStrokeLogging.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +15,9 @@ import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class StudyExplainTaskActivity extends StudyAbstractActivity implements View.OnClickListener {
 
     private Button btnStartTask;
@@ -19,6 +25,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     private EditText et_trainingField;
     private TextView tv_description;
     private TextView tv_title;
+    private TextView tv_lastKeyEventDisplay;
 
     private String pid;
     private int taskId;
@@ -35,6 +42,30 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         et_trainingField = findViewById(R.id.et_trainingField);
         tv_description = findViewById(R.id.tv_description);
         tv_title = findViewById(R.id.tv_title);
+        tv_lastKeyEventDisplay = findViewById(R.id.tv_lastKeyEventDisplay);
+
+        et_trainingField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Wait a little bit for the up event to show up
+                // TODO replace with something more stable
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_lastKeyEventDisplay.setText(KeyStrokeLogger.getInstance().getInfoForLastKeyEvent());
+                    }
+                }, 15);
+            }
+        });
     }
 
     private void getStudyInfoFromExtras() {

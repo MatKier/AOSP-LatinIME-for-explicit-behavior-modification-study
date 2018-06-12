@@ -47,8 +47,6 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
         tv_taskDescription = findViewById(R.id.tv_taskDescription);
 
         initializeEnabledState();
-
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
