@@ -9,7 +9,7 @@ import java.util.List;
 
 class KeyStrokeLoggingHelper {
 
-    static void logKeyEvent(List<KeyStrokeDataBean> keyStrokeDataList, final MotionEvent me, KeyDetector mKeyDetector) {
+    static void logKeyEvent(List<KeyStrokeDataBean> keyStrokeDataList, final MotionEvent me, Key key) {
         final int x = (int)me.getX();
         final int y = (int)me.getY();
         final long eventTime = me.getEventTime();
@@ -19,9 +19,6 @@ class KeyStrokeLoggingHelper {
         final float touchMinor = me.getTouchMinor();
         final float touchMajor = me.getTouchMajor();
 
-        // Use the KeydeDector to detect a Key.
-        // Not the most efficient way, since the Keyboard itself already did this, but it's much easier to do this here a second time
-        final Key key = mKeyDetector.detectHitKey(x, y);
         String keyText = "noKey";
         int offsetX = 0;
         int offsetY = 0;

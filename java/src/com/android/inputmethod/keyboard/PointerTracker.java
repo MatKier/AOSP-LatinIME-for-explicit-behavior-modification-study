@@ -602,15 +602,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         switch (action) {
         case MotionEvent.ACTION_DOWN:
         case MotionEvent.ACTION_POINTER_DOWN:
-            onDownEvent(x, y, eventTime, keyDetector);
-            // Made a change to AOSP here
-            KeyStrokeLogger.getInstance().logKeyEvent(me, mKeyDetector);
+            onDownEvent(x, y, me, eventTime, keyDetector);
             break;
         case MotionEvent.ACTION_UP:
         case MotionEvent.ACTION_POINTER_UP:
-            onUpEvent(x, y, eventTime);
-            // Made a change to AOSP here
-            KeyStrokeLogger.getInstance().logKeyEvent(me, mKeyDetector);
+            onUpEvent(x, y, me, eventTime);
             break;
         case MotionEvent.ACTION_CANCEL:
             onCancelEvent(x, y, eventTime);
@@ -618,7 +614,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private void onDownEvent(final int x, final int y, final long eventTime,
+    private void onDownEvent(final int x, final int y, final MotionEvent me, final long eventTime,
             final KeyDetector keyDetector) {
         setKeyDetectorInner(keyDetector);
         if (DEBUG_EVENT) {
@@ -639,6 +635,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
 
         final Key key = getKeyOn(x, y);
+        // Made a change to AOSP here
+        KeyStrokeLogger.getInstance().logKeyEvent(me, key);
         mBogusMoveEventDetector.onActualDownEvent(x, y);
         if (key != null && key.isModifier()) {
             // Before processing a down event of modifier key, all pointers already being
@@ -804,7 +802,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     lastX, lastY, Constants.printableCode(oldKey.getCode()),
                     x, y, Constants.printableCode(key.getCode())));
         }
-        onUpEventInternal(x, y, eventTime);
+        // TODO pass MotionEvent?
+        onUpEventInternal(x, y, null, eventTime);
         onDownEventInternal(x, y, eventTime);
     }
 
@@ -823,7 +822,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     lastX, lastY, Constants.printableCode(oldKey.getCode()),
                     x, y, Constants.printableCode(key.getCode())));
         }
-        onUpEventInternal(x, y, eventTime);
+        // TODO pass MotionEvent?
+        onUpEventInternal(x, y, null, eventTime);
         onDownEventInternal(x, y, eventTime);
     }
 
@@ -869,7 +869,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 Log.w(TAG, String.format("[%d] onMoveEvent:"
                         + " detected sliding finger while multi touching", mPointerId));
             }
-            onUpEvent(x, y, eventTime);
+            // TODO pass MotionEvent?
+            onUpEvent(x, y, null, eventTime);
             cancelTrackingForAction();
             setReleasedKeyGraphics(oldKey, true /* withAnimation */);
         } else {
@@ -927,7 +928,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
     }
 
-    private void onUpEvent(final int x, final int y, final long eventTime) {
+    private void onUpEvent(final int x, final int y, final MotionEvent me, final long eventTime) {
         if (DEBUG_EVENT) {
             printTouchEvent("onUpEvent  :", x, y, eventTime);
         }
@@ -942,7 +943,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                 sPointerTrackerQueue.releaseAllPointersOlderThan(this, eventTime);
             }
         }
-        onUpEventInternal(x, y, eventTime);
+        onUpEventInternal(x, y, me, eventTime);
         sPointerTrackerQueue.remove(this);
     }
 
@@ -954,11 +955,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (DEBUG_EVENT) {
             printTouchEvent("onPhntEvent:", mLastX, mLastY, eventTime);
         }
-        onUpEventInternal(mLastX, mLastY, eventTime);
+        // TODO pass MotionEvent?
+        onUpEventInternal(mLastX, mLastY, null, eventTime);
         cancelTrackingForAction();
     }
 
-    private void onUpEventInternal(final int x, final int y, final long eventTime) {
+    private void onUpEventInternal(final int x, final int y, final MotionEvent me, final long eventTime) {
         sTimerProxy.cancelKeyTimersOf(this);
         final boolean isInDraggingFinger = mIsInDraggingFinger;
         final boolean isInSlidingKeyInput = mIsInSlidingKeyInput;
@@ -999,6 +1001,13 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (currentKey != null && currentKey.isRepeatable()
                 && (currentKey.getCode() == currentRepeatingKeyCode) && !isInDraggingFinger) {
             return;
+        }
+        // Made a change to AOSP here
+        if (me != null) {
+            KeyStrokeLogger.getInstance().logKeyEvent(me, currentKey);
+        } else {
+            // If two keys are pressed simultaneously, the upEvent for the first and second key is fired when the second key is released
+            Log.d("onUpEventInternal", "" + currentKey.toShortString());
         }
         detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
         if (isInSlidingKeyInput) {

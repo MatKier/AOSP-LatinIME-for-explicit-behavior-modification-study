@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import com.android.inputmethod.keyStrokeLogging.activities.StudyExplainTaskActivity;
 import com.android.inputmethod.keyStrokeLogging.activities.StudyGeneralExplanationActivity;
@@ -15,8 +14,6 @@ import com.android.inputmethod.keyboard.KeyDetector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class KeyStrokeLogger {
     private static final KeyStrokeLogger instance = new KeyStrokeLogger();
@@ -31,8 +28,8 @@ public class KeyStrokeLogger {
         return instance;
     }
 
-    public void logKeyEvent(final MotionEvent me, final KeyDetector mKeyDetector) {
-        KeyStrokeLoggingHelper.logKeyEvent(keyStrokeDataList, me, mKeyDetector);
+    public void logKeyEvent(final MotionEvent me, final Key key) {
+        KeyStrokeLoggingHelper.logKeyEvent(keyStrokeDataList, me, key);
     }
 
     public void logLongPress(final Key key) {
