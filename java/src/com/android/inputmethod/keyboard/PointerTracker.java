@@ -55,6 +55,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private static final boolean DEBUG_LISTENER = false;
     private static boolean DEBUG_MODE = DebugFlags.DEBUG_ENABLED || DEBUG_EVENT;
 
+    private MotionEvent upMotionEventForEdgeCases;
+
     static final class PointerTrackerParams {
         public final boolean mKeySelectionByDraggingFinger;
         public final int mTouchNoiseThresholdTime;
@@ -802,7 +804,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     lastX, lastY, Constants.printableCode(oldKey.getCode()),
                     x, y, Constants.printableCode(key.getCode())));
         }
-        // TODO pass MotionEvent?
         onUpEventInternal(x, y, null, eventTime);
         onDownEventInternal(x, y, eventTime);
     }
@@ -822,7 +823,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
                     lastX, lastY, Constants.printableCode(oldKey.getCode()),
                     x, y, Constants.printableCode(key.getCode())));
         }
-        // TODO pass MotionEvent?
         onUpEventInternal(x, y, null, eventTime);
         onDownEventInternal(x, y, eventTime);
     }
@@ -942,6 +942,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             } else {
                 sPointerTrackerQueue.releaseAllPointersOlderThan(this, eventTime);
             }
+            upMotionEventForEdgeCases = me;
         }
         onUpEventInternal(x, y, me, eventTime);
         sPointerTrackerQueue.remove(this);
@@ -952,11 +953,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // "virtual" up event.
     @Override
     public void onPhantomUpEvent(final long eventTime) {
+        // This gets called if
+        // two keys are pressed simultaneously and the second key is released before the first one, the upEvent for the first and second key is fired when the second key is released
         if (DEBUG_EVENT) {
             printTouchEvent("onPhntEvent:", mLastX, mLastY, eventTime);
         }
-        // TODO pass MotionEvent?
-        onUpEventInternal(mLastX, mLastY, null, eventTime);
+        onUpEventInternal(mLastX, mLastY, upMotionEventForEdgeCases, eventTime);
         cancelTrackingForAction();
     }
 
@@ -1005,8 +1007,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // Made a change to AOSP here
         if (me != null) {
             KeyStrokeLogger.getInstance().logKeyEvent(me, currentKey);
+            upMotionEventForEdgeCases = null;
         } else {
-            // If two keys are pressed simultaneously, the upEvent for the first and second key is fired when the second key is released
+            // If two keys are pressed simultaneously and the second key is released before the first one, the upEvent for the first and second key is fired when the second key is released
             Log.d("onUpEventInternal", "" + currentKey.toShortString());
         }
         detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
