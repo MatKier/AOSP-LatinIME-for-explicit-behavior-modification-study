@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Number of needed touch events for study passwords -->
+    <!-- Number of events for password 1 -->
+    <integer name="number_of_events_1">8</integer>
+    <!-- Number of events for password 2 -->
+    <integer name="number_of_events_2">8</integer>
+    <!-- Number of events for password 3 -->
+    <integer name="number_of_events_3">8</integer>
+    <!-- Number of events for password 4 -->
+    <integer name="number_of_events_4">8</integer>
+    <!-- Number of events for password 5 -->
+    <integer name="number_of_events_5">8</integer>
+    <!-- Number of events for password 6 -->
+    <integer name="number_of_events_6">8</integer>
+    <!-- Number of events for password 7 -->
+    <integer name="number_of_events_7">8</integer>
+    <!-- Number of events for password 8 -->
+    <integer name="number_of_events_8">8</integer>
+    <!-- Number of events for password 9 -->
+    <integer name="number_of_events_9">8</integer>
+    <!-- Number of events for password 10 -->
+    <integer name="number_of_events_10">8</integer>
+</resources>

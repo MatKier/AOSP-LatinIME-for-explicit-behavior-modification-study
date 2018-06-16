@@ -7,15 +7,34 @@
     tools:context="com.android.inputmethod.keyStrokeLogging.activities.StudyExplainTaskActivity">
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/task_title_1"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:text="Aufgabenteil:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/task_title_1"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <com.android.inputmethod.keyStrokeLogging.etc.KeyOffsetVisualizerView
+        android:id="@+id/key_rect"
+        android:layout_width="28dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/study_rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_lastKeyEventDisplay" />
 
     <TextView
         android:id="@+id/tv_description"
@@ -27,7 +46,7 @@
         android:text="@string/task_desc_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_startTask" />
 
     <EditText
         android:id="@+id/et_trainingField"
@@ -44,32 +63,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Übungsfeld:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_lastKeyEventDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/key_rect" />
 
     <Button
         android:id="@+id/btn_clearField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="24dp"
         android:text="Enter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_lastKeyEventDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/key_rect" />
 
     <Button
         android:id="@+id/btn_startTask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/task_button_label_1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_lastKeyEventDisplay"

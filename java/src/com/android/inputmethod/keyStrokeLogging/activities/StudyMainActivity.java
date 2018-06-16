@@ -2,6 +2,7 @@ package com.android.inputmethod.keyStrokeLogging.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,8 +87,19 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
                 // TODO End Study
             }
         } else if (v.equals(btn_savePassword)) {
-            // TODO check if password is valid (number of touchevents + actual string)
-            savePasswordAction();
+            int actualNumberOfTouchEvents = KeyStrokeLogger.getInstance().getNumberOfEventsSinceLastClear();
+            int numberOfDesiredTouchEvents = getResources().getInteger(getResources().getIdentifier("number_of_events_" + taskId, "integer", this.getPackageName()));
+
+            String actualPasswordStringValue = et_password.getText().toString();
+            String desiredPasswordStringValue = getResources().getString(getResources().getIdentifier("password_string_value_" + taskId, "string", this.getPackageName()));
+
+            if (actualPasswordStringValue.equals(desiredPasswordStringValue) && actualNumberOfTouchEvents == numberOfDesiredTouchEvents) {
+                savePasswordAction();
+            } else {
+                KeyStrokeLogger.getInstance().clearKeyStrokeList();
+                et_password.setText("");
+                Toast.makeText(this, "Eingabe stimmt nicht, bitte versuch wiederholen", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

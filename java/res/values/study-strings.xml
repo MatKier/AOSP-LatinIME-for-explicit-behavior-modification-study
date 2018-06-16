@@ -88,4 +88,26 @@
     <string name="task_button_label_9">Aufgabe 9 starten</string>
     <!-- Button label for Task 10 -->
     <string name="task_button_label_10">Aufgabe 10 starten</string>
+
+    <!-- Password String values -->
+    <!-- String value for password 1 -->
+    <string name="password_string_value_1">hunter2</string>
+    <!-- String value for password 2 -->
+    <string name="password_string_value_2">hunter2</string>
+    <!-- String value for password 3 -->
+    <string name="password_string_value_3">hunter2</string>
+    <!-- String value for password 4 -->
+    <string name="password_string_value_4">hunter2</string>
+    <!-- String value for password 5 -->
+    <string name="password_string_value_5">hunter2</string>
+    <!-- String value for password 6 -->
+    <string name="password_string_value_6">hunter2</string>
+    <!-- String value for password 7 -->
+    <string name="password_string_value_7">hunter2</string>
+    <!-- String value for password 8 -->
+    <string name="password_string_value_8">hunter2</string>
+    <!-- String value for password 9 -->
+    <string name="password_string_value_9">hunter2</string>
+    <!-- String value for password 10 -->
+    <string name="password_string_value_10">hunter2</string>
 </resources>

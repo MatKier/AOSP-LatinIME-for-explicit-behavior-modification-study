@@ -80,7 +80,6 @@ class LogToFileHelper {
                 Toast.makeText(context, "Can't access external storage (not mounted or no permission)", Toast.LENGTH_LONG).show();
             }
             Log.d("closing", keyStrokeDataList.toString());
-            //keyStrokeDataList.clear();
         }
     }
 

@@ -1,6 +1,6 @@
 package com.android.inputmethod.keyStrokeLogging;
 
-class KeyStrokeDataBean {
+public class KeyStrokeDataBean {
     private String eventType;
     private long eventTime;
     private String keyValue;
@@ -84,11 +84,11 @@ class KeyStrokeDataBean {
         return keyValue;
     }
 
-    int getOffsetX() {
+    public int getOffsetX() {
         return offsetX;
     }
 
-    int getOffsetY() {
+    public int getOffsetY() {
         return offsetY;
     }
 

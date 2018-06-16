@@ -45,7 +45,6 @@ class KeyStrokeLoggingHelper {
                  flightTime = eventTime - upTimestamp;
              }
         } else {
-
             eventType = "up";
             final long downTimestamp = keyStrokeDataList.get(keyStrokeDataList.size()-1).getEventTime();
             holdTime = eventTime - downTimestamp;
@@ -53,7 +52,6 @@ class KeyStrokeLoggingHelper {
 
         keyStrokeDataList.add(new KeyStrokeDataBean(eventType, eventTime, keyText, x, y, offsetX, offsetY,
                 keyCenterX, keyCenterY, orientation, touchMinor, touchMajor, size, holdTime, flightTime, pressure));
-        Log.d("getInfoupEvent", eventType);
     }
 
     static void logLongPress(List<KeyStrokeDataBean> keyStrokeDataList, Key key) {

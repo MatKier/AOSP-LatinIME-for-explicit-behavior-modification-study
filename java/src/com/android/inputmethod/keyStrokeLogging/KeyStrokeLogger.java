@@ -10,7 +10,6 @@ import com.android.inputmethod.keyStrokeLogging.activities.StudyGeneralExplanati
 import com.android.inputmethod.keyStrokeLogging.activities.StudyLauncherActivity;
 import com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity;
 import com.android.inputmethod.keyboard.Key;
-import com.android.inputmethod.keyboard.KeyDetector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +35,18 @@ public class KeyStrokeLogger {
         KeyStrokeLoggingHelper.logLongPress(keyStrokeDataList, key);
     }
 
+    // TODO Remove for actual study
     /**
      * Writes to CSV file if no study is active (determined by StudyMainActivity.isIsStudyActive())
      *
      * @param context
      */
-    public void writeToCSVFile(Context context) {
-        // TODO Remove for actual study
-        //if (!(isStudyActive())) {
-        //    LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
-        //    keyStrokeDataList.clear();
-        //}
-    }
+    //public void writeToCSVFile(Context context) {
+    //if (!(isStudyActive())) {
+    //    LogToFileHelper.logToFile(context, keyStrokeDataList, "/Demo");
+    //    keyStrokeDataList.clear();
+    //}
+    //}
 
     /**
      * Writes log to CSV file if study is active (determined by StudyMainActivity.isIsStudyActive())
@@ -56,10 +55,10 @@ public class KeyStrokeLogger {
      * @param path    the file path after Documents/KeyStrokeLog
      */
     public void writeToCSVFile(Context context, String path) {
-        if (isStudyActive()) {
-            LogToFileHelper.logToFile(context, keyStrokeDataList, path);
-            keyStrokeDataList.clear();
-        }
+        //if (isStudyActive()) {
+        LogToFileHelper.logToFile(context, keyStrokeDataList, path);
+        keyStrokeDataList.clear();
+        //}
     }
 
     public void clearKeyStrokeList() {
@@ -75,6 +74,7 @@ public class KeyStrokeLogger {
                 || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning());
     }
 
+    @Deprecated
     public String getInfoForLastKeyEvent() {
         if (keyStrokeDataList.size() >= 1) {
             KeyStrokeDataBean lastKeyEvent = keyStrokeDataList.get(keyStrokeDataList.size() - 1);
@@ -87,5 +87,28 @@ public class KeyStrokeLogger {
         } else {
             return "";
         }
+    }
+
+    /**
+     * Returns the last key down/up combo in form of a KeyStrokeDataBean List
+     * Returns null if no down/up event has been recorded since the last clear action
+     * @return
+     */
+    public List<KeyStrokeDataBean> getLastKeyStroke() {
+        List<KeyStrokeDataBean> lastKeyStroke = new ArrayList<>();
+        if (keyStrokeDataList.size() >= 2) {
+            lastKeyStroke.add(keyStrokeDataList.get(keyStrokeDataList.size() - 2));
+            lastKeyStroke.add(keyStrokeDataList.get(keyStrokeDataList.size() - 1));
+        }
+        return lastKeyStroke;
+    }
+
+    /**
+     * Returns number of up and down events since last clear /save action
+     *
+     * @return
+     */
+    public int getNumberOfEventsSinceLastClear() {
+        return keyStrokeDataList.size();
     }
 }

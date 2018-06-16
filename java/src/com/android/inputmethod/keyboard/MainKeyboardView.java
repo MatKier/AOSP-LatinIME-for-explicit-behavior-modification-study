@@ -739,7 +739,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mMoreKeysKeyboardCache.clear();
 
         // Made a change to AOSP here
-        KeyStrokeLogger.getInstance().writeToCSVFile(getContext());
+        // KeyStrokeLogger.getInstance().writeToCSVFile(getContext());
     }
 
     public void onHideWindow() {
