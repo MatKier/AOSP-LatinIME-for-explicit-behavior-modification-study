@@ -62,7 +62,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                 tv_lastKeyEventDisplay.setText(KeyStrokeLogger.getInstance().getInfoForLastKeyEvent());
 
                 List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStroke();
-                if (lastKeyStroke.size() >= 2) {
+                if (lastKeyStroke != null && lastKeyStroke.size() >= 2) {
                     key_rect.setTouchMarkerCords(lastKeyStroke.get(1).getOffsetX(), lastKeyStroke.get(1).getOffsetY());
                     key_rect.invalidate();
 

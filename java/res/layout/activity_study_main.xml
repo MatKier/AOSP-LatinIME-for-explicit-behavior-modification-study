@@ -20,19 +20,19 @@
     <EditText
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Passwort:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pb_TaskProgress" />
@@ -41,11 +41,10 @@
         android:id="@+id/btn_savePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
         android:text="Enter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pb_TaskProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
 
     <Button
         android:id="@+id/btn_nextTask"
@@ -74,10 +73,10 @@
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Aufgabenfortschritt:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_taskDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_currentTask" />
 
     <TextView
         android:id="@+id/tv_currentTask"
@@ -96,10 +95,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text='Geben Sie 10 mal das Passwort "Hunter 2" ein.'
+        android:text="hunter2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_currentTask" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </android.support.constraint.ConstraintLayout>

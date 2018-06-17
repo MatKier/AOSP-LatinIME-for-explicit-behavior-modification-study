@@ -73,7 +73,7 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
 
     private void setUiElementsToCurrentTask() {
         tv_currentTask.setText(getResources().getIdentifier("task_title_" + taskId, "string", this.getPackageName()));
-        tv_taskDescription.setText(getResources().getIdentifier("task_short_desc_" + taskId, "string", this.getPackageName()));
+        tv_taskDescription.setText(getResources().getIdentifier("password_behavior_encoding_" + taskId, "string", this.getPackageName()));
     }
 
     @Override
@@ -93,12 +93,18 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
             String actualPasswordStringValue = et_password.getText().toString();
             String desiredPasswordStringValue = getResources().getString(getResources().getIdentifier("password_string_value_" + taskId, "string", this.getPackageName()));
 
-            if (actualPasswordStringValue.equals(desiredPasswordStringValue) && actualNumberOfTouchEvents == numberOfDesiredTouchEvents) {
-                savePasswordAction();
+            if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
+                if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
+                    savePasswordAction();
+                } else {
+                    KeyStrokeLogger.getInstance().clearKeyStrokeList();
+                    et_password.setText("");
+                    Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
+                }
             } else {
                 KeyStrokeLogger.getInstance().clearKeyStrokeList();
                 et_password.setText("");
-                Toast.makeText(this, "Eingabe stimmt nicht, bitte versuch wiederholen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Passwort falsch, bitte wiederholen", Toast.LENGTH_LONG).show();
             }
         }
     }

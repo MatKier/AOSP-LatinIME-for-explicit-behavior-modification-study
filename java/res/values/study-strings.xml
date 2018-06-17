@@ -24,7 +24,7 @@
 
     <!-- Task descriptions -->
     <!-- Description for Task 1 -->
-    <string name="task_desc_1">Ziel dieser Ausfgabe ist es das Passwort "Hunter2" zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
+    <string name="task_desc_1">Ziel dieser Ausfgabe ist es das Passwort \n <b>h</b>u<u>n</u>t&#8226;<font size="24">e</font>»r2 zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
     <!-- Description for Task 2 -->
     <string name="task_desc_2">Aufgabe 2 Beschreibung</string>
     <!-- Description for Task 3 -->
@@ -88,6 +88,28 @@
     <string name="task_button_label_9">Aufgabe 9 starten</string>
     <!-- Button label for Task 10 -->
     <string name="task_button_label_10">Aufgabe 10 starten</string>
+
+    <!-- Password with behavior encoding -->
+    <!-- behavior encoding for password 1 -->
+    <string name="password_behavior_encoding_1"><b>h</b>u<u>n</u>t&#8226;<font size="24">e</font>»r2</string>
+    <!-- behavior encoding for password 2 -->
+    <string name="password_behavior_encoding_2">hunter2</string>
+    <!-- behavior encoding for password 3 -->
+    <string name="password_behavior_encoding_3">hunter2</string>
+    <!-- behavior encoding for password 4 -->
+    <string name="password_behavior_encoding_4">hunter2</string>
+    <!-- behavior encoding for password 5 -->
+    <string name="password_behavior_encoding_5">hunter2</string>
+    <!-- behavior encoding for password 6 -->
+    <string name="password_behavior_encoding_6">hunter2</string>
+    <!-- behavior encoding for password 7 -->
+    <string name="password_behavior_encoding_7">hunter2</string>
+    <!-- behavior encoding for password 8 -->
+    <string name="password_behavior_encoding_8">hunter2</string>
+    <!-- behavior encoding for password 9-->
+    <string name="password_behavior_encoding_9">hunter2</string>
+    <!-- behavior encoding for password 10 -->
+    <string name="password_behavior_encoding_10">hunter2</string>
 
     <!-- Password String values -->
     <!-- String value for password 1 -->
