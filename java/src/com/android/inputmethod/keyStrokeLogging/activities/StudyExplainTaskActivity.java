@@ -59,14 +59,16 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
             @Override
             public void afterTextChanged(Editable editable) {
-                tv_lastKeyEventDisplay.setText(KeyStrokeLogger.getInstance().getInfoForLastKeyEvent());
-
                 List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStroke();
                 if (lastKeyStroke != null && lastKeyStroke.size() >= 2) {
                     key_rect.setTouchMarkerCords(lastKeyStroke.get(1).getOffsetX(), lastKeyStroke.get(1).getOffsetY());
                     key_rect.invalidate();
 
-                    // TODO display other relevant values
+                    String key = lastKeyStroke.get(1).getKeyValue();
+                    String holdTime = lastKeyStroke.get(1).getHoldTime() + "";
+                    String flightTime = (lastKeyStroke.get(0).getFlightTime()  == -1) ? "0" : lastKeyStroke.get(0).getFlightTime() + "";
+                    String pressure = (lastKeyStroke.get(1).getPressure() >= 0.2) ? "Fest" : "Normal";
+                    tv_lastKeyEventDisplay.setText("Taste: " + key + "\nHold Time: " + holdTime + " ms\nFlight Time: " + flightTime +" ms\nDruck: " + pressure);
                 }
             }
         });

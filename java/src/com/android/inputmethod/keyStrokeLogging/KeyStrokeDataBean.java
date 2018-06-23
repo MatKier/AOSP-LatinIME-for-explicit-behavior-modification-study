@@ -80,7 +80,7 @@ public class KeyStrokeDataBean {
         this.longPressKey = longPressKey;
     }
 
-    String getKeyValue() {
+    public String getKeyValue() {
         return keyValue;
     }
 
@@ -93,15 +93,17 @@ public class KeyStrokeDataBean {
     }
 
 
-    long getHoldTime() {
+    public long getHoldTime() {
         return holdTime;
     }
+
+    public long getFlightTime() { return flightTime; }
 
     String getEventType() {
         return eventType;
     }
 
-    float getPressure() {
+    public float getPressure() {
         return pressure;
     }
 

@@ -102,7 +102,8 @@
         </activity>
         <activity android:name="com.android.inputmethod.keyStrokeLogging.activities.StudyExplainTaskActivity"
             android:label="Explicit behavior modification study"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity"

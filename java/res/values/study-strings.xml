@@ -89,6 +89,7 @@
     <!-- Button label for Task 10 -->
     <string name="task_button_label_10">Aufgabe 10 starten</string>
 
+    <!--TODO Replace with drawable -->
     <!-- Password with behavior encoding -->
     <!-- behavior encoding for password 1 -->
     <string name="password_behavior_encoding_1"><b>h</b>u<u>n</u>t&#8226;<font size="24">e</font>»r2</string>

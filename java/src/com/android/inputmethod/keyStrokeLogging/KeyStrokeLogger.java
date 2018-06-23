@@ -74,21 +74,6 @@ public class KeyStrokeLogger {
                 || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning());
     }
 
-    @Deprecated
-    public String getInfoForLastKeyEvent() {
-        if (keyStrokeDataList.size() >= 1) {
-            KeyStrokeDataBean lastKeyEvent = keyStrokeDataList.get(keyStrokeDataList.size() - 1);
-            Log.d("getInfoForLastKeyEvent", "eventType: " + lastKeyEvent.getEventType());
-            String offsetLR = lastKeyEvent.getOffsetX() > 25 ? "rechts" : (lastKeyEvent.getOffsetX() < -25 ? "links" : "");
-            String offsetOU = lastKeyEvent.getOffsetY() > 25 ? "unten" : (lastKeyEvent.getOffsetY() < -25 ? "oben" : "");
-            String info = "Letzte Taste: " + lastKeyEvent.getKeyValue() + ", Offset: " + offsetLR + " " + offsetOU
-                    + ", Haltedauer: " + lastKeyEvent.getHoldTime() + ", Druck: " + (lastKeyEvent.getPressure() < 0.25f ? "normal" : "fest");
-            return info;
-        } else {
-            return "";
-        }
-    }
-
     /**
      * Returns the last key down/up combo in form of a KeyStrokeDataBean List
      * Returns null if no down/up event has been recorded since the last clear action
