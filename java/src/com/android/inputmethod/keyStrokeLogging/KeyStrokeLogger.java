@@ -12,6 +12,7 @@ import com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class KeyStrokeLogger {
@@ -75,17 +76,17 @@ public class KeyStrokeLogger {
     }
 
     /**
-     * Returns the last key down/up combo in form of a KeyStrokeDataBean List
-     * Returns null if no down/up event has been recorded since the last clear action
+     * Returns the last key 9 down/up keystrokes (18 events) in form of a KeyStrokeDataBean List
+     * Returns empty list, if no down/up event has been recorded since the last clear action
      * @return
      */
-    public List<KeyStrokeDataBean> getLastKeyStroke() {
-        List<KeyStrokeDataBean> lastKeyStroke = new ArrayList<>();
-        if (keyStrokeDataList.size() >= 2) {
-            lastKeyStroke.add(keyStrokeDataList.get(keyStrokeDataList.size() - 2));
-            lastKeyStroke.add(keyStrokeDataList.get(keyStrokeDataList.size() - 1));
-        }
-        return lastKeyStroke;
+    public List<KeyStrokeDataBean> getLastKeyStrokes() {
+        List<KeyStrokeDataBean> lastKeyStrokes;
+
+        int numberOfKeyStrokeEvents = (keyStrokeDataList.size() < 24) ? keyStrokeDataList.size() : 24;
+        lastKeyStrokes = new ArrayList<KeyStrokeDataBean>(keyStrokeDataList.subList(keyStrokeDataList.size() - numberOfKeyStrokeEvents, keyStrokeDataList.size()));
+
+        return lastKeyStrokes;
     }
 
     /**

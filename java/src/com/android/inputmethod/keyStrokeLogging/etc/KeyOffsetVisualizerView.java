@@ -14,11 +14,15 @@ public class KeyOffsetVisualizerView extends View {
     // Measured through key.getHitBox().height();
     private static final double standardKeyHitboxHeight = 220.0;
 
+    private static final Paint circlePaint = new Paint();
+
     private int offsetX = Integer.MIN_VALUE;
     private int offsetY = Integer.MIN_VALUE;
 
     public KeyOffsetVisualizerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        circlePaint.setColor(Color.RED);
+        circlePaint.setStyle(Paint.Style.FILL);
     }
 
     public void setTouchMarkerCords(int offsetX, int offsetY) {
@@ -29,18 +33,12 @@ public class KeyOffsetVisualizerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        Paint paint;
-        paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.FILL);
-
         int midX = canvas.getWidth() / 2;
         int midY = canvas.getHeight() / 2;
 
         int actualOffsetX = (int)((offsetX / standardKeyHitboxWidth) * canvas.getWidth());
         int actualOffsetY = (int)((offsetY / standardKeyHitboxHeight) * canvas.getHeight());
 
-        canvas.drawCircle(midX + actualOffsetX, midY + actualOffsetY, 20, paint);
+        canvas.drawCircle(midX + actualOffsetX, midY + actualOffsetY, 15, circlePaint);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
+import com.android.inputmethod.keyStrokeLogging.etc.FlightHoldTimeVisualizerView;
 import com.android.inputmethod.keyStrokeLogging.etc.KeyOffsetVisualizerView;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
@@ -28,6 +29,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     private TextView tv_lastKeyEventDisplay;
 
     private KeyOffsetVisualizerView key_rect;
+    private FlightHoldTimeVisualizerView fhtView;
 
     private String pid;
     private int taskId;
@@ -47,6 +49,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         tv_lastKeyEventDisplay = findViewById(R.id.tv_lastKeyEventDisplay);
 
         key_rect = findViewById(R.id.key_rect);
+        fhtView = findViewById(R.id.flightHoldTimeDisplay);
 
         et_trainingField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -59,16 +62,23 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
             @Override
             public void afterTextChanged(Editable editable) {
-                List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStroke();
+                List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStrokes();
                 if (lastKeyStroke != null && lastKeyStroke.size() >= 2) {
-                    key_rect.setTouchMarkerCords(lastKeyStroke.get(1).getOffsetX(), lastKeyStroke.get(1).getOffsetY());
+                    KeyStrokeDataBean lastUp = lastKeyStroke.get(lastKeyStroke.size() - 1);
+                    KeyStrokeDataBean lastDown =  lastKeyStroke.get(lastKeyStroke.size() - 2);
+
+                    key_rect.setTouchMarkerCords(lastUp.getOffsetX(), lastUp.getOffsetY());
                     key_rect.invalidate();
 
-                    String key = lastKeyStroke.get(1).getKeyValue();
-                    String holdTime = lastKeyStroke.get(1).getHoldTime() + "";
-                    String flightTime = (lastKeyStroke.get(0).getFlightTime()  == -1) ? "0" : lastKeyStroke.get(0).getFlightTime() + "";
-                    String pressure = (lastKeyStroke.get(1).getPressure() >= 0.2) ? "Fest" : "Normal";
-                    tv_lastKeyEventDisplay.setText("Taste: " + key + "\nHold Time: " + holdTime + " ms\nFlight Time: " + flightTime +" ms\nDruck: " + pressure);
+                    fhtView.setKeyStrokeList(lastKeyStroke);
+                    fhtView.invalidate();
+
+                    String key = lastUp.getKeyValue();
+                    String holdTime = lastUp.getHoldTime() + "";
+                    String flightTime = (lastDown.getFlightTime()  == -1) ? "0" : lastDown.getFlightTime() + "";
+                    String pressure = (lastUp.getPressure() >= 0.2) ? "Fest" : "Normal";
+                    //tv_lastKeyEventDisplay.setText("Taste: " + key + "\nHold Time: " + holdTime + " ms\nFlight Time: " + flightTime +" ms\nDruck: " + pressure);#
+                    tv_lastKeyEventDisplay.setText("Taste: " + key +"\nDruck: " + pressure);
                 }
             }
         });
@@ -104,6 +114,14 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     public void onClick(View view) {
         et_trainingField.setText("");
         KeyStrokeLogger.getInstance().clearKeyStrokeList();
+
+        // TODO reset biometrics display
+        tv_lastKeyEventDisplay.setText("Taste: N/A\nDruck: N/A");
+        fhtView.setKeyStrokeList(null);
+        fhtView.invalidate();
+        key_rect.setTouchMarkerCords(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        key_rect.invalidate();
+
         if (view.equals(btnStartTask)) {
             launchActualTask();
         }

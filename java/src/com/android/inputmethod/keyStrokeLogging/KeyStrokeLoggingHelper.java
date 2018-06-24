@@ -1,9 +1,7 @@
 package com.android.inputmethod.keyStrokeLogging;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import com.android.inputmethod.keyboard.Key;
-import com.android.inputmethod.keyboard.KeyDetector;
 
 import java.util.List;
 

@@ -99,7 +99,7 @@ public class KeyStrokeDataBean {
 
     public long getFlightTime() { return flightTime; }
 
-    String getEventType() {
+    public String getEventType() {
         return eventType;
     }
 
