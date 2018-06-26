@@ -1,6 +1,8 @@
 package com.android.inputmethod.keyStrokeLogging;
 
 import android.view.MotionEvent;
+
+import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.List;
@@ -37,13 +39,13 @@ class KeyStrokeLoggingHelper {
         long holdTime = -1;
         long flightTime = -1;
         if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
-             eventType = "down";
+             eventType = StudyConstants.EVENT_TYPE_DOWN;
              if (keyStrokeDataList.size() >= 1) {
                  final long upTimestamp = keyStrokeDataList.get(keyStrokeDataList.size()-1).getEventTime();
                  flightTime = eventTime - upTimestamp;
              }
         } else {
-            eventType = "up";
+            eventType = StudyConstants.EVENT_TYPE_UP;
             final long downTimestamp = keyStrokeDataList.get(keyStrokeDataList.size()-1).getEventTime();
             holdTime = eventTime - downTimestamp;
         }
@@ -57,6 +59,8 @@ class KeyStrokeLoggingHelper {
             KeyStrokeDataBean bean = keyStrokeDataList.get(keyStrokeDataList.size()-1);
             bean.setLongPressed(true);
             keyStrokeDataList.get(keyStrokeDataList.size()-1).setLongPressKey(key.toShortString());
+
+            // TODO log longPressUpEvent?
         }
     }
 }

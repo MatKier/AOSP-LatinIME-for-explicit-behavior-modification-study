@@ -6,4 +6,9 @@ public class StudyConstants {
 
     public static final int TASK_ID_INITIAL = 1;
     public static final int TASK_ID_LAST = 10;
+
+    public static final String EVENT_TYPE_UP = "up";
+    public static final String EVENT_TYPE_DOWN = "down";
+
+
 }

@@ -83,7 +83,7 @@ public class KeyStrokeLogger {
     public List<KeyStrokeDataBean> getLastKeyStrokes() {
         List<KeyStrokeDataBean> lastKeyStrokes;
 
-        int numberOfKeyStrokeEvents = (keyStrokeDataList.size() < 24) ? keyStrokeDataList.size() : 24;
+        int numberOfKeyStrokeEvents = (keyStrokeDataList.size() < 22) ? keyStrokeDataList.size() : 22;
         lastKeyStrokes = new ArrayList<KeyStrokeDataBean>(keyStrokeDataList.subList(keyStrokeDataList.size() - numberOfKeyStrokeEvents, keyStrokeDataList.size()));
 
         return lastKeyStrokes;

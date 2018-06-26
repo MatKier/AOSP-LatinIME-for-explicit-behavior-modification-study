@@ -20,9 +20,9 @@ public class FlightHoldTimeVisualizerView extends View {
     private static final int STROKE_WIDTH = 20;
     private static final int CORNER_RADIUS = 30;
 
-    // MAx times in ms to visualize hold/flight time
-    private static final int MAX_HOLDTIME = 400;
-    private static final int MAX_FLIGHTTIME = 800;
+    // Max times in ms to visualize hold/flight time
+    private static final int MAX_HOLD_TIME = 400;
+    private static final int MAX_FLIGHT_TIME = 800;
 
     private List<KeyStrokeDataBean> keyStrokeList;
 
@@ -33,6 +33,8 @@ public class FlightHoldTimeVisualizerView extends View {
 
     private static final Paint paintHold = new Paint();
     private static final Paint paintFlight = new Paint();
+
+    private final RectF rectf = new RectF();
 
     public FlightHoldTimeVisualizerView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -57,25 +59,37 @@ public class FlightHoldTimeVisualizerView extends View {
         }
 
         int currentX = 0;
+        int lastY = 0;
         int canvasWidth = canvas.getWidth();
         int canvasHeight = canvas.getHeight();
         int canvasMidY = canvasHeight / 2;
 
         for (KeyStrokeDataBean bean : keyStrokeList) {
-            if (bean.getEventType().equals("down") && bean.getFlightTime() != -1) {
+            if (bean.getEventType().equals(StudyConstants.EVENT_TYPE_DOWN) && bean.getFlightTime() != -1) {
                 // Draw flight time line (horizontal)
-                int rightSide = (int) (((bean.getFlightTime() > MAX_FLIGHTTIME) ? MAX_FLIGHTTIME : bean.getFlightTime()) / horizontalScale);
-                int topSide = canvasMidY + STROKE_WIDTH / 2;
-                int bottomSide = canvasMidY - STROKE_WIDTH / 2;
-                canvas.drawRoundRect(new RectF(currentX, topSide, rightSide + currentX, bottomSide), CORNER_RADIUS, CORNER_RADIUS, paintHold);
-                currentX += rightSide + PADDING;
-            } else if (bean.getEventType().equals("up")) {
+                int halfStrokeLength = (int) ((((bean.getFlightTime() > MAX_FLIGHT_TIME) ? MAX_FLIGHT_TIME : bean.getFlightTime()) / horizontalScale) / 2);
+                int rightSide = currentX + halfStrokeLength;
+                int leftSide = currentX - halfStrokeLength;
+
+                int topSide = lastY;
+                int bottomSide = topSide + STROKE_WIDTH;
+
+                rectf.set(leftSide, topSide, rightSide, bottomSide);
+                canvas.drawRoundRect(rectf, CORNER_RADIUS, CORNER_RADIUS, paintHold);
+                currentX += ((MAX_FLIGHT_TIME / horizontalScale) / 2) + PADDING;
+            } else if (bean.getEventType().equals(StudyConstants.EVENT_TYPE_UP)) {
                 // Draw hold time line (vertical)
-                int strokeHeight = (int) (((bean.getHoldTime() > MAX_HOLDTIME) ? MAX_HOLDTIME : bean.getHoldTime()) / verticalScale);
-                int topSide = canvasMidY + strokeHeight / 2;
-                int bottomSide = canvasMidY - strokeHeight / 2;
-                canvas.drawRoundRect(new RectF(currentX, topSide, currentX + STROKE_WIDTH, bottomSide), CORNER_RADIUS, CORNER_RADIUS, paintFlight);
-                currentX += STROKE_WIDTH + PADDING;
+                int halfStrokeHeight = (int) ((((bean.getHoldTime() > MAX_HOLD_TIME) ? MAX_HOLD_TIME : bean.getHoldTime()) / verticalScale) / 2);
+                int topSide = canvasMidY - halfStrokeHeight;
+                int bottomSide = canvasMidY + halfStrokeHeight;
+
+                int rightSide = currentX + STROKE_WIDTH;
+                int leftSide = currentX;
+
+                rectf.set(leftSide, topSide, rightSide, bottomSide);
+                canvas.drawRoundRect(rectf, CORNER_RADIUS, CORNER_RADIUS, paintFlight);
+                currentX += STROKE_WIDTH + PADDING + ((MAX_FLIGHT_TIME / horizontalScale) / 2);
+                lastY = topSide;
             }
         }
     }
