@@ -13,6 +13,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 class LogToFileHelper {
@@ -39,10 +42,12 @@ class LogToFileHelper {
 
     private static void writeDataListToFile(List<KeyStrokeDataBean> keyStrokeDataList, String path) throws IOException {
         createDirectory(path);
-        String filename = "keyStrokeLog";
-        if (!path.equals("/Demo")) {
-            filename = System.currentTimeMillis() + "";
-        }
+        //String filename = "keyStrokeLog";
+        //if (!path.equals("/Demo")) {
+        //filename = System.currentTimeMillis() + "";
+        //}
+        String filename = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS) + "/KeyStrokeLog" + path, filename + ".csv");
 

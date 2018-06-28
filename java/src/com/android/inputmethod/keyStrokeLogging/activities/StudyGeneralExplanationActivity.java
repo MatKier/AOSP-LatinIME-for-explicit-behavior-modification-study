@@ -40,7 +40,9 @@ public class StudyGeneralExplanationActivity extends StudyAbstractActivity imple
     }
 
     private void launchExplainTaskActivity() {
-        Intent intent = new Intent(this, StudyExplainTaskActivity.class);
+        // TODO revert to StudyExplainTaskActivity after PreStudy
+        //Intent intent = new Intent(this, StudyExplainTaskActivity.class);
+        Intent intent = new Intent(this, StudyPreStudyActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, pid);
         intent.putExtra(StudyConstants.INTENT_TASK_ID, StudyConstants.TASK_ID_INITIAL);
         startActivity(intent);

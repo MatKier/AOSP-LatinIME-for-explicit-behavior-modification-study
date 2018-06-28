@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class FlightHoldTimeVisualizerView extends View {

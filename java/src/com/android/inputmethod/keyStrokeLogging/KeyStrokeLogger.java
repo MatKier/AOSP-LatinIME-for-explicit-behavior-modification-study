@@ -2,7 +2,6 @@ package com.android.inputmethod.keyStrokeLogging;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.android.inputmethod.keyStrokeLogging.activities.StudyExplainTaskActivity;
@@ -12,7 +11,6 @@ import com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class KeyStrokeLogger {
