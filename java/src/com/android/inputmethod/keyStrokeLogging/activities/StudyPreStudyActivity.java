@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
-import com.android.inputmethod.keyStrokeLogging.etc.FlightHoldTimeVisualizerView;
 import com.android.inputmethod.keyStrokeLogging.etc.KeyOffsetVisualizerView;
+import com.android.inputmethod.keyStrokeLogging.etc.KeyStrokeVisualizerView;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
@@ -37,7 +37,7 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
     private ImageView iv_preStudyPw;
 
     private KeyOffsetVisualizerView key_rect;
-    private FlightHoldTimeVisualizerView fhtView;
+    private KeyStrokeVisualizerView ksvView;
 
     private String pid;
     private int taskId;
@@ -75,7 +75,9 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
         });
 
         key_rect = findViewById(R.id.key_rect);
-        fhtView = findViewById(R.id.flightHoldTimeDisplay);
+        //fhtView = findViewById(R.id.keyStrokeBiometricsDisplay);
+
+        ksvView = findViewById(R.id.keyStrokeBiometricsDisplay);
 
         et_trainingField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,8 +97,8 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
                     key_rect.setTouchMarkerCords(lastUp.getOffsetX(), lastUp.getOffsetY());
                     key_rect.invalidate();
 
-                    fhtView.setKeyStrokeList(lastKeyStroke);
-                    fhtView.invalidate();
+                    ksvView.setKeyStrokeList(lastKeyStroke);
+                    ksvView.invalidate();
 
                     String key = lastUp.getKeyValue();
                     String pressure = (lastUp.getPressure() >= 0.2) ? "Fest" : "Normal";
@@ -132,8 +134,8 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
         et_trainingField.setText("");
 
         tv_lastKeyEventDisplay.setText("Taste: N/A\nDruck: N/A");
-        fhtView.setKeyStrokeList(null);
-        fhtView.invalidate();
+        ksvView.setKeyStrokeList(null);
+        ksvView.invalidate();
         key_rect.setTouchMarkerCords(Integer.MIN_VALUE, Integer.MIN_VALUE);
         key_rect.invalidate();
     }
