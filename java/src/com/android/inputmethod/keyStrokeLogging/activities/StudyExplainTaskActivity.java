@@ -62,7 +62,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
             @Override
             public void afterTextChanged(Editable editable) {
-                List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStrokes();
+                List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStrokes(11);
                 if (lastKeyStroke != null && lastKeyStroke.size() >= 2) {
                     KeyStrokeDataBean lastUp = lastKeyStroke.get(lastKeyStroke.size() - 1);
                     KeyStrokeDataBean lastDown =  lastKeyStroke.get(lastKeyStroke.size() - 2);

@@ -11,12 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
-import com.android.inputmethod.keyStrokeLogging.etc.KeyOffsetVisualizerView;
 import com.android.inputmethod.keyStrokeLogging.etc.KeyStrokeVisualizerView;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
@@ -31,12 +29,10 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
 
     private Button btnClearField;
     private EditText et_trainingField;
-    private TextView tv_lastKeyEventDisplay;
 
     private Spinner sp_selectPreStudyPw;
     private ImageView iv_preStudyPw;
 
-    private KeyOffsetVisualizerView key_rect;
     private KeyStrokeVisualizerView ksvView;
 
     private String pid;
@@ -50,7 +46,6 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
         btnClearField = findViewById(R.id.btn_clearField);
         btnClearField.setOnClickListener(this);
         et_trainingField = findViewById(R.id.et_trainingField);
-        tv_lastKeyEventDisplay = findViewById(R.id.tv_lastKeyEventDisplay);
 
         iv_preStudyPw = findViewById(R.id.iv_preStudyPw);
 
@@ -74,9 +69,6 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
             public void onNothingSelected(AdapterView<?> adapterView) { }
         });
 
-        key_rect = findViewById(R.id.key_rect);
-        //fhtView = findViewById(R.id.keyStrokeBiometricsDisplay);
-
         ksvView = findViewById(R.id.keyStrokeBiometricsDisplay);
 
         et_trainingField.addTextChangedListener(new TextWatcher() {
@@ -90,19 +82,10 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
 
             @Override
             public void afterTextChanged(Editable editable) {
-                List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStrokes();
+                List<KeyStrokeDataBean> lastKeyStroke = KeyStrokeLogger.getInstance().getLastKeyStrokes(8);
                 if (lastKeyStroke != null && lastKeyStroke.size() >= 2) {
-                    KeyStrokeDataBean lastUp = lastKeyStroke.get(lastKeyStroke.size() - 1);
-
-                    key_rect.setTouchMarkerCords(lastUp.getOffsetX(), lastUp.getOffsetY());
-                    key_rect.invalidate();
-
                     ksvView.setKeyStrokeList(lastKeyStroke);
                     ksvView.invalidate();
-
-                    String key = lastUp.getKeyValue();
-                    String pressure = (lastUp.getPressure() >= 0.2) ? "Fest" : "Normal";
-                    tv_lastKeyEventDisplay.setText("Taste: " + key +"\nDruck: " + pressure);
                 }
             }
         });
@@ -133,10 +116,7 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
         KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
         et_trainingField.setText("");
 
-        tv_lastKeyEventDisplay.setText("Taste: N/A\nDruck: N/A");
         ksvView.setKeyStrokeList(null);
         ksvView.invalidate();
-        key_rect.setTouchMarkerCords(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        key_rect.invalidate();
     }
 }

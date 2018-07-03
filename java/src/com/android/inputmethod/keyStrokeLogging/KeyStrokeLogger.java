@@ -74,14 +74,16 @@ public class KeyStrokeLogger {
     }
 
     /**
-     * Returns the last key 9 down/up keystrokes (18 events) in form of a KeyStrokeDataBean List
+     * Returns the last maxNumOfKeyStrokes (or less, if less have been recorded) key events in form of a KeyStrokeDataBean List
      * Returns empty list, if no down/up event has been recorded since the last clear action
+     * @param maxNumOfKeyStrokes
      * @return
      */
-    public List<KeyStrokeDataBean> getLastKeyStrokes() {
+    public List<KeyStrokeDataBean> getLastKeyStrokes(int maxNumOfKeyStrokes) {
         List<KeyStrokeDataBean> lastKeyStrokes;
 
-        int numberOfKeyStrokeEvents = (keyStrokeDataList.size() < 22) ? keyStrokeDataList.size() : 22;
+        int maxNumOfUpDownEvents = maxNumOfKeyStrokes * 2;
+        int numberOfKeyStrokeEvents = (keyStrokeDataList.size() < maxNumOfUpDownEvents) ? keyStrokeDataList.size() : maxNumOfUpDownEvents;
         lastKeyStrokes = new ArrayList<KeyStrokeDataBean>(keyStrokeDataList.subList(keyStrokeDataList.size() - numberOfKeyStrokeEvents, keyStrokeDataList.size()));
 
         return lastKeyStrokes;

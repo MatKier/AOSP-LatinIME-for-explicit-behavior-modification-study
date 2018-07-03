@@ -38,9 +38,9 @@ public class KeyStrokeVisualizerView extends View {
 
     private List<KeyStrokeDataBean> keyStrokeList;
 
-    private static final int MIN_HOLD_TIME_MS = 80;
+    private static final int MIN_HOLD_TIME_MS = 100;
     private static final int MAX_HOLD_TIME_MS = 500;
-    private static final int HOLD_TIME_SCALE = 16;
+    private static final int HOLD_TIME_SCALE = 15;
 
     private static final int MIN_FLIGHT_TIME_MS = 100;
     private static final int MAX_FLIGHT_TIME_MS = 1000;
@@ -114,6 +114,18 @@ public class KeyStrokeVisualizerView extends View {
                 int halfLabelHeight = (int) (p.measureText(label) / 2);
                 canvas.drawText(label, rectf.centerX() - halfLabelWidth, rectf.centerY() + halfLabelHeight, p);
 
+
+                /* Calculate Circle radius */
+                long hTime = bean.getHoldTime();
+                float radius = 0;
+                if (hTime < MIN_HOLD_TIME_MS) {
+                    radius = MIN_HOLD_TIME_MS / HOLD_TIME_SCALE;
+                } else if (hTime > MAX_HOLD_TIME_MS) {
+                    radius = MAX_HOLD_TIME_MS / HOLD_TIME_SCALE;
+                } else {
+                    radius = bean.getHoldTime() / HOLD_TIME_SCALE;
+                }
+
                 /* Draw offset circle on key */
                 double offsetXFactor = (bean.getOffsetX() / standardKeyHitboxWidth);
                 // Make sure the circle can't go out of bounds (e.g. Space bar)
@@ -124,7 +136,7 @@ public class KeyStrokeVisualizerView extends View {
                 // Make sure the circle can't go out of bounds
                 offSetYFactor = (Math.abs(offSetYFactor) > 0.45 ? (0.45 *  Math.signum(offSetYFactor)) : offSetYFactor);
                 float actualOffsetY = (float)(offSetYFactor * rectf.height());
-                canvas.drawCircle(rectf.centerX() + actualOffsetX, rectf.centerY() + actualOffsetY, 30, circlePaint);
+                canvas.drawCircle(rectf.centerX() + actualOffsetX, rectf.centerY() + actualOffsetY, radius, circlePaint);
 
                 currentX = currentX + (int)rectf.width();
             }
