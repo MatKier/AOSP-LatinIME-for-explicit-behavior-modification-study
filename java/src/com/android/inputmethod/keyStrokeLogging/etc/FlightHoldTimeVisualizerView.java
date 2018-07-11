@@ -12,6 +12,7 @@ import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
 
 import java.util.List;
 
+@Deprecated
 public class FlightHoldTimeVisualizerView extends View {
     private static final int horizontalScale = 8;
     private static final int verticalScale = 2;

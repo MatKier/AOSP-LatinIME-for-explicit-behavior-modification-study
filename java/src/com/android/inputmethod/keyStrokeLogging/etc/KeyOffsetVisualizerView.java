@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+@Deprecated
 public class KeyOffsetVisualizerView extends View {
     // Height and width of a standard key
     // Measured through key.getHitBox().width();

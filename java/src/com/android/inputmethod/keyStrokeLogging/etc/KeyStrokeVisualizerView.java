@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
@@ -53,7 +52,6 @@ public class KeyStrokeVisualizerView extends View {
         super(context, attrs);
         circlePaint.setColor(Color.RED);
         circlePaint.setStyle(Paint.Style.FILL);
-        circlePaint.setAlpha(140);
         circlePaint.setAntiAlias(true);
 
         rectanglePaint.setColor(colorRectangle);
@@ -124,6 +122,13 @@ public class KeyStrokeVisualizerView extends View {
                     radius = MAX_HOLD_TIME_MS / HOLD_TIME_SCALE;
                 } else {
                     radius = bean.getHoldTime() / HOLD_TIME_SCALE;
+                }
+
+                /* Set Circle Alpha in dependence of the radius */
+                if (radius <= 10f) {
+                    circlePaint.setAlpha(255);
+                } else {
+                    circlePaint.setAlpha((int)(170 - radius));
                 }
 
                 /* Draw offset circle on key */
