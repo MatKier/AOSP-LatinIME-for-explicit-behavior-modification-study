@@ -25,6 +25,7 @@ import java.util.List;
 /**
  * Only to be used for PreStudy
  */
+@Deprecated
 public class StudyPreStudyActivity extends StudyAbstractActivity implements View.OnClickListener {
 
     private Button btnClearField;
