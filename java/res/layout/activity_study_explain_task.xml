@@ -54,9 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:maxLength="11"
         android:ems="10"
         android:inputType="textPassword"
+        android:maxLength="8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -68,7 +68,7 @@
         android:layout_marginTop="2dp"
         android:text="Übungsfeld:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/keyStrokeBiometricsDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/horScrollView" />
 
     <Button
         android:id="@+id/btn_clearField"
@@ -78,7 +78,7 @@
         android:layout_marginTop="20dp"
         android:text="Clear"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/keyStrokeBiometricsDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/horScrollView" />
 
     <Button
         android:id="@+id/btn_startTask"
@@ -90,15 +90,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.android.inputmethod.keyStrokeLogging.etc.KeyStrokeVisualizerView
-        android:id="@+id/keyStrokeBiometricsDisplay"
-        android:layout_width="0dp"
+    <HorizontalScrollView
+        android:id="@+id/horScrollView"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9"></com.android.inputmethod.keyStrokeLogging.etc.KeyStrokeVisualizerView>
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
 
+        <LinearLayout
+            android:id="@+id/horScrollViewLinLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <com.android.inputmethod.keyStrokeLogging.etc.KeyStrokeVisualizerView
+                android:id="@+id/keyStrokeBiometricsDisplay"
+                android:layout_width="600dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
 </android.support.constraint.ConstraintLayout>

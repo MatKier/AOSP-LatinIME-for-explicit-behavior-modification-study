@@ -98,16 +98,16 @@ public class KeyStrokeVisualizerView extends View {
             } else if (bean.getEventType().equals(StudyConstants.EVENT_TYPE_UP)) {
                 /* Draw key shape */
                 int holdTime = (int) bean.getHoldTime();
-                int keyshapeWidth;
+                int keyShapeWidth;
                 if (holdTime <= MIN_HOLD_TIME_MS) {
-                    keyshapeWidth = BASE_KEY_SHAPE_WIDTH;
+                    keyShapeWidth = BASE_KEY_SHAPE_WIDTH;
                 } else if (holdTime >= MAX_HOLD_TIME_MS) {
-                    keyshapeWidth = BASE_KEY_SHAPE_WIDTH + (MAX_HOLD_TIME_MS - 100) / HOLD_TIME_SCALE;
+                    keyShapeWidth = BASE_KEY_SHAPE_WIDTH + (MAX_HOLD_TIME_MS - 100) / HOLD_TIME_SCALE;
                 } else {
-                    keyshapeWidth = BASE_KEY_SHAPE_WIDTH + (holdTime - 100) / HOLD_TIME_SCALE;
+                    keyShapeWidth = BASE_KEY_SHAPE_WIDTH + (holdTime - 100) / HOLD_TIME_SCALE;
                 }
 
-                rectf.set(currentX, yStartingPoint, currentX + keyshapeWidth, BASE_KEY_SHAPE_HEIGHT + yStartingPoint);
+                rectf.set(currentX, yStartingPoint, currentX + keyShapeWidth, BASE_KEY_SHAPE_HEIGHT + yStartingPoint);
                 canvas.drawRoundRect(rectf, CORNER_RADIUS, CORNER_RADIUS, rectanglePaint);
 
                 /* Draw label on key */
