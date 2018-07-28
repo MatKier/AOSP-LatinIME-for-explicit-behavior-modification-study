@@ -24,11 +24,11 @@
 
     <!-- Task descriptions -->
     <!-- Description for Task 1 -->
-    <string name="task_desc_1">Ziel dieser Ausfgabe ist es das Passwort \n <b>h</b>u<u>n</u>t&#8226;<font size="24">e</font>»r2 zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
+    <string name="task_desc_1">Geben Sie das untenstehende Passwort zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
     <!-- Description for Task 2 -->
-    <string name="task_desc_2">Aufgabe 2 Beschreibung</string>
+    <string name="task_desc_2">Geben Sie das untenstehende Passwort zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
     <!-- Description for Task 3 -->
-    <string name="task_desc_3">Aufgabe 3 Beschreibung</string>
+    <string name="task_desc_3">Geben Sie das untenstehende Passwort zehn mal auf ganz normale Art und Weise einzugeben.\n\nNutzen Sie das untere Textfeld um sich mit der Tastatur vertraut zu machen.\nWenn Sie bereit sind, drücken sie den Button "Aufgabe beginnen".</string>
     <!-- Description for Task 4 -->
     <string name="task_desc_4">Aufgabe 4 Beschreibung</string>
     <!-- Description for Task 5 -->
@@ -114,11 +114,11 @@
 
     <!-- Password String values -->
     <!-- String value for password 1 -->
-    <string name="password_string_value_1">hunter2</string>
+    <string name="password_string_value_1">password</string>
     <!-- String value for password 2 -->
-    <string name="password_string_value_2">hunter2</string>
+    <string name="password_string_value_2">connect</string>
     <!-- String value for password 3 -->
-    <string name="password_string_value_3">hunter2</string>
+    <string name="password_string_value_3">spilled</string>
     <!-- String value for password 4 -->
     <string name="password_string_value_4">hunter2</string>
     <!-- String value for password 5 -->

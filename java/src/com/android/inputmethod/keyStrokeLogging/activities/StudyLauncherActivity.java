@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
+import com.android.inputmethod.keyStrokeLogging.etc.StudyXMLParser;
 import com.android.inputmethod.latin.R;
 
 public class StudyLauncherActivity extends StudyAbstractActivity implements View.OnClickListener {
@@ -27,6 +28,8 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         btn_saveParticipantId.setOnClickListener(this);
 
         showInputChooserDialog();
+
+        StudyXMLParser.doTheThing(getApplicationContext());
     }
 
     private void showInputChooserDialog() {
