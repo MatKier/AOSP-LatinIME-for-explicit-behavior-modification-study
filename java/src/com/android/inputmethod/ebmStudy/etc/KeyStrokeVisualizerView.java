@@ -9,7 +9,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class KeyStrokeVisualizerView extends View {
 
     private static final int CORNER_RADIUS = 15;
 
-    private List<KeyStrokeDataBean> keyStrokeList;
+    private List<? extends SimpleKeyStrokeDataBean>  keyStrokeList;
 
     private static final int MIN_HOLD_TIME_MS = 100;
     private static final int MAX_HOLD_TIME_MS = 500;
@@ -69,7 +69,7 @@ public class KeyStrokeVisualizerView extends View {
         keyLabelPaint.setAntiAlias(true);
     }
 
-    public void setKeyStrokeList(List<KeyStrokeDataBean> keyStrokeList) {
+    public void setKeyStrokeList(List<? extends SimpleKeyStrokeDataBean> keyStrokeList) {
         this.keyStrokeList = keyStrokeList;
     }
 
@@ -84,7 +84,7 @@ public class KeyStrokeVisualizerView extends View {
 
         int yStartingPoint = canvas.getHeight() / 2 - BASE_KEY_SHAPE_HEIGHT / 2;
         int currentX = 30;
-        for (KeyStrokeDataBean bean : keyStrokeList) {
+        for (SimpleKeyStrokeDataBean bean : keyStrokeList) {
             /* Move to the right (in relation to the flightTime)*/
             if (bean.getEventType().equals(StudyConstants.EVENT_TYPE_DOWN) && bean.getFlightTime() != -1) {
                 long fTime = bean.getFlightTime();

@@ -6,8 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
+
+import java.util.ArrayList;
 
 public class StudyGeneralExplanationActivity extends StudyAbstractActivity implements View.OnClickListener{
 
@@ -32,6 +35,10 @@ public class StudyGeneralExplanationActivity extends StudyAbstractActivity imple
             Toast.makeText(this, "Keine ID gesetzt", Toast.LENGTH_LONG).show();
             pid = "noPid";
         }
+        // TODO test if this works
+        Bundle bundle = getIntent().getExtras();
+        ArrayList<StudyConfigBean> studyConfig = bundle.getParcelableArrayList(StudyConstants.INTENT_CONFIG);
+        int i = 0; // breakpoint
     }
 
     @Override
