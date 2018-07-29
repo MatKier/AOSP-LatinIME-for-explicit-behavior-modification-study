@@ -1,13 +1,13 @@
-package com.android.inputmethod.keyStrokeLogging;
+package com.android.inputmethod.ebmStudy.keyStrokeLogging;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 
-import com.android.inputmethod.keyStrokeLogging.activities.StudyExplainTaskActivity;
-import com.android.inputmethod.keyStrokeLogging.activities.StudyGeneralExplanationActivity;
-import com.android.inputmethod.keyStrokeLogging.activities.StudyLauncherActivity;
-import com.android.inputmethod.keyStrokeLogging.activities.StudyMainActivity;
+import com.android.inputmethod.ebmStudy.activities.StudyExplainTaskActivity;
+import com.android.inputmethod.ebmStudy.activities.StudyGeneralExplanationActivity;
+import com.android.inputmethod.ebmStudy.activities.StudyLauncherActivity;
+import com.android.inputmethod.ebmStudy.activities.StudyMainActivity;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.ArrayList;

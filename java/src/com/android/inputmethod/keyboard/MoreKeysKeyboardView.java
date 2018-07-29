@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 
 import com.android.inputmethod.accessibility.AccessibilityUtils;
 import com.android.inputmethod.accessibility.MoreKeysKeyboardAccessibilityDelegate;
-import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.keyboard.internal.KeyDrawParams;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.common.Constants;

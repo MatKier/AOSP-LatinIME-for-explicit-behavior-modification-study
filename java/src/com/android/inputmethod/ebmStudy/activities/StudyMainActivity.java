@@ -1,8 +1,7 @@
-package com.android.inputmethod.keyStrokeLogging.activities;
+package com.android.inputmethod.ebmStudy.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,8 +9,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
-import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
+import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
 

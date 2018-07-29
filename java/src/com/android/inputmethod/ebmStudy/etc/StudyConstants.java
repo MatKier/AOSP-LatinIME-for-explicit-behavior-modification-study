@@ -1,4 +1,4 @@
-package com.android.inputmethod.keyStrokeLogging.etc;
+package com.android.inputmethod.ebmStudy.etc;
 
 public class StudyConstants {
     public static final String INTENT_PID = "INTENT_PID";

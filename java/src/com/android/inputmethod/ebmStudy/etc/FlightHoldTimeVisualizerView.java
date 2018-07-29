@@ -1,4 +1,4 @@
-package com.android.inputmethod.keyStrokeLogging.etc;
+package com.android.inputmethod.ebmStudy.etc;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,7 +8,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
 
 import java.util.List;
 

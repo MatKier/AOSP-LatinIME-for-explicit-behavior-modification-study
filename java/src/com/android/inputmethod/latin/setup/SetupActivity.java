@@ -20,7 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 
 public final class SetupActivity extends Activity {
     @Override

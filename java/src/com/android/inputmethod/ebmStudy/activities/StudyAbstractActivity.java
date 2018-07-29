@@ -1,4 +1,4 @@
-package com.android.inputmethod.keyStrokeLogging.activities;
+package com.android.inputmethod.ebmStudy.activities;
 
 import android.app.Activity;
 import android.content.Intent;

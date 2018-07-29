@@ -1,4 +1,4 @@
-package com.android.inputmethod.keyStrokeLogging.activities;
+package com.android.inputmethod.ebmStudy.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.inputmethod.keyStrokeLogging.KeyStrokeDataBean;
-import com.android.inputmethod.keyStrokeLogging.KeyStrokeLogger;
-import com.android.inputmethod.keyStrokeLogging.etc.KeyStrokeVisualizerView;
-import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
+import com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView;
+import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
 import java.util.ArrayList;

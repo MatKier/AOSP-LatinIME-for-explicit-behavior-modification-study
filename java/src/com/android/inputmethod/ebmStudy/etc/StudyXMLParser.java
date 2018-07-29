@@ -1,4 +1,4 @@
-package com.android.inputmethod.keyStrokeLogging.etc;
+package com.android.inputmethod.ebmStudy.etc;
 
 import android.content.Context;
 import android.util.Log;

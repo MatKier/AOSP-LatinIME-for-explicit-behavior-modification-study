@@ -1,8 +1,8 @@
-package com.android.inputmethod.keyStrokeLogging;
+package com.android.inputmethod.ebmStudy.keyStrokeLogging;
 
 import android.view.MotionEvent;
 
-import com.android.inputmethod.keyStrokeLogging.etc.StudyConstants;
+import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.List;

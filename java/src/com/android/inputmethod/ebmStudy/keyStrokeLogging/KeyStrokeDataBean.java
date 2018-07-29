@@ -1,4 +1,4 @@
-package com.android.inputmethod.keyStrokeLogging;
+package com.android.inputmethod.ebmStudy.keyStrokeLogging;
 
 public class KeyStrokeDataBean {
     private String eventType;
