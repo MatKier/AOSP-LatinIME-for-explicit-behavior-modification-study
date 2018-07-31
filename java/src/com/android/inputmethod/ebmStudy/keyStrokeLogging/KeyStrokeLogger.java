@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import com.android.inputmethod.ebmStudy.activities.StudyExplainTaskActivity;
 import com.android.inputmethod.ebmStudy.activities.StudyGeneralExplanationActivity;
 import com.android.inputmethod.ebmStudy.activities.StudyLauncherActivity;
-import com.android.inputmethod.ebmStudy.activities.StudyMainActivity;
+import com.android.inputmethod.ebmStudy.activities.StudyTaskActivity;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class KeyStrokeLogger {
 
     // TODO Remove for actual study
     /**
-     * Writes to CSV file if no study is active (determined by StudyMainActivity.isIsStudyActive())
+     * Writes to CSV file if no study is active (determined by StudyTaskActivity.isIsStudyActive())
      *
      * @param context
      */
@@ -48,7 +48,7 @@ public class KeyStrokeLogger {
     //}
 
     /**
-     * Writes log to CSV file if study is active (determined by StudyMainActivity.isIsStudyActive())
+     * Writes log to CSV file if study is active (determined by StudyTaskActivity.isIsStudyActive())
      *
      * @param context
      * @param path    the file path after Documents/KeyStrokeLog
@@ -70,7 +70,7 @@ public class KeyStrokeLogger {
 
     private boolean isStudyActive() {
         return (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
-                || StudyLauncherActivity.isActivityRunning() || StudyMainActivity.isActivityRunning());
+                || StudyLauncherActivity.isActivityRunning() || StudyTaskActivity.isActivityRunning());
     }
 
     /**

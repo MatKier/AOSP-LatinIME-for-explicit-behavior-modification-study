@@ -135,7 +135,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     }
 
     private void launchActualTask() {
-        Intent intent = new Intent(this, StudyMainActivity.class);
+        Intent intent = new Intent(this, StudyTaskActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, pid);;
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 

@@ -13,14 +13,11 @@ import com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
-import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 import com.android.inputmethod.latin.R;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
-// TODO Rename to StudyTaskActivity
-public class StudyMainActivity extends StudyAbstractActivity implements View.OnClickListener {
+public class StudyTaskActivity extends StudyAbstractActivity implements View.OnClickListener {
     private int entryCounter = 0;
 
     private String pid;
