@@ -18,9 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 class LogToFileHelper {
-
-
-
     private static boolean isExternalStorageWritable(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -38,13 +35,8 @@ class LogToFileHelper {
         }
     }
 
-
     private static void writeDataListToFile(List<KeyStrokeDataBean> keyStrokeDataList, String path) throws IOException {
         createDirectory(path);
-        //String filename = "keyStrokeLog";
-        //if (!path.equals("/Demo")) {
-        //filename = System.currentTimeMillis() + "";
-        //}
         String filename = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File file = new File(Environment.getExternalStoragePublicDirectory(

@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Keystroke Biometrics Display:"
+        android:layout_marginTop="8dp"
+        android:text="Übungsfeedback:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+        app:layout_constraintTop_toBottomOf="@+id/pwTaskDisplay" />
 
     <TextView
         android:id="@+id/textView5"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Aufgabenteil:"
+        android:text="Aufgabenbeschreibung:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,10 +43,32 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/task_desc_1"
+        android:text="Geben Sie das untenstehende Passwort 10-mal entsprechend seiner Notation ein."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_startTask" />
+
+    <TextView
+        android:id="@+id/tv_description2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Nutzen Sie zunächst das Übungsfeld, um sich mit der Tastatur und der Notation vertraut zu machen.\n\nWenn Sie bereit sind, drücken sie den Button 'Aufgabe Starten'"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+    <com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView
+        android:id="@+id/pwTaskDisplay"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPwTaskTitle" />
 
     <EditText
         android:id="@+id/et_trainingField"
@@ -96,6 +118,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="0dp"
         android:fillViewport="true"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,4 +136,14 @@
                 android:layout_height="50dp" />
         </LinearLayout>
     </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/tvPwTaskTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Aufgaben Passwort (Tippen für Erläuterung):"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description2" />
 </android.support.constraint.ConstraintLayout>

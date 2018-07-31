@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
-import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.ebmStudy.etc.StudyXMLParser;
@@ -36,7 +35,7 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         btn_saveParticipantId.setOnClickListener(this);
 
         try {
-            studyConfig = StudyXMLParser.doTheThing(getApplicationContext());
+            studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext());
             showInputChooserDialog();
         } catch (Exception ex) {
             Log.e("XML Error", ex.toString());
@@ -81,7 +80,6 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         Intent intent = new Intent(this, StudyGeneralExplanationActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, participantIdText);
 
-        // TODO test if this works
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
         intent.putExtras(bundle);

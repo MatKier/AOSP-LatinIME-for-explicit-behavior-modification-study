@@ -10,12 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudyExplainTaskActivity extends StudyAbstractActivity implements View.OnClickListener {
@@ -26,10 +28,11 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     private TextView tv_description;
     private TextView tv_title;
 
+    private KeyStrokeVisualizerView pwTaskView;
     private KeyStrokeVisualizerView ksvView;
 
     private String pid;
-    private int taskId;
+    private ArrayList<StudyConfigBean> studyConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         tv_description = findViewById(R.id.tv_description);
         tv_title = findViewById(R.id.tv_title);
 
+        pwTaskView = findViewById(R.id.pwTaskDisplay);
+        pwTaskView.setOnClickListener(this);
         ksvView = findViewById(R.id.keyStrokeBiometricsDisplay);
 
         et_trainingField.addTextChangedListener(new TextWatcher() {
@@ -86,16 +91,20 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
             Toast.makeText(this, "Keine ID gesetzt", Toast.LENGTH_LONG).show();
             pid = "noPid";
         }
-        this.taskId = intent.getIntExtra(StudyConstants.INTENT_TASK_ID, -1);
-        if (this.taskId == -1) {
-            Toast.makeText(this, "Keine Task-ID gesetzt", Toast.LENGTH_LONG).show();
+
+        Bundle bundle = getIntent().getExtras();
+        this.studyConfig = bundle.getParcelableArrayList(StudyConstants.INTENT_CONFIG);
+        if (this.studyConfig == null || this.studyConfig.size() == 0) {
+            Toast.makeText(this, "Keine oder leere Config", Toast.LENGTH_LONG).show();
         }
     }
 
     private void setUiElementsToCurrentTask() {
-        tv_title.setText(getResources().getIdentifier("task_title_" + taskId, "string", this.getPackageName()));
-        tv_description.setText(getResources().getIdentifier("task_desc_" + taskId, "string", this.getPackageName()));
-        btnStartTask.setText(getResources().getIdentifier("task_button_label_" + taskId, "string", this.getPackageName()));
+        tv_title.setText("Aufgabe: " + studyConfig.get(0).getTaskId());
+        tv_description.setText("Geben Sie das untenstehende Passwort " + studyConfig.get(0).getNumberOfReps() + "-mal entsprechend seiner Notation ein.");
+        btnStartTask.setText("Aufgabe " + studyConfig.get(0).getTaskId() + " starten");
+        pwTaskView.setKeyStrokeList(studyConfig.get(0).getPwTask());
+        pwTaskView.invalidate();
     }
 
     @Override
@@ -107,22 +116,33 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
     @Override
     public void onClick(View view) {
+        if (view.equals(btnClearField)) {
+            clearFields();
+        } else if (view.equals(btnStartTask)) {
+            clearFields();
+            launchActualTask();
+        } else if (view.equals(pwTaskView)) {
+            // TODO launch explanation dialog
+        }
+    }
+
+    private void clearFields() {
         et_trainingField.setText("");
         KeyStrokeLogger.getInstance().clearKeyStrokeList();
 
         ksvView.setKeyStrokeList(null);
         ksvView.invalidate();
-
-        if (view.equals(btnStartTask)) {
-            launchActualTask();
-        }
     }
 
     private void launchActualTask() {
         Intent intent = new Intent(this, StudyMainActivity.class);
-        intent.putExtra(StudyConstants.INTENT_PID, pid);
-        intent.putExtra(StudyConstants.INTENT_TASK_ID, taskId);
+        intent.putExtra(StudyConstants.INTENT_PID, pid);;
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
+        intent.putExtras(bundle);
+
         startActivity(intent);
     }
 }

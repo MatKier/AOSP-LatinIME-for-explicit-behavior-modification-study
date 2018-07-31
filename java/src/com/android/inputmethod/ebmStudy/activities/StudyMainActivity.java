@@ -9,18 +9,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView;
+import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
+import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 import com.android.inputmethod.latin.R;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
+// TODO Rename to StudyTaskActivity
 public class StudyMainActivity extends StudyAbstractActivity implements View.OnClickListener {
-    private final int numberOfRepsPerTask = 3;
-
     private int entryCounter = 0;
 
     private String pid;
-    private int taskId;
+    private ArrayList<StudyConfigBean> studyConfig;
 
     private Button btn_nextTask;
     private EditText et_password;
@@ -28,7 +32,7 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     private ProgressBar pb_taskProgress;
     private TextView tv_taskProgress;
     private TextView tv_currentTask;
-    private TextView tv_taskDescription;
+    private KeyStrokeVisualizerView taskVisualizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,9 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
         btn_savePassword = findViewById(R.id.btn_savePassword);
         btn_savePassword.setOnClickListener(this);
         pb_taskProgress = findViewById(R.id.pb_TaskProgress);
-        pb_taskProgress.setMax(numberOfRepsPerTask);
         tv_taskProgress = findViewById(R.id.tv_taskProgress);
         tv_currentTask = findViewById(R.id.tv_currentTask);
-        tv_taskDescription = findViewById(R.id.tv_taskDescription);
+        taskVisualizer = findViewById(R.id.pwTaskDisplay);
 
         initializeEnabledState();
     }
@@ -52,8 +55,8 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     @Override
     protected void onResume() {
         super.onResume();
-        setProgressCounter();
         getStudyInfoFromExtras();
+        setProgressCounter();
         setUiElementsToCurrentTask();
     }
 
@@ -64,33 +67,41 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
             Toast.makeText(this, "Keine ID gesetzt", Toast.LENGTH_LONG).show();
             pid = "noPid";
         }
-        this.taskId = intent.getIntExtra(StudyConstants.INTENT_TASK_ID, -1);
-        if (this.taskId == -1) {
-            Toast.makeText(this, "Keine Task-ID gesetzt", Toast.LENGTH_LONG).show();
+        Bundle bundle = getIntent().getExtras();
+        this.studyConfig = bundle.getParcelableArrayList(StudyConstants.INTENT_CONFIG);
+        if (this.studyConfig == null || this.studyConfig.size() == 0) {
+            Toast.makeText(this, "Keine oder leere Config", Toast.LENGTH_LONG).show();
         }
     }
 
     private void setUiElementsToCurrentTask() {
-        tv_currentTask.setText(getResources().getIdentifier("task_title_" + taskId, "string", this.getPackageName()));
-        tv_taskDescription.setText(getResources().getIdentifier("password_behavior_encoding_" + taskId, "string", this.getPackageName()));
+        pb_taskProgress.setMax(studyConfig.get(0).getNumberOfReps());
+        tv_currentTask.setText("Aufgabe " + studyConfig.get(0).getTaskId());
+        taskVisualizer.setKeyStrokeList(studyConfig.get(0).getPwTask());
+        taskVisualizer.invalidate();
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(btn_nextTask)) {
-            if(taskId < StudyConstants.TASK_ID_LAST) {
+            if(studyConfig.size() > 1) {
                 initializeEnabledState();
                 entryCounter = 0;
                 launchNextExplainTaskActivity();
             } else {
                 // TODO End Study
+                Toast.makeText(this, "Ende", Toast.LENGTH_LONG).show();
             }
         } else if (v.equals(btn_savePassword)) {
             int actualNumberOfTouchEvents = KeyStrokeLogger.getInstance().getNumberOfEventsSinceLastClear();
-            int numberOfDesiredTouchEvents = getResources().getInteger(getResources().getIdentifier("number_of_events_" + taskId, "integer", this.getPackageName()));
+            int numberOfDesiredTouchEvents = studyConfig.get(0).getPwTask().size();
 
             String actualPasswordStringValue = et_password.getText().toString();
-            String desiredPasswordStringValue = getResources().getString(getResources().getIdentifier("password_string_value_" + taskId, "string", this.getPackageName()));
+            // TODO precalc
+            String desiredPasswordStringValue = "";
+            for (int i = 0; i < studyConfig.get(0).getPwTask().size(); i = i+2) {
+                desiredPasswordStringValue+= studyConfig.get(0).getPwTask().get(i).getKeyValue();
+            }
 
             if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
                 if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
@@ -111,20 +122,26 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     private void launchNextExplainTaskActivity() {
         Intent intent = new Intent(this, StudyExplainTaskActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, pid);
-        intent.putExtra(StudyConstants.INTENT_TASK_ID, (++taskId));
+
+        // Remove finished task from list
+        studyConfig.remove(0);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
+        intent.putExtras(bundle);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void savePasswordAction() {
-        String path = "/" + "ID_" + pid + "/" + "TASK_" + taskId;
+        String path = "/" + "ID_" + pid + "/" + "TASK_" + studyConfig.get(0).getTaskId();
         KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
         et_password.setText("");
 
         entryCounter += 1;
         setProgressCounter();
 
-        if (entryCounter >= numberOfRepsPerTask) {
+        if (entryCounter >= studyConfig.get(0).getNumberOfReps()) {
             et_password.setEnabled(false);
             btn_savePassword.setEnabled(false);
             btn_nextTask.setEnabled(true);
@@ -132,7 +149,7 @@ public class StudyMainActivity extends StudyAbstractActivity implements View.OnC
     }
 
     private void setProgressCounter() {
-        tv_taskProgress.setText("Aufgabenfortschritt: (" + entryCounter + "/" + numberOfRepsPerTask + ")");
+        tv_taskProgress.setText("Aufgabenfortschritt: (" + entryCounter + "/" + studyConfig.get(0).getNumberOfReps() + ")");
         pb_taskProgress.setProgress(entryCounter);
     }
 

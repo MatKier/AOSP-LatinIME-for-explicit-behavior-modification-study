@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class StudyGeneralExplanationActivity extends StudyAbstractActivity implements View.OnClickListener{
 
     private String pid;
+    private ArrayList<StudyConfigBean> studyConfig;
     private Button btn_startTaskExplanation;
 
     @Override
@@ -25,20 +26,22 @@ public class StudyGeneralExplanationActivity extends StudyAbstractActivity imple
         btn_startTaskExplanation = findViewById(R.id.btnStart);
         btn_startTaskExplanation.setOnClickListener(this);
 
-        getPidFromIntent();
+        getExtras();
     }
 
-    private void getPidFromIntent() {
+    private void getExtras() {
         Intent intent = getIntent();
         this.pid = intent.getStringExtra(StudyConstants.INTENT_PID);
         if (pid == null || pid.equals("")) {
             Toast.makeText(this, "Keine ID gesetzt", Toast.LENGTH_LONG).show();
             pid = "noPid";
         }
-        // TODO test if this works
+
         Bundle bundle = getIntent().getExtras();
-        ArrayList<StudyConfigBean> studyConfig = bundle.getParcelableArrayList(StudyConstants.INTENT_CONFIG);
-        int i = 0; // breakpoint
+        this.studyConfig = bundle.getParcelableArrayList(StudyConstants.INTENT_CONFIG);
+        if (this.studyConfig == null || this.studyConfig.size() == 0) {
+            Toast.makeText(this, "Keine oder leere Config", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -55,6 +58,11 @@ public class StudyGeneralExplanationActivity extends StudyAbstractActivity imple
         }
         intent.putExtra(StudyConstants.INTENT_PID, pid);
         intent.putExtra(StudyConstants.INTENT_TASK_ID, StudyConstants.TASK_ID_INITIAL);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
+        intent.putExtras(bundle);
+
         startActivity(intent);
         this.finish();
     }

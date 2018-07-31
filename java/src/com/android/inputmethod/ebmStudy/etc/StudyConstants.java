@@ -12,5 +12,5 @@ public class StudyConstants {
     public static final String EVENT_TYPE_UP = "up";
     public static final String EVENT_TYPE_DOWN = "down";
 
-    public static final Boolean IS_PRE_STUDY_ACTIVE = true;
+    public static final Boolean IS_PRE_STUDY_ACTIVE = false;
 }

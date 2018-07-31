@@ -66,7 +66,7 @@
             android:orientation="horizontal" >
 
             <com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView
-                android:id="@+id/keyStrokeBiometricsDisplay"
+                android:id="@+id/pwTaskDisplay"
                 android:layout_width="600dp"
                 android:layout_height="50dp" />
         </LinearLayout>

@@ -121,11 +121,7 @@ public class KeyStrokeVisualizerView extends View {
                 float radius = pressure * PRESSURE_SCALE;
 
                 /* Set Circle Alpha in dependence of the radius */
-                if (radius <= 10f) {
-                    circlePaint.setAlpha(255);
-                } else {
-                    circlePaint.setAlpha((int) (170 - radius));
-                }
+                circlePaint.setAlpha((int) (110 - radius / 4));
 
                 /* Draw offset circle on key */
                 double offsetXFactor = (bean.getOffsetX() / standardKeyHitboxWidth);

@@ -36,7 +36,7 @@ public class StudyXMLParser {
     private static final String ATTR_FTIME = "ftime";
 
 
-    public static ArrayList<StudyConfigBean> doTheThing(Context ctx) throws Exception {
+    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx) throws Exception {
         InputStream is = ctx.getAssets().open("studyConfig/tasks.xml");
 
         DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -50,7 +50,13 @@ public class StudyXMLParser {
             Node taskNode = taskList.item(i);
             if (taskNode.getNodeType() == Node.ELEMENT_NODE) {
                 int taskId = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_TASK_ID));
+                if (taskId != i+1) {
+                    throw new Exception("taskId: " + taskId + " [Task order is wrong]");
+                }
                 int numOfReps = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_NUM_REPS));
+                if (numOfReps < 1) {
+                    throw new Exception("taskId: " + taskId + " [numberOfReps must not be lower than 1]");
+                }
 
                 ArrayList<SimpleKeyStrokeDataBean> keyStrokeTask = new ArrayList<>();
 
@@ -60,7 +66,7 @@ public class StudyXMLParser {
                     Node letterNode = letterList.item(j);
                     String keyChar = ((Element) letterNode).getAttribute(ATTR_CHAR);
                     if (keyChar.length() != 1) {
-                        throw new Exception("Char length != 1: " + keyChar);
+                        throw new Exception("taskId: " + taskId + " [Char length != 1: " + keyChar + "]");
                     }
 
                     String offsetString = ((Element) letterNode).getAttribute(ATTR_OFFSET);
@@ -78,17 +84,17 @@ public class StudyXMLParser {
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_BOTTOM)) {
                         offSetY = -220;
                     } else {
-                        throw new Exception("Unsupported offset: " + offsetString);
+                        throw new Exception("taskId: " + taskId + " [Unsupported offset: " + offsetString + "]");
                     }
 
                     String areaString = ((Element) letterNode).getAttribute(ATTR_AREA);
                     float area = 0.0f;
                     if (areaString.equals(ATTR_VAL_AREA_SMALL)) {
-                        area = 0.0f;
+                        area = 0.20f;
                     } else if (areaString.equals(ATTR_VAL_AREA_BIG)) {
-                        area = 0.5f;
+                        area = 0.45f;
                     } else {
-                        throw new Exception("Unsupported area: " + areaString);
+                        throw new Exception("taskId: " + taskId + " [Unsupported area: " + areaString + "]");
                     }
 
                     String hTimeString = ((Element) letterNode).getAttribute(ATTR_HTIME);
@@ -98,7 +104,7 @@ public class StudyXMLParser {
                     } else if (hTimeString.equals(ATTR_VAL_TIME_SHORT)) {
                         holdTime = 0;
                     } else {
-                        throw new Exception("Unsupported htime: " + hTimeString);
+                        throw new Exception("taskId: " + taskId + " [Unsupported htime: " + hTimeString + "]");
                     }
 
                     int flightTime;
@@ -110,7 +116,7 @@ public class StudyXMLParser {
                         } else if (fTimeString.equals(ATTR_VAL_TIME_SHORT)) {
                             flightTime = 0;
                         } else {
-                            throw new Exception("Unsupported ftime: " + fTimeString);
+                            throw new Exception("taskId: " + taskId + " [Unsupported ftime: " + fTimeString + "]");
                         }
                     } else {
                         flightTime = -1;
