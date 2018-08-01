@@ -9,14 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyConfigBean implements Parcelable {
+    private int groupId;
     private int taskId;
     private int numberOfReps;
     private ArrayList<SimpleKeyStrokeDataBean> pwTask;
 
-    public StudyConfigBean(int taskId, int numberOfReps, ArrayList<SimpleKeyStrokeDataBean> pwTask) {
+    public StudyConfigBean(int groupId, int taskId, int numberOfReps, ArrayList<SimpleKeyStrokeDataBean> pwTask) {
+        this.groupId = groupId;
         this.taskId = taskId;
         this.numberOfReps = numberOfReps;
         this.pwTask = pwTask;
+    }
+
+    public int getGroupId() {
+        return groupId;
     }
 
     public int getTaskId() {

@@ -94,11 +94,13 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
             int numberOfDesiredTouchEvents = studyConfig.get(0).getPwTask().size();
 
             String actualPasswordStringValue = et_password.getText().toString();
-            // TODO precalc
+
             String desiredPasswordStringValue = "";
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < studyConfig.get(0).getPwTask().size(); i = i+2) {
-                desiredPasswordStringValue+= studyConfig.get(0).getPwTask().get(i).getKeyValue();
+                sb.append(studyConfig.get(0).getPwTask().get(i).getKeyValue());
             }
+            desiredPasswordStringValue = sb.toString();
 
             if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
                 if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {

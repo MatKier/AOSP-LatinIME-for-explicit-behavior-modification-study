@@ -23,7 +23,7 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
 
     private EditText et_ParticipantId;
     private Button btn_saveParticipantId;
-    private static ArrayList<StudyConfigBean> studyConfig;
+    private ArrayList<StudyConfigBean> studyConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

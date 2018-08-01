@@ -1,6 +1,7 @@
 package com.android.inputmethod.ebmStudy.etc;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 
@@ -34,6 +35,7 @@ public class StudyXMLParser {
     private static final String ATTR_VAL_TIME_SHORT = "short";
     private static final String ATTR_VAL_TIME_LONG = "long";
     private static final String ATTR_FTIME = "ftime";
+    private static final String ATTR_GROUP_ID = "groupId";
 
 
     public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx) throws Exception {
@@ -49,6 +51,8 @@ public class StudyXMLParser {
         for (int i = 0; i < taskList.getLength(); i++) {
             Node taskNode = taskList.item(i);
             if (taskNode.getNodeType() == Node.ELEMENT_NODE) {
+                int groupId = Integer.parseInt(((Element)taskNode.getParentNode()).getAttribute(ATTR_GROUP_ID));
+
                 int taskId = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_TASK_ID));
                 if (taskId != i+1) {
                     throw new Exception("taskId: " + taskId + " [Task order is wrong]");
@@ -125,7 +129,7 @@ public class StudyXMLParser {
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_DOWN, keyChar, offSetX, offSetY, -1, flightTime, area));
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_UP, keyChar, offSetX, offSetY, holdTime, -1, area));
                 }
-                studyConfigList.add(new StudyConfigBean(taskId, numOfReps, keyStrokeTask));
+                studyConfigList.add(new StudyConfigBean(groupId, taskId, numOfReps, keyStrokeTask));
             }
         }
         return studyConfigList;
