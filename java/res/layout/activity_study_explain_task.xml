@@ -60,7 +60,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
-    <com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView
+    <com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView
         android:id="@+id/pwTaskDisplay"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView
+            <com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView
                 android:id="@+id/keyStrokeBiometricsDisplay"
                 android:layout_width="600dp"
                 android:layout_height="50dp" />

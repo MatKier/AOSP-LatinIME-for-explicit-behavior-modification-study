@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView
+            <com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView
                 android:id="@+id/pwTaskDisplay"
                 android:layout_width="600dp"
                 android:layout_height="50dp" />

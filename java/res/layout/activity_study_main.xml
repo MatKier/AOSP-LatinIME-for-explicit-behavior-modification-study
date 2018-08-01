@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pb_TaskProgress" />
 
-    <com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView
+    <com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView
         android:id="@+id/pwTaskDisplay"
         android:layout_width="0dp"
         android:layout_height="50dp"

@@ -60,14 +60,32 @@ public class KeyStrokeLogger {
         //}
     }
 
+    /**
+     * Empties the KeyStrokeDataList
+     */
     public void clearKeyStrokeList() {
         keyStrokeDataList.clear();
+    }
+
+    /**
+     * This is only usefull for the ExplainTask activity where one wants to remove all the
+     * delete key events while the training edittext is empty
+     */
+    public void clearKeyStrokeListExceptForLastEventPair() {
+        if (keyStrokeDataList.size() > 2) {
+            keyStrokeDataList.subList(0, keyStrokeDataList.size() - 2).clear();
+            // TODO set flighttime to 0
+        }
     }
 
     public void askForFilePermissions(Activity activity) {
         LogToFileHelper.askForFilePermissions(activity);
     }
 
+    /**
+     * Determines if one of the user study activities is running
+     * @return true if one of the user study activities is running
+     */
     private boolean isStudyActive() {
         return (StudyExplainTaskActivity.isActivityRunning() || StudyGeneralExplanationActivity.isActivityRunning()
                 || StudyLauncherActivity.isActivityRunning() || StudyTaskActivity.isActivityRunning());

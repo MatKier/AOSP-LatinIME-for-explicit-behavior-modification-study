@@ -47,6 +47,10 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
                 " touchMinor; touchMajor; size; holdTime; flightTime; pressure; isLongPressed; longPressKey \n";
     }
 
+    /**
+     * Returns a string with all the beans property values separated by a semicolon
+     * @return
+     */
     String toCSVString() {
         return getEventType() + "; " + eventTime + "; " + getKeyValue() + "; " + x + "; " + y + "; " + getOffsetX()
                 + "; " + getOffsetY() + "; " + keyCenterX + "; " + keyCenterY + "; " + orientation + "; "

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
-import com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView;
+import com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
@@ -58,6 +59,11 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 charCount = et_trainingField.getText().length();
+                if (charCount == 0) {
+                    KeyStrokeLogger.getInstance().clearKeyStrokeListExceptForLastEventPair();
+                    ksvView.setKeyStrokeList(null);
+                    ksvView.invalidate();
+                }
             }
 
             @Override
@@ -76,13 +82,14 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                         et_trainingField.setText("");
                     }
                     charCount = 0;
+
                     KeyStrokeLogger.getInstance().clearKeyStrokeList();
                     ksvView.setKeyStrokeList(null);
                     ksvView.invalidate();
                 }
             }
         });
-    }
+    };
 
     private void getStudyInfoFromExtras() {
         Intent intent = getIntent();

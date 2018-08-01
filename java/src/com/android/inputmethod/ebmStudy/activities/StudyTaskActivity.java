@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.inputmethod.ebmStudy.etc.KeyStrokeVisualizerView;
+import com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;

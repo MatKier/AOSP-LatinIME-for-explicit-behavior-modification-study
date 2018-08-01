@@ -1,4 +1,4 @@
-package com.android.inputmethod.ebmStudy.etc;
+package com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 
 import java.util.List;
