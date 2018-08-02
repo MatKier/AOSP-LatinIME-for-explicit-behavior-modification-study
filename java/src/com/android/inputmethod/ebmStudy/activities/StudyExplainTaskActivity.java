@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,13 +122,14 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
     @Override
     public void onClick(View view) {
-        if (view.equals(btnClearField)) {
+        if (view == btnClearField) {
             clearFields();
-        } else if (view.equals(btnStartTask)) {
+        } else if (view == btnStartTask) {
             clearFields();
             launchActualTask();
-        } else if (view.equals(pwTaskView)) {
-            // TODO launch explanation dialog
+        } else if (view == pwTaskView) {
+            ExplainNotationDialog end = new ExplainNotationDialog(this, studyConfig.get(0).getPwTask());
+            end.show();
         }
     }
 

@@ -1,5 +1,7 @@
 package com.android.inputmethod.ebmStudy.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +47,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         tv_taskProgress = findViewById(R.id.tv_taskProgress);
         tv_currentTask = findViewById(R.id.tv_currentTask);
         taskVisualizer = findViewById(R.id.pwTaskDisplay);
+        taskVisualizer.setOnClickListener(this);
 
         initializeEnabledState();
     }
@@ -80,41 +83,61 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if (v.equals(btn_nextTask)) {
+        if (v == btn_nextTask) {
             if(studyConfig.size() > 1) {
                 initializeEnabledState();
                 entryCounter = 0;
                 launchNextExplainTaskActivity();
             } else {
-                // TODO End Study
-                Toast.makeText(this, "Ende", Toast.LENGTH_LONG).show();
+                showStudyEndDialog();
             }
-        } else if (v.equals(btn_savePassword)) {
-            int actualNumberOfTouchEvents = KeyStrokeLogger.getInstance().getNumberOfEventsSinceLastClear();
-            int numberOfDesiredTouchEvents = studyConfig.get(0).getPwTask().size();
+        } else if (v == btn_savePassword) {
+            doSaveAction();
+        } else if (v == taskVisualizer) {
+            ExplainNotationDialog end = new ExplainNotationDialog(this, studyConfig.get(0).getPwTask());
+            end.show();
+        }
+    }
 
-            String actualPasswordStringValue = et_password.getText().toString();
+    private void showStudyEndDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Studie beendet")
+                .setMessage("Danke für die Teilnahme")
+                .setCancelable(false)
+                .setPositiveButton("App beenden", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finishAndRemoveTask();
+                    }
+                })
+                .create()
+                .show();
+    }
 
-            String desiredPasswordStringValue = "";
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < studyConfig.get(0).getPwTask().size(); i = i+2) {
-                sb.append(studyConfig.get(0).getPwTask().get(i).getKeyValue());
-            }
-            desiredPasswordStringValue = sb.toString();
+    private void doSaveAction() {
+        int actualNumberOfTouchEvents = KeyStrokeLogger.getInstance().getNumberOfEventsSinceLastClear();
+        int numberOfDesiredTouchEvents = studyConfig.get(0).getPwTask().size();
 
-            if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
-                if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
-                    savePasswordAction();
-                } else {
-                    KeyStrokeLogger.getInstance().clearKeyStrokeList();
-                    et_password.setText("");
-                    Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
-                }
+        String actualPasswordStringValue = et_password.getText().toString();
+
+        String desiredPasswordStringValue = "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < studyConfig.get(0).getPwTask().size(); i = i+2) {
+            sb.append(studyConfig.get(0).getPwTask().get(i).getKeyValue());
+        }
+        desiredPasswordStringValue = sb.toString();
+
+        if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
+            if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
+                savePasswordAction();
             } else {
                 KeyStrokeLogger.getInstance().clearKeyStrokeList();
                 et_password.setText("");
-                Toast.makeText(this, "Passwort falsch, bitte wiederholen", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
             }
+        } else {
+            KeyStrokeLogger.getInstance().clearKeyStrokeList();
+            et_password.setText("");
+            Toast.makeText(this, "Passwort falsch, bitte wiederholen", Toast.LENGTH_LONG).show();
         }
     }
 
