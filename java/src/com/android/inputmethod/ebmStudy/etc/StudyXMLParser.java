@@ -36,6 +36,7 @@ public class StudyXMLParser {
     private static final String ATTR_VAL_TIME_LONG = "long";
     private static final String ATTR_FTIME = "ftime";
     private static final String ATTR_GROUP_ID = "groupId";
+    private static final String ATTR_IS_INTRODUCTION_GROUP = "isIntroductionGroup";
 
 
     public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx) throws Exception {
@@ -51,7 +52,9 @@ public class StudyXMLParser {
         for (int i = 0; i < taskList.getLength(); i++) {
             Node taskNode = taskList.item(i);
             if (taskNode.getNodeType() == Node.ELEMENT_NODE) {
-                int groupId = Integer.parseInt(((Element)taskNode.getParentNode()).getAttribute(ATTR_GROUP_ID));
+                Element parentNode = (Element) taskNode.getParentNode();
+                int groupId = Integer.parseInt(parentNode.getAttribute(ATTR_GROUP_ID));
+                boolean isIntroductionGroup = Boolean.parseBoolean(parentNode.getAttribute(ATTR_IS_INTRODUCTION_GROUP));
 
                 int taskId = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_TASK_ID));
                 if (taskId != i+1) {
@@ -129,7 +132,7 @@ public class StudyXMLParser {
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_DOWN, keyChar, offSetX, offSetY, -1, flightTime, area));
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_UP, keyChar, offSetX, offSetY, holdTime, -1, area));
                 }
-                studyConfigList.add(new StudyConfigBean(groupId, taskId, numOfReps, keyStrokeTask));
+                studyConfigList.add(new StudyConfigBean(groupId, isIntroductionGroup, taskId, numOfReps, keyStrokeTask));
             }
         }
         return studyConfigList;

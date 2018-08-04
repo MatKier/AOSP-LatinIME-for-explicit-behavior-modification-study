@@ -1,5 +1,6 @@
 package com.android.inputmethod.ebmStudy.activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,6 +75,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void setUiElementsToCurrentTask() {
         pb_taskProgress.setMax(studyConfig.get(0).getNumberOfReps());
         tv_currentTask.setText("Aufgabe " + studyConfig.get(0).getTaskId());
@@ -137,7 +139,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         } else {
             KeyStrokeLogger.getInstance().clearKeyStrokeList();
             et_password.setText("");
-            Toast.makeText(this, "Passwort falsch, bitte wiederholen", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_LONG).show();
         }
     }
 

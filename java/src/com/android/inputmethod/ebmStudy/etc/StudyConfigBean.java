@@ -10,12 +10,14 @@ import java.util.List;
 
 public class StudyConfigBean implements Parcelable {
     private int groupId;
+    private boolean isIntroductionGroup;
     private int taskId;
     private int numberOfReps;
     private ArrayList<SimpleKeyStrokeDataBean> pwTask;
 
-    public StudyConfigBean(int groupId, int taskId, int numberOfReps, ArrayList<SimpleKeyStrokeDataBean> pwTask) {
+    public StudyConfigBean(int groupId, boolean isIntroductionGroup, int taskId, int numberOfReps, ArrayList<SimpleKeyStrokeDataBean> pwTask) {
         this.groupId = groupId;
+        this.isIntroductionGroup = isIntroductionGroup;
         this.taskId = taskId;
         this.numberOfReps = numberOfReps;
         this.pwTask = pwTask;
@@ -23,6 +25,10 @@ public class StudyConfigBean implements Parcelable {
 
     public int getGroupId() {
         return groupId;
+    }
+
+    public boolean isIntroductionGroup() {
+        return isIntroductionGroup;
     }
 
     public int getTaskId() {
@@ -44,12 +50,16 @@ public class StudyConfigBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(groupId);
+        parcel.writeByte((byte) (isIntroductionGroup ? 1 : 0));
         parcel.writeInt(taskId);
         parcel.writeInt(numberOfReps);
         parcel.writeTypedList(pwTask);
     }
 
     private StudyConfigBean(Parcel in) {
+        this.groupId = in.readInt();
+        this.isIntroductionGroup = in.readByte() == 1;
         this.taskId = in.readInt();
         this.numberOfReps = in.readInt();
         this.pwTask = in.createTypedArrayList(SimpleKeyStrokeDataBean.CREATOR);
