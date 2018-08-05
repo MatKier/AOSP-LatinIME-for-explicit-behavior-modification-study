@@ -1,7 +1,6 @@
 package com.android.inputmethod.ebmStudy.etc;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 

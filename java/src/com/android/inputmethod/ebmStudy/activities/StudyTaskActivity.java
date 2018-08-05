@@ -18,6 +18,8 @@ import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
 import com.android.inputmethod.latin.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class StudyTaskActivity extends StudyAbstractActivity implements View.OnClickListener {
@@ -32,6 +34,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
     private ProgressBar pb_taskProgress;
     private TextView tv_taskProgress;
     private TextView tv_currentTask;
+    private TextView tv_taskTitle;
     private KeyStrokeVisualizerView taskVisualizer;
 
     @Override
@@ -47,6 +50,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         pb_taskProgress = findViewById(R.id.pb_TaskProgress);
         tv_taskProgress = findViewById(R.id.tv_taskProgress);
         tv_currentTask = findViewById(R.id.tv_currentTask);
+        tv_taskTitle = findViewById(R.id.tv_taskTitle);
         taskVisualizer = findViewById(R.id.pwTaskDisplay);
         taskVisualizer.setOnClickListener(this);
 
@@ -79,8 +83,16 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
     private void setUiElementsToCurrentTask() {
         pb_taskProgress.setMax(studyConfig.get(0).getNumberOfReps());
         tv_currentTask.setText("Aufgabe " + studyConfig.get(0).getTaskId());
-        taskVisualizer.setKeyStrokeList(studyConfig.get(0).getPwTask());
-        taskVisualizer.invalidate();
+
+        if (studyConfig.get(0).isIntroductionGroup()) {
+            taskVisualizer.setVisibility(View.GONE);
+            tv_taskTitle.setText("Passwort: \n" + studyConfig.get(0).getTaskPWString());
+        } else {
+            taskVisualizer.setVisibility(View.VISIBLE);
+            tv_taskTitle.setText("Passwort:");
+            taskVisualizer.setKeyStrokeList(studyConfig.get(0).getPwTask());
+            taskVisualizer.invalidate();
+        }
     }
 
     @Override
@@ -121,12 +133,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
         String actualPasswordStringValue = et_password.getText().toString();
 
-        String desiredPasswordStringValue = "";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < studyConfig.get(0).getPwTask().size(); i = i+2) {
-            sb.append(studyConfig.get(0).getPwTask().get(i).getKeyValue());
-        }
-        desiredPasswordStringValue = sb.toString();
+        String desiredPasswordStringValue = studyConfig.get(0).getTaskPWString();
 
         if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
             if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {

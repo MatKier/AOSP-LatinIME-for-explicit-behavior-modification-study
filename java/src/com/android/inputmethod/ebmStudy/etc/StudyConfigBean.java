@@ -43,6 +43,14 @@ public class StudyConfigBean implements Parcelable {
         return pwTask;
     }
 
+    public String getTaskPWString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < pwTask.size(); i = i+2) {
+            sb.append(pwTask.get(i).getKeyValue());
+        }
+        return sb.toString();
+    }
+
     @Override
     public int describeContents() {
         return 0;

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +25,12 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
     private Button btnStartTask;
     private Button btnClearField;
-    private EditText et_trainingField;
-    private TextView tv_description;
-    private TextView tv_title;
+    private EditText etTrainingField;
+    private TextView tvDescription;
+    private TextView tvTitle;
+    private TextView tvBiometricsTitle;
+    private TextView tvPwTaskTitle;
+    private HorizontalScrollView horScrollView;
 
     private KeyStrokeVisualizerView pwTaskView;
     private KeyStrokeVisualizerView ksvView;
@@ -43,21 +47,23 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         btnStartTask.setOnClickListener(this);
         btnClearField = findViewById(R.id.btn_clearField);
         btnClearField.setOnClickListener(this);
-        et_trainingField = findViewById(R.id.et_trainingField);
-        tv_description = findViewById(R.id.tv_description);
-        tv_title = findViewById(R.id.tv_title);
-
+        etTrainingField = findViewById(R.id.et_trainingField);
+        tvDescription = findViewById(R.id.tv_description);
+        tvTitle = findViewById(R.id.tv_title);
+        tvBiometricsTitle = findViewById(R.id.tv_biometrics_title);
+        tvPwTaskTitle = findViewById(R.id.tvPwTaskTitle);
+        horScrollView = findViewById(R.id.horScrollView);
         pwTaskView = findViewById(R.id.pwTaskDisplay);
         pwTaskView.setOnClickListener(this);
         ksvView = findViewById(R.id.keyStrokeBiometricsDisplay);
 
-        et_trainingField.addTextChangedListener(new TextWatcher() {
+        etTrainingField.addTextChangedListener(new TextWatcher() {
             int charCount = 0;
             boolean isFieldResettable = true;
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                charCount = et_trainingField.getText().length();
+                charCount = etTrainingField.getText().length();
                 if (charCount == 0) {
                     KeyStrokeLogger.getInstance().clearKeyStrokeListExceptForLastEventPair();
                     ksvView.setKeyStrokeList(null);
@@ -70,7 +76,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (et_trainingField.getText().length() > charCount) {
+                if (etTrainingField.getText().length() > charCount) {
                     List<KeyStrokeDataBean> lastKeyStrokes = KeyStrokeLogger.getInstance().getLastKeyStrokes(8);
                     ksvView.setKeyStrokeList(lastKeyStrokes);
                     ksvView.invalidate();
@@ -78,7 +84,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                 } else {
                     if(isFieldResettable) {
                         isFieldResettable = false;
-                        et_trainingField.setText("");
+                        etTrainingField.setText("");
                     }
                     charCount = 0;
 
@@ -106,11 +112,27 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     }
 
     private void setUiElementsToCurrentTask() {
-        tv_title.setText("Aufgabe: " + studyConfig.get(0).getTaskId());
-        tv_description.setText("Geben Sie das untenstehende Passwort " + studyConfig.get(0).getNumberOfReps() + "-mal entsprechend seiner Notation ein.");
+        tvTitle.setText("Aufgabe: " + studyConfig.get(0).getTaskId());
         btnStartTask.setText("Aufgabe " + studyConfig.get(0).getTaskId() + " starten");
-        pwTaskView.setKeyStrokeList(studyConfig.get(0).getPwTask());
-        pwTaskView.invalidate();
+
+        if (studyConfig.get(0).isIntroductionGroup()) {
+            tvDescription.setText("Geben Sie das untenstehende Passwort " + studyConfig.get(0).getNumberOfReps() + "-mal ein.");
+            pwTaskView.setVisibility(View.GONE);
+            ksvView.setVisibility(View.GONE);
+            horScrollView.setVisibility(View.GONE);
+            tvBiometricsTitle.setVisibility(View.GONE);
+            tvPwTaskTitle.setText("Aufgaben Passwort: \n" + studyConfig.get(0).getTaskPWString() + "\n");
+        } else {
+            tvDescription.setText("Geben Sie das untenstehende Passwort " + studyConfig.get(0).getNumberOfReps() + "-mal entsprechend seiner Notation ein.");
+            pwTaskView.setVisibility(View.VISIBLE);
+            ksvView.setVisibility(View.VISIBLE);
+            horScrollView.setVisibility(View.VISIBLE);
+            tvBiometricsTitle.setVisibility(View.VISIBLE);
+            tvPwTaskTitle.setText("Aufgaben Passwort: (Berühren für Erläuterung)");
+            pwTaskView.setKeyStrokeList(studyConfig.get(0).getPwTask());
+            pwTaskView.invalidate();
+
+        }
     }
 
     @Override
@@ -134,7 +156,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     }
 
     private void clearFields() {
-        et_trainingField.setText("");
+        etTrainingField.setText("");
         KeyStrokeLogger.getInstance().clearKeyStrokeList();
 
         ksvView.setKeyStrokeList(null);
