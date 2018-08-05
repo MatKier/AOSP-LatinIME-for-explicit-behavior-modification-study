@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -92,6 +94,16 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                     ksvView.setKeyStrokeList(null);
                     ksvView.invalidate();
                 }
+            }
+        });
+
+        etTrainingField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    clearFields();
+                }
+                return true;
             }
         });
     };

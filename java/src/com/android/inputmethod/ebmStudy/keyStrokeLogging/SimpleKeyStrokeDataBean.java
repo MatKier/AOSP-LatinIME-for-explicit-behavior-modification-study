@@ -9,6 +9,7 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
     private int offsetX;
     private int offsetY;
     private long holdTime;
+
     private long flightTime;
     private float pressure;
 
@@ -49,6 +50,10 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
 
     public float getPressure() {
         return pressure;
+    }
+
+    void setFlightTime(long flightTime) {
+        this.flightTime = flightTime;
     }
 
     @Override

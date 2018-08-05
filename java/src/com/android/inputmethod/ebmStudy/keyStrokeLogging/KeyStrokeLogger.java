@@ -2,6 +2,7 @@ package com.android.inputmethod.ebmStudy.keyStrokeLogging;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.android.inputmethod.ebmStudy.activities.StudyExplainTaskActivity;
@@ -27,7 +28,11 @@ public class KeyStrokeLogger {
     }
 
     public void logKeyEvent(final MotionEvent me, final Key key) {
-        KeyStrokeLoggingHelper.logKeyEvent(keyStrokeDataList, me, key);
+        if ((key != null && !key.isActionKey()) || key == null) {
+            KeyStrokeLoggingHelper.logKeyEvent(keyStrokeDataList, me, key);
+        } else {
+            Log.d("KeyStrokeLogger", "No KeyEvent logged for ActionKey");
+        }
     }
 
     public void logLongPress(final Key key) {
@@ -74,7 +79,8 @@ public class KeyStrokeLogger {
     public void clearKeyStrokeListExceptForLastEventPair() {
         if (keyStrokeDataList.size() > 2) {
             keyStrokeDataList.subList(0, keyStrokeDataList.size() - 2).clear();
-            // TODO set flighttime to 0
+            // Resets the Flight time for the First downEvent (has to be -1)
+            keyStrokeDataList.get(0).setFlightTime(-1);
         }
     }
 
