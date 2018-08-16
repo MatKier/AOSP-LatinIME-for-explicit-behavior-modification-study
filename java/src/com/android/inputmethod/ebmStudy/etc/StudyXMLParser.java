@@ -33,6 +33,7 @@ public class StudyXMLParser {
     private static final String ATTR_HTIME = "htime";
     private static final String ATTR_VAL_TIME_SHORT = "short";
     private static final String ATTR_VAL_TIME_LONG = "long";
+    private static final String ATTR_VAL_TIME_DEFAULT = "default";
     private static final String ATTR_FTIME = "ftime";
     private static final String ATTR_GROUP_ID = "groupId";
     private static final String ATTR_IS_INTRODUCTION_GROUP = "isIntroductionGroup";
@@ -109,6 +110,8 @@ public class StudyXMLParser {
                         holdTime = 10000;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_SHORT)) {
                         holdTime = 0;
+                    } else if (hTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
+                        holdTime = 150;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported htime: " + hTimeString + "]");
                     }
@@ -121,6 +124,8 @@ public class StudyXMLParser {
                             flightTime = 10000;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_SHORT)) {
                             flightTime = 0;
+                        } else if (fTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
+                            flightTime = 150;
                         } else {
                             throw new Exception("taskId: " + taskId + " [Unsupported ftime: " + fTimeString + "]");
                         }
