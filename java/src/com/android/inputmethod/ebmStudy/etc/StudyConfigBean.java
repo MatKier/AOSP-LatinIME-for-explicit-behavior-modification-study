@@ -9,19 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudyConfigBean implements Parcelable {
+    private int featureCount;
     private int groupId;
     private boolean isIntroductionGroup;
     private int taskId;
     private int numberOfReps;
     private ArrayList<SimpleKeyStrokeDataBean> pwTask;
 
-    public StudyConfigBean(int groupId, boolean isIntroductionGroup, int taskId, int numberOfReps, ArrayList<SimpleKeyStrokeDataBean> pwTask) {
+    public StudyConfigBean(int featureCount, int groupId, boolean isIntroductionGroup, int taskId, int numberOfReps, ArrayList<SimpleKeyStrokeDataBean> pwTask) {
+        this.featureCount = featureCount;
         this.groupId = groupId;
         this.isIntroductionGroup = isIntroductionGroup;
         this.taskId = taskId;
         this.numberOfReps = numberOfReps;
         this.pwTask = pwTask;
     }
+
+    public int getFeatureCount() { return featureCount; }
 
     public int getGroupId() {
         return groupId;
@@ -58,6 +62,7 @@ public class StudyConfigBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(featureCount);
         parcel.writeInt(groupId);
         parcel.writeByte((byte) (isIntroductionGroup ? 1 : 0));
         parcel.writeInt(taskId);
@@ -66,6 +71,7 @@ public class StudyConfigBean implements Parcelable {
     }
 
     private StudyConfigBean(Parcel in) {
+        this.featureCount = in.readInt();
         this.groupId = in.readInt();
         this.isIntroductionGroup = in.readByte() == 1;
         this.taskId = in.readInt();

@@ -37,6 +37,9 @@ public class StudyXMLParser {
     private static final String ATTR_FTIME = "ftime";
     private static final String ATTR_GROUP_ID = "groupId";
     private static final String ATTR_IS_INTRODUCTION_GROUP = "isIntroductionGroup";
+    private static final String TAG_TASK_GROUP = "taskGroup";
+    private static final String TAG_FEATURE_GROUP = "featureGroup";
+    private static final String ATTR_FEATURE_COUNT = "featureCount";
 
 
     public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx) throws Exception {
@@ -52,9 +55,12 @@ public class StudyXMLParser {
         for (int i = 0; i < taskList.getLength(); i++) {
             Node taskNode = taskList.item(i);
             if (taskNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element parentNode = (Element) taskNode.getParentNode();
-                int groupId = Integer.parseInt(parentNode.getAttribute(ATTR_GROUP_ID));
-                boolean isIntroductionGroup = Boolean.parseBoolean(parentNode.getAttribute(ATTR_IS_INTRODUCTION_GROUP));
+                Element taskGroupNode = (Element) taskNode.getParentNode();
+                int groupId = Integer.parseInt(taskGroupNode.getAttribute(ATTR_GROUP_ID));
+                boolean isIntroductionGroup = Boolean.parseBoolean(taskGroupNode.getAttribute(ATTR_IS_INTRODUCTION_GROUP));
+
+                Element featureGroupNode = (Element) taskGroupNode.getParentNode();
+                int featureCount = Integer.parseInt(featureGroupNode.getAttribute(ATTR_FEATURE_COUNT));
 
                 int taskId = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_TASK_ID));
                 if (taskId != i+1) {
@@ -136,7 +142,7 @@ public class StudyXMLParser {
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_DOWN, keyChar, offSetX, offSetY, -1, flightTime, area));
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_UP, keyChar, offSetX, offSetY, holdTime, -1, area));
                 }
-                studyConfigList.add(new StudyConfigBean(groupId, isIntroductionGroup, taskId, numOfReps, keyStrokeTask));
+                studyConfigList.add(new StudyConfigBean(featureCount, groupId, isIntroductionGroup, taskId, numOfReps, keyStrokeTask));
             }
         }
         return studyConfigList;
