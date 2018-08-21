@@ -36,14 +36,17 @@ public class StudyXMLParser {
     private static final String ATTR_VAL_TIME_DEFAULT = "default";
     private static final String ATTR_FTIME = "ftime";
     private static final String ATTR_GROUP_ID = "groupId";
+    private static final String ATTR_GROUP_NAME = "name";
     private static final String ATTR_IS_INTRODUCTION_GROUP = "isIntroductionGroup";
     private static final String TAG_TASK_GROUP = "taskGroup";
     private static final String TAG_FEATURE_GROUP = "featureGroup";
     private static final String ATTR_FEATURE_COUNT = "featureCount";
+    private static final String ATTR_SORTING_GROUP_ID = "sortingGroupId";
+    private static final String ATTR_SORTING_TASK_ID = "sortingTaskId";
 
 
-    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx) throws Exception {
-        InputStream is = ctx.getAssets().open("studyConfig/tasks.xml");
+    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx, int xmlNo) throws Exception {
+        InputStream is = ctx.getAssets().open("studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml");
 
         DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = dBuilder.parse(is);
@@ -57,13 +60,17 @@ public class StudyXMLParser {
             if (taskNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element taskGroupNode = (Element) taskNode.getParentNode();
                 int groupId = Integer.parseInt(taskGroupNode.getAttribute(ATTR_GROUP_ID));
+                String groupName = taskGroupNode.getAttribute(ATTR_GROUP_NAME);
+                String sortingGroupId = taskGroupNode.getAttribute(ATTR_SORTING_GROUP_ID);
+
                 boolean isIntroductionGroup = Boolean.parseBoolean(taskGroupNode.getAttribute(ATTR_IS_INTRODUCTION_GROUP));
 
                 Element featureGroupNode = (Element) taskGroupNode.getParentNode();
                 int featureCount = Integer.parseInt(featureGroupNode.getAttribute(ATTR_FEATURE_COUNT));
 
                 int taskId = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_TASK_ID));
-                if (taskId != i+1) {
+                String sortingTaskId = ((Element) taskNode).getAttribute(ATTR_SORTING_TASK_ID);
+                if (taskId != i + 1) {
                     throw new Exception("taskId: " + taskId + " [Task order is wrong]");
                 }
                 int numOfReps = Integer.parseInt(((Element) taskNode).getAttribute(ATTR_NUM_REPS));
@@ -123,7 +130,7 @@ public class StudyXMLParser {
                     }
 
                     int flightTime;
-                    if(j != 0) {
+                    if (j != 0) {
                         String fTimeString = ((Element) letterNode).getAttribute(ATTR_FTIME);
                         flightTime = 0;
                         if (fTimeString.equals(ATTR_VAL_TIME_LONG)) {
@@ -142,7 +149,7 @@ public class StudyXMLParser {
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_DOWN, keyChar, offSetX, offSetY, -1, flightTime, area));
                     keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_UP, keyChar, offSetX, offSetY, holdTime, -1, area));
                 }
-                studyConfigList.add(new StudyConfigBean(featureCount, groupId, isIntroductionGroup, taskId, numOfReps, keyStrokeTask));
+                studyConfigList.add(new StudyConfigBean(featureCount, groupId, groupName, sortingGroupId, isIntroductionGroup, taskId, sortingTaskId, numOfReps, keyStrokeTask));
             }
         }
         return studyConfigList;

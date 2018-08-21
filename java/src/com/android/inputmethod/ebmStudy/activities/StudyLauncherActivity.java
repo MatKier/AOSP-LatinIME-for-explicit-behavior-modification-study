@@ -23,7 +23,6 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
 
     private EditText et_ParticipantId;
     private Button btn_saveParticipantId;
-    private ArrayList<StudyConfigBean> studyConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +33,7 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         btn_saveParticipantId = findViewById(R.id.btn_startStudy);
         btn_saveParticipantId.setOnClickListener(this);
 
-        try {
-            studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext());
-            showInputChooserDialog();
-        } catch (Exception ex) {
-            Log.e("XML Error", ex.toString());
-            showXmlExceptionDialog(ex.toString());
-        }
+        showInputChooserDialog();
     }
 
     private void showXmlExceptionDialog(String msg) {
@@ -80,11 +73,20 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         Intent intent = new Intent(this, StudyGeneralExplanationActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, participantIdText);
 
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
-        intent.putExtras(bundle);
+        int xmlNo = Integer.parseInt(participantIdText) % 12;
+        try {
+            ArrayList<StudyConfigBean> studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext(), xmlNo);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
+            intent.putExtras(bundle);
 
-        startActivity(intent);
-        this.finish();
+            Toast.makeText(this, "Using config " + xmlNo, Toast.LENGTH_LONG).show();
+
+            startActivity(intent);
+            this.finish();
+        } catch (Exception ex) {
+            Log.e("XML Error", ex.toString());
+            showXmlExceptionDialog(ex.toString());
+        }
     }
 }

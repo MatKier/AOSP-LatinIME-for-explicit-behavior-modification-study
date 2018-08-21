@@ -177,14 +177,16 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
     }
 
     private void savePasswordAction() {
-        String path = "/" + "ID_" + pid + "/" + "TASK_" + studyConfig.get(0).getTaskId();
+        final StudyConfigBean currentStudyTask = studyConfig.get(0);
+        String path = "/" + "ID_" + pid + "/" + currentStudyTask.getSortingGroupId() + "_" + currentStudyTask.getGroupName() + "/TASK_" + currentStudyTask.getSortingTaskId();
+
         KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
         et_password.setText("");
 
         entryCounter += 1;
         setProgressCounter();
 
-        if (entryCounter >= studyConfig.get(0).getNumberOfReps()) {
+        if (entryCounter >= currentStudyTask.getNumberOfReps()) {
             et_password.setEnabled(false);
             btn_savePassword.setEnabled(false);
             btn_nextTask.setEnabled(true);
