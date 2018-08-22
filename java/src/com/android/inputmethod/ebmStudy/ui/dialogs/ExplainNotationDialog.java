@@ -1,4 +1,4 @@
-package com.android.inputmethod.ebmStudy.activities;
+package com.android.inputmethod.ebmStudy.ui.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;

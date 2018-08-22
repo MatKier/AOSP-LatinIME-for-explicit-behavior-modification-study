@@ -5,10 +5,11 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.android.inputmethod.ebmStudy.activities.StudyExplainTaskActivity;
-import com.android.inputmethod.ebmStudy.activities.StudyGeneralExplanationActivity;
-import com.android.inputmethod.ebmStudy.activities.StudyLauncherActivity;
-import com.android.inputmethod.ebmStudy.activities.StudyTaskActivity;
+import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
+import com.android.inputmethod.ebmStudy.ui.StudyExplainTaskActivity;
+import com.android.inputmethod.ebmStudy.ui.StudyGeneralExplanationActivity;
+import com.android.inputmethod.ebmStudy.ui.StudyLauncherActivity;
+import com.android.inputmethod.ebmStudy.ui.StudyTaskActivity;
 import com.android.inputmethod.keyboard.Key;
 
 import java.util.ArrayList;
@@ -63,6 +64,14 @@ public class KeyStrokeLogger {
         LogToFileHelper.logToFile(context, keyStrokeDataList, path);
         keyStrokeDataList.clear();
         //}
+    }
+
+    public static String getTaskGroupPath(StudyConfigBean currentStudyTask, String pid) {
+        return "/" + "ID_" + pid + "/" + currentStudyTask.getSortingGroupId() + "_" + currentStudyTask.getGroupName();
+    }
+
+    public static String getTaskPath(StudyConfigBean currentStudyTask, String pid) {
+        return getTaskGroupPath(currentStudyTask, pid) + "/TASK_" + currentStudyTask.getSortingTaskId();
     }
 
     /**

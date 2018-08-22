@@ -1,4 +1,4 @@
-package com.android.inputmethod.ebmStudy.activities;
+package com.android.inputmethod.ebmStudy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.inputmethod.ebmStudy.ui.dialogs.ExplainNotationDialog;
 import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeDataBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;

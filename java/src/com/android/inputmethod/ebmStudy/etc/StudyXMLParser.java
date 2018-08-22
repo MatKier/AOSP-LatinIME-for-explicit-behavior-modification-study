@@ -46,7 +46,8 @@ public class StudyXMLParser {
 
 
     public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx, int xmlNo) throws Exception {
-        InputStream is = ctx.getAssets().open("studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml");
+        //InputStream is = ctx.getAssets().open("studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml");
+        InputStream is = ctx.getAssets().open("studyConfig/tasks_short.xml");
 
         DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = dBuilder.parse(is);

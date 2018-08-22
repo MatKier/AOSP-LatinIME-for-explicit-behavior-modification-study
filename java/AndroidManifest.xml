@@ -85,7 +85,7 @@
 
         <!-- Activities -->
         <activity
-            android:name="com.android.inputmethod.ebmStudy.activities.StudyLauncherActivity"
+            android:name="com.android.inputmethod.ebmStudy.ui.StudyLauncherActivity"
             android:icon="@drawable/ic_launcher_keyboard"
             android:label="Explicit behavior modification study"
             android:screenOrientation="portrait">
@@ -96,22 +96,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.inputmethod.ebmStudy.activities.StudyGeneralExplanationActivity"
+            android:name="com.android.inputmethod.ebmStudy.ui.StudyGeneralExplanationActivity"
             android:label="Explicit behavior modification study"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.android.inputmethod.ebmStudy.activities.StudyExplainTaskActivity"
+        <activity android:name="com.android.inputmethod.ebmStudy.ui.StudyExplainTaskActivity"
             android:label="Explicit behavior modification study"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name="com.android.inputmethod.ebmStudy.activities.StudyPreStudyActivity"
+        <activity android:name="com.android.inputmethod.ebmStudy.ui.StudyPreStudyActivity"
             android:label="Explicit behavior modification study"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name="com.android.inputmethod.ebmStudy.activities.StudyTaskActivity"
+            android:name="com.android.inputmethod.ebmStudy.ui.StudyTaskActivity"
             android:icon="@drawable/ic_launcher_keyboard"
             android:label="Explicit behavior modification study"
             android:screenOrientation="portrait">

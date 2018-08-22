@@ -1,4 +1,4 @@
-package com.android.inputmethod.ebmStudy.activities;
+package com.android.inputmethod.ebmStudy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -113,6 +113,7 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
 
     @Override
     public void onClick(View view) {
+        // TODO replace if ever used again
         String path = "/" + "PreStudy" + "/" + "ID_" + pid + "/" + sp_selectPreStudyPw.getSelectedItem().toString();
         KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
         et_trainingField.setText("");

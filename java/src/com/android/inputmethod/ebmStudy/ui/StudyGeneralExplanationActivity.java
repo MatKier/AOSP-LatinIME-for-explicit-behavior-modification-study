@@ -1,4 +1,4 @@
-package com.android.inputmethod.ebmStudy.activities;
+package com.android.inputmethod.ebmStudy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

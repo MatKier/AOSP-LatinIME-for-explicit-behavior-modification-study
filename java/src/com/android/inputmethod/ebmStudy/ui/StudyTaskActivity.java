@@ -1,4 +1,4 @@
-package com.android.inputmethod.ebmStudy.activities;
+package com.android.inputmethod.ebmStudy.ui;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -14,13 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.inputmethod.ebmStudy.ui.dialogs.ExplainNotationDialog;
 import com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.etc.StudyConfigBean;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.KeyStrokeLogger;
 import com.android.inputmethod.ebmStudy.etc.StudyConstants;
+import com.android.inputmethod.ebmStudy.ui.dialogs.LikertQuestionDialog;
 import com.android.inputmethod.latin.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -109,18 +109,40 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
+        final StudyConfigBean currentTask = studyConfig.get(0);
         if (v == btn_nextTask) {
             if(studyConfig.size() > 1) {
+                final StudyConfigBean nextTask = studyConfig.get(1);
                 initializeEnabledState();
                 entryCounter = 0;
-                launchNextExplainTaskActivity();
+
+                // if ((!currentTask.isIntroductionGroup()) && currentTask.getGroupId() != nextTask.getGroupId()) {
+                if (currentTask.getGroupId() != nextTask.getGroupId()) {
+                    LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
+                    lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            launchNextExplainTaskActivity();
+                        }
+                    });
+                    lqd.show();
+                } else {
+                    launchNextExplainTaskActivity();
+                }
             } else {
-                showStudyEndDialog();
+                LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
+                lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        showStudyEndDialog();
+                    }
+                });
+                lqd.show();
             }
         } else if (v == btn_savePassword) {
             doSaveAction();
         } else if (v == taskVisualizer) {
-            ExplainNotationDialog end = new ExplainNotationDialog(this, studyConfig.get(0).getPwTask());
+            ExplainNotationDialog end = new ExplainNotationDialog(this, currentTask.getPwTask());
             end.show();
         }
     }
@@ -178,7 +200,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
     private void savePasswordAction() {
         final StudyConfigBean currentStudyTask = studyConfig.get(0);
-        String path = "/" + "ID_" + pid + "/" + currentStudyTask.getSortingGroupId() + "_" + currentStudyTask.getGroupName() + "/TASK_" + currentStudyTask.getSortingTaskId();
+        String path = KeyStrokeLogger.getTaskPath(currentStudyTask, pid);
 
         KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
         et_password.setText("");
