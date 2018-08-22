@@ -44,11 +44,11 @@
     <bool name="config_default_vibration_enabled">true</bool>
     <integer name="config_max_vibration_duration">100</integer>
 
-    <integer name="config_default_longpress_key_timeout">300</integer>
-    <integer name="config_max_longpress_timeout">50000</integer>
-    <integer name="config_min_longpress_timeout">100</integer>
+    <integer name="config_default_longpress_key_timeout">500000</integer>
+    <integer name="config_max_longpress_timeout">500000</integer>
+    <integer name="config_min_longpress_timeout">500000</integer>
     <integer name="config_longpress_timeout_step">10</integer>
-    <integer name="config_accessibility_long_press_key_timeout">3000</integer>
+    <integer name="config_accessibility_long_press_key_timeout">500000</integer>
     <integer name="config_max_more_keys_column">5</integer>
     <integer name="config_more_keys_keyboard_fadein_anim_time">0</integer>
     <integer name="config_more_keys_keyboard_fadeout_anim_time">100</integer>
