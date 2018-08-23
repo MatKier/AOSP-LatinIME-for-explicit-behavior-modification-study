@@ -17,7 +17,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
-        android:id="@+id/tv_question2"
+        android:id="@+id/textView70"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

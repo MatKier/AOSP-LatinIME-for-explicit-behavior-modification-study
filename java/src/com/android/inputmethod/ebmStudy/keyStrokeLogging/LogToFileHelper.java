@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 class LogToFileHelper {
+    private  static final String BASEDIRECTRORY = "KeyStrokeLog";
+
     private static boolean isExternalStorageWritable(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -29,7 +31,7 @@ class LogToFileHelper {
 
     private static void createDirectory(String subPath) {
         File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), "KeyStrokeLog" + subPath);
+                Environment.DIRECTORY_DOCUMENTS), BASEDIRECTRORY + subPath);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -40,7 +42,7 @@ class LogToFileHelper {
         String filename = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS) + "/KeyStrokeLog" + path, filename + ".csv");
+                Environment.DIRECTORY_DOCUMENTS) + "/" + BASEDIRECTRORY + path, filename + ".csv");
 
         FileOutputStream stream;
         if (!file.exists()) {

@@ -115,9 +115,8 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
                 final StudyConfigBean nextTask = studyConfig.get(1);
                 initializeEnabledState();
                 entryCounter = 0;
-
-                // if ((!currentTask.isIntroductionGroup()) && currentTask.getGroupId() != nextTask.getGroupId()) {
-                if (currentTask.getGroupId() != nextTask.getGroupId()) {
+                // if (currentTask.getGroupId() != nextTask.getGroupId()) {
+                if ((!currentTask.isIntroductionGroup()) && currentTask.getGroupId() != nextTask.getGroupId()) {
                     LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
                     lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override

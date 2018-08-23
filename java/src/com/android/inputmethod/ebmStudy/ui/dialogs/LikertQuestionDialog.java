@@ -52,7 +52,7 @@ public class LikertQuestionDialog extends Dialog implements View.OnClickListener
         int answer1 = sb_anserwer1.getProgress() + 1;
         int answer2 = sb_anserwer2.getProgress() + 1;
 
-        KeyStrokeLogger.getTaskGroupPath(currentTask, pid);
+        String filePath = KeyStrokeLogger.getTaskGroupPath(currentTask, pid);
 
         this.dismiss();
     }

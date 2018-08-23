@@ -45,10 +45,13 @@ public class StudyXMLParser {
     private static final String ATTR_SORTING_TASK_ID = "sortingTaskId";
 
 
-    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx, int xmlNo) throws Exception {
-        //InputStream is = ctx.getAssets().open("studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml");
-        InputStream is = ctx.getAssets().open("studyConfig/tasks_short.xml");
-
+    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx, Integer xmlNo) throws Exception {
+        InputStream is;
+        if(xmlNo != null) {
+            is = ctx.getAssets().open("studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml");
+        } else {
+            is = ctx.getAssets().open("studyConfig/tasks_short.xml");
+        }
         DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = dBuilder.parse(is);
 

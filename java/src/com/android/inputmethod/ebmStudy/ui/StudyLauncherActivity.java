@@ -73,7 +73,10 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         Intent intent = new Intent(this, StudyGeneralExplanationActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, participantIdText);
 
-        int xmlNo = Integer.parseInt(participantIdText) % 12;
+        Integer xmlNo = Integer.parseInt(participantIdText) % 12;
+        if (participantIdText.equals("0451")) {
+            xmlNo = null;
+        }
         try {
             ArrayList<StudyConfigBean> studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext(), xmlNo);
             Bundle bundle = new Bundle();
