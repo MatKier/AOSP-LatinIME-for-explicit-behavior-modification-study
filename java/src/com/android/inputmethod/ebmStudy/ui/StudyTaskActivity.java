@@ -38,6 +38,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
     private TextView tv_currentTask;
     private TextView tv_taskTitle;
     private KeyStrokeVisualizerView taskVisualizer;
+    private TextView tv_taskGroupDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         tv_taskTitle = findViewById(R.id.tv_taskTitle);
         taskVisualizer = findViewById(R.id.pwTaskDisplay);
         taskVisualizer.setOnClickListener(this);
+        tv_taskGroupDescription = findViewById(R.id.tv_taskGroupDescription);
 
         initializeEnabledState();
 
@@ -93,16 +95,19 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
     @SuppressLint("SetTextI18n")
     private void setUiElementsToCurrentTask() {
-        pb_taskProgress.setMax(studyConfig.get(0).getNumberOfReps());
-        tv_currentTask.setText("Aufgabe " + studyConfig.get(0).getTaskId());
+        StudyConfigBean currentTask = studyConfig.get(0);
 
-        if (studyConfig.get(0).isIntroductionGroup()) {
+        pb_taskProgress.setMax(currentTask.getNumberOfReps());
+        tv_currentTask.setText("Aufgabe: " + currentTask.getTaskId());
+        tv_taskGroupDescription.setText("Aufgabengruppe: " + currentTask.getGroupName());
+
+        if (currentTask.isIntroductionGroup()) {
             taskVisualizer.setVisibility(View.GONE);
-            tv_taskTitle.setText("Passwort: \n" + studyConfig.get(0).getTaskPWString());
+            tv_taskTitle.setText("Passwort: \n" + currentTask.getTaskPWString());
         } else {
             taskVisualizer.setVisibility(View.VISIBLE);
             tv_taskTitle.setText("Passwort:");
-            taskVisualizer.setKeyStrokeList(studyConfig.get(0).getPwTask());
+            taskVisualizer.setKeyStrokeList(currentTask.getPwTask());
             taskVisualizer.invalidate();
         }
     }

@@ -34,6 +34,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     private TextView tvBiometricsTitle;
     private TextView tvPwTaskTitle;
     private HorizontalScrollView horScrollView;
+    private TextView tv_taskGroupDescription;
 
     private KeyStrokeVisualizerView pwTaskView;
     private KeyStrokeVisualizerView ksvView;
@@ -59,6 +60,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         pwTaskView = findViewById(R.id.pwTaskDisplay);
         pwTaskView.setOnClickListener(this);
         ksvView = findViewById(R.id.keyStrokeBiometricsDisplay);
+        tv_taskGroupDescription = findViewById(R.id.tv_taskGroupDescription);
 
         etTrainingField.addTextChangedListener(new TextWatcher() {
             int charCount = 0;
@@ -125,24 +127,27 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     }
 
     private void setUiElementsToCurrentTask() {
-        tvTitle.setText("Aufgabe: " + studyConfig.get(0).getTaskId());
-        btnStartTask.setText("Aufgabe " + studyConfig.get(0).getTaskId() + " starten");
+        StudyConfigBean currentTask = studyConfig.get(0);
 
-        if (studyConfig.get(0).isIntroductionGroup()) {
-            tvDescription.setText("Geben Sie das untenstehende Passwort " + studyConfig.get(0).getNumberOfReps() + "-mal ein.");
+        tvTitle.setText("Aufgabe: " + currentTask.getTaskId());
+        btnStartTask.setText("Aufgabe " + currentTask.getTaskId() + " starten");
+        tv_taskGroupDescription.setText("Aufgabengruppe: " + currentTask.getGroupName());
+
+        if (currentTask.isIntroductionGroup()) {
+            tvDescription.setText("Geben Sie das untenstehende Passwort " + currentTask.getNumberOfReps() + "-mal ein.");
             pwTaskView.setVisibility(View.GONE);
             ksvView.setVisibility(View.GONE);
             horScrollView.setVisibility(View.GONE);
             tvBiometricsTitle.setVisibility(View.GONE);
-            tvPwTaskTitle.setText("Aufgaben Passwort: \n" + studyConfig.get(0).getTaskPWString() + "\n");
+            tvPwTaskTitle.setText("Aufgaben Passwort: \n" + currentTask.getTaskPWString() + "\n");
         } else {
-            tvDescription.setText("Geben Sie das untenstehende Passwort " + studyConfig.get(0).getNumberOfReps() + "-mal entsprechend seiner Notation ein.");
+            tvDescription.setText("Geben Sie das untenstehende Passwort " + currentTask.getNumberOfReps() + "-mal entsprechend seiner Notation ein.");
             pwTaskView.setVisibility(View.VISIBLE);
             ksvView.setVisibility(View.VISIBLE);
             horScrollView.setVisibility(View.VISIBLE);
             tvBiometricsTitle.setVisibility(View.VISIBLE);
             tvPwTaskTitle.setText("Aufgaben Passwort: (Berühren für Erläuterung)");
-            pwTaskView.setKeyStrokeList(studyConfig.get(0).getPwTask());
+            pwTaskView.setKeyStrokeList(currentTask.getPwTask());
             pwTaskView.invalidate();
 
         }
