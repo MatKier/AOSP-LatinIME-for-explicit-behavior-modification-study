@@ -1,6 +1,7 @@
 package com.android.inputmethod.ebmStudy.keyStrokeLogging;
 
 public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
+    private long unixTimeStamp;
     private long eventTime;
     private int x;
     private int y;
@@ -13,10 +14,11 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
     private boolean isLongPressed;
     private String longPressKey;
 
-    KeyStrokeDataBean(String eventType, long eventTime, String keyValue, int x, int y, int offsetX,
+    KeyStrokeDataBean(long unixTimeStamp, String eventType, long eventTime, String keyValue, int x, int y, int offsetX,
                       int offsetY, int keyCenterX, int keyCenterY, float orientation, float touchMinor,
                       float touchMajor, float size, long holdTime, long flightTime, float pressure) {
         super(eventType, keyValue, offsetX, offsetY, holdTime, flightTime, pressure);
+        this.unixTimeStamp = unixTimeStamp;
         this.eventTime = eventTime;
         this.x = x;
         this.y = y;
@@ -43,7 +45,7 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
     }
 
     static String getCSVHeader() {
-        return "eventType; eventTime; keyValue; x; y; offsetX; offsetY; keyCenterX; keyCenterY; orientation;" +
+        return "unixTimeStamp; eventType; eventTime; keyValue; x; y; offsetX; offsetY; keyCenterX; keyCenterY; orientation;" +
                 " touchMinor; touchMajor; size; holdTime; flightTime; pressure; isLongPressed; longPressKey \n";
     }
 
@@ -52,7 +54,7 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
      * @return
      */
     String toCSVString() {
-        return getEventType() + "; " + eventTime + "; " + getKeyValue() + "; " + x + "; " + y + "; " + getOffsetX()
+        return unixTimeStamp + "; " + getEventType() + "; " + eventTime + "; " + getKeyValue() + "; " + x + "; " + y + "; " + getOffsetX()
                 + "; " + getOffsetY() + "; " + keyCenterX + "; " + keyCenterY + "; " + orientation + "; "
                 + touchMinor + "; " + touchMajor + "; " + size + "; " + getHoldTime() + ";" + getFlightTime() +
                 ";" + getPressure() + "; " + isLongPressed + "; " + longPressKey + "\n";

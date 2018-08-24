@@ -10,6 +10,7 @@ import java.util.List;
 class KeyStrokeLoggingHelper {
 
     static void logKeyEvent(List<KeyStrokeDataBean> keyStrokeDataList, final MotionEvent me, Key key) {
+        final long unixTime = System.currentTimeMillis();
         final int x = (int)me.getX();
         final int y = (int)me.getY();
         final long eventTime = me.getEventTime();
@@ -50,7 +51,7 @@ class KeyStrokeLoggingHelper {
             holdTime = eventTime - downTimestamp;
         }
 
-        keyStrokeDataList.add(new KeyStrokeDataBean(eventType, eventTime, keyText, x, y, offsetX, offsetY,
+        keyStrokeDataList.add(new KeyStrokeDataBean(unixTime, eventType, eventTime, keyText, x, y, offsetX, offsetY,
                 keyCenterX, keyCenterY, orientation, touchMinor, touchMajor, size, holdTime, flightTime, pressure));
     }
 
