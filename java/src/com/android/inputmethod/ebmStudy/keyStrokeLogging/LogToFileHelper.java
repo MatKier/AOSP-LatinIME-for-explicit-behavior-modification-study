@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 class LogToFileHelper {
-    private  static final String BASEDIRECTRORY = "KeyStrokeLog";
+    private static final String BASEDIRECTRORY = "KeyStrokeLog";
 
     private static boolean isExternalStorageWritable(Context context) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -34,6 +34,24 @@ class LogToFileHelper {
                 Environment.DIRECTORY_DOCUMENTS), BASEDIRECTRORY + subPath);
         if (!file.exists()) {
             file.mkdirs();
+        }
+    }
+
+    static void writeLikertAnswersToCSV(String path, String groupSortingId, String csvContent, Context context) {
+        if (isExternalStorageWritable(context)) {
+            try {
+                File file = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOCUMENTS) + "/" + BASEDIRECTRORY + path, "likertAnswers" + groupSortingId + ".csv");
+                FileOutputStream stream = new FileOutputStream(file, true);
+                stream.write(csvContent.getBytes());
+                stream.flush();
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(context, "Exception while writing file", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(context, "Can't access external storage (not mounted or no permission)", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -77,7 +95,6 @@ class LogToFileHelper {
             } else {
                 Toast.makeText(context, "Can't access external storage (not mounted or no permission)", Toast.LENGTH_LONG).show();
             }
-            Log.d("closing", keyStrokeDataList.toString());
         }
     }
 

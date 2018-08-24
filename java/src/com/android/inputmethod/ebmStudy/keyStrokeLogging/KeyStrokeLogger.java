@@ -15,6 +15,9 @@ import com.android.inputmethod.keyboard.Key;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Singleton class for remembering, logging and persisting keystroke data
+ */
 public class KeyStrokeLogger {
     private static final KeyStrokeLogger instance = new KeyStrokeLogger();
 
@@ -28,6 +31,11 @@ public class KeyStrokeLogger {
         return instance;
     }
 
+    /**
+     *
+     * @param me
+     * @param key
+     */
     public void logKeyEvent(final MotionEvent me, final Key key) {
         if ((key != null && !key.isActionKey()) || key == null) {
             KeyStrokeLoggingHelper.logKeyEvent(keyStrokeDataList, me, key);
@@ -54,7 +62,7 @@ public class KeyStrokeLogger {
     //}
 
     /**
-     * Writes log to CSV file if study is active (determined by StudyTaskActivity.isIsStudyActive())
+     * Writes log to CSV file
      *
      * @param context
      * @param path    the file path after Documents/KeyStrokeLog
@@ -66,10 +74,22 @@ public class KeyStrokeLogger {
         //}
     }
 
+    /**
+     *
+     * @param currentStudyTask
+     * @param pid
+     * @return
+     */
     public static String getTaskGroupPath(StudyConfigBean currentStudyTask, String pid) {
         return "/" + "ID_" + pid + "/" + currentStudyTask.getSortingGroupId() + "_" + currentStudyTask.getGroupName();
     }
 
+    /**
+     *
+     * @param currentStudyTask
+     * @param pid
+     * @return
+     */
     public static String getTaskPath(StudyConfigBean currentStudyTask, String pid) {
         return getTaskGroupPath(currentStudyTask, pid) + "/TASK_" + currentStudyTask.getSortingTaskId();
     }
@@ -129,5 +149,17 @@ public class KeyStrokeLogger {
      */
     public int getNumberOfEventsSinceLastClear() {
         return keyStrokeDataList.size();
+    }
+
+    /**
+     * Writes the String csvContet to a CSV file in /Documents/KeyStrokeLog/<path>
+     * This should probably be placed somewhere else
+     * @param path
+     * @param groupSortingId
+     * @param csvContent
+     * @param context
+     */
+    public static void writeLikertAnswersToCSVFile(String path, String groupSortingId, String csvContent, Context context) {
+        LogToFileHelper.writeLikertAnswersToCSV(path, groupSortingId, csvContent, context);
     }
 }

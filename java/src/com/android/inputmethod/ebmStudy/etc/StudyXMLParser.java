@@ -2,6 +2,7 @@ package com.android.inputmethod.ebmStudy.etc;
 
 import android.content.Context;
 
+import com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 
 import org.w3c.dom.Document;
@@ -124,9 +125,9 @@ public class StudyXMLParser {
                     String hTimeString = ((Element) letterNode).getAttribute(ATTR_HTIME);
                     int holdTime = 0;
                     if (hTimeString.equals(ATTR_VAL_TIME_LONG)) {
-                        holdTime = 10000;
+                        holdTime = KeyStrokeVisualizerView.MAX_HOLD_TIME_MS;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_SHORT)) {
-                        holdTime = 0;
+                        holdTime = KeyStrokeVisualizerView.MIN_FLIGHT_TIME_MS;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
                         holdTime = 150;
                     } else {
@@ -138,9 +139,9 @@ public class StudyXMLParser {
                         String fTimeString = ((Element) letterNode).getAttribute(ATTR_FTIME);
                         flightTime = 0;
                         if (fTimeString.equals(ATTR_VAL_TIME_LONG)) {
-                            flightTime = 10000;
+                            flightTime = KeyStrokeVisualizerView.MAX_FLIGHT_TIME_MS;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_SHORT)) {
-                            flightTime = 0;
+                            flightTime = KeyStrokeVisualizerView.MIN_FLIGHT_TIME_MS;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
                             flightTime = 150;
                         } else {

@@ -38,12 +38,12 @@ public class KeyStrokeVisualizerView extends View {
 
     private List<? extends SimpleKeyStrokeDataBean>  keyStrokeList;
 
-    private static final int MIN_HOLD_TIME_MS = 100;
-    private static final int MAX_HOLD_TIME_MS = 500;
+    public static final int MIN_HOLD_TIME_MS = 100;
+    public static final int MAX_HOLD_TIME_MS = 500;
     private static final int HOLD_TIME_SCALE = 4;
 
-    private static final int MIN_FLIGHT_TIME_MS = 100;
-    private static final int MAX_FLIGHT_TIME_MS = 1000;
+    public static final int MIN_FLIGHT_TIME_MS = 100;
+    public static final int MAX_FLIGHT_TIME_MS = 1000;
     private static final int FLIGHT_TIME_SCALE = 10;
 
     private static final int PRESSURE_SCALE = 80;
