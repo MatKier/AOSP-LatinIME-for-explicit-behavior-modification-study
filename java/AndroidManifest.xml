@@ -103,7 +103,7 @@
         <activity android:name="com.android.inputmethod.ebmStudy.ui.StudyExplainTaskActivity"
             android:label="Explicit behavior modification study"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name="com.android.inputmethod.ebmStudy.ui.StudyPreStudyActivity"
             android:label="Explicit behavior modification study"

@@ -2,10 +2,17 @@ package com.android.inputmethod.ebmStudy.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 public abstract class StudyAbstractActivity extends Activity {
 
     private static boolean isActivityRunning;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActionBar().hide();
+    }
 
     @Override
     protected void onResume() {
