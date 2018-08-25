@@ -35,6 +35,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     private TextView tvPwTaskTitle;
     private HorizontalScrollView horScrollView;
     private TextView tv_taskGroupDescription;
+    private TextView tv_description2;
 
     private KeyStrokeVisualizerView pwTaskView;
     private KeyStrokeVisualizerView ksvView;
@@ -53,6 +54,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         btnClearField.setOnClickListener(this);
         etTrainingField = findViewById(R.id.et_trainingField);
         tvDescription = findViewById(R.id.tv_description);
+        tv_description2 = findViewById(R.id.tv_description2);
         tvTitle = findViewById(R.id.tv_title);
         tvBiometricsTitle = findViewById(R.id.tv_biometrics_title);
         tvPwTaskTitle = findViewById(R.id.tvPwTaskTitle);
@@ -77,7 +79,8 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -87,7 +90,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                     ksvView.invalidate();
                     isFieldResettable = true;
                 } else {
-                    if(isFieldResettable) {
+                    if (isFieldResettable) {
                         isFieldResettable = false;
                         etTrainingField.setText("");
                     }
@@ -109,7 +112,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                 return true;
             }
         });
-    };
+    }
 
     private void getStudyInfoFromExtras() {
         Intent intent = getIntent();
@@ -133,14 +136,14 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
         btnStartTask.setText("Aufgabe " + currentTask.getTaskId() + " starten");
         tv_taskGroupDescription.setText("Aufgabengruppe: " + currentTask.getGroupName());
 
-        if (currentTask.isIntroductionGroup()) {
+        if (currentTask.isIntroductionGroup() && currentTask.getPwTask().size() != 0) {
             tvDescription.setText("Geben Sie das untenstehende Passwort " + currentTask.getNumberOfReps() + "-mal ein.");
             pwTaskView.setVisibility(View.GONE);
             ksvView.setVisibility(View.GONE);
             horScrollView.setVisibility(View.GONE);
             tvBiometricsTitle.setVisibility(View.GONE);
             tvPwTaskTitle.setText("Aufgaben Passwort: \n" + currentTask.getTaskPWString() + "\n");
-        } else {
+        } else if (!currentTask.isIntroductionGroup() && currentTask.getPwTask().size() != 0) {
             tvDescription.setText("Geben Sie das untenstehende Passwort " + currentTask.getNumberOfReps() + "-mal entsprechend seiner Notation ein.");
             pwTaskView.setVisibility(View.VISIBLE);
             ksvView.setVisibility(View.VISIBLE);
@@ -149,7 +152,18 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
             tvPwTaskTitle.setText("Aufgaben Passwort: (Berühren für Erläuterung)");
             pwTaskView.setKeyStrokeList(currentTask.getPwTask());
             pwTaskView.invalidate();
-
+        } else if (currentTask.getPwTask().size() == 0) {
+            tvDescription.setText("Denken Sie sich ein eigenes 6-8 stelliges Verhaltensbiometrie-Passwort aus (nur Kleinbuchstaben).\n" +
+                    "Passen Sie dabei mind. eine Eigenschaft an (offset, holdtime, flighttime, area).\n\n" +
+                    "Sie können das Übungsfeld Nutzen, um die Eingabe Ihres Passwortes zu üben.\n\n" +
+                    "Wenn Sie bereit sind, drücken sie den Button 'Aufgabe Starten' und geben Sie dann Ihr selbst ausgedachtes Passwort " + currentTask.getNumberOfReps() +
+                    "-mal auf die gleiche Art und Weise ein.");
+            ksvView.setVisibility(View.VISIBLE);
+            horScrollView.setVisibility(View.VISIBLE);
+            tvBiometricsTitle.setVisibility(View.VISIBLE);
+            tv_description2.setVisibility(View.GONE);
+            pwTaskView.setVisibility(View.GONE);
+            tvPwTaskTitle.setVisibility(View.GONE);
         }
     }
 
@@ -183,7 +197,8 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
 
     private void launchActualTask() {
         Intent intent = new Intent(this, StudyTaskActivity.class);
-        intent.putExtra(StudyConstants.INTENT_PID, pid);;
+        intent.putExtra(StudyConstants.INTENT_PID, pid);
+        ;
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
         Bundle bundle = new Bundle();

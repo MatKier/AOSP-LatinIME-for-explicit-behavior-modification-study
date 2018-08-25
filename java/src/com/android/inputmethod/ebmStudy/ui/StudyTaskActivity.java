@@ -101,14 +101,17 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         tv_currentTask.setText("Aufgabe: " + currentTask.getTaskId());
         tv_taskGroupDescription.setText("Aufgabengruppe: " + currentTask.getGroupName());
 
-        if (currentTask.isIntroductionGroup()) {
+        if (currentTask.isIntroductionGroup() && currentTask.getPwTask().size() != 0) {
             taskVisualizer.setVisibility(View.GONE);
-            tv_taskTitle.setText("Passwort: \n" + currentTask.getTaskPWString());
-        } else {
+            tv_taskTitle.setText("Aufgaben Passwort: \n" + currentTask.getTaskPWString());
+        } else if (!currentTask.isIntroductionGroup() && currentTask.getPwTask().size() != 0) {
             taskVisualizer.setVisibility(View.VISIBLE);
-            tv_taskTitle.setText("Passwort:");
+            tv_taskTitle.setText("Aufgaben Passwort:");
             taskVisualizer.setKeyStrokeList(currentTask.getPwTask());
             taskVisualizer.invalidate();
+        }  else if (currentTask.getPwTask().size() == 0) {
+            taskVisualizer.setVisibility(View.GONE);
+            tv_taskTitle.setText("Geben Sie Ihr selbst ausgedachtes Passwort ein:");
         }
     }
 
@@ -116,6 +119,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
     public void onClick(View v) {
         final StudyConfigBean currentTask = studyConfig.get(0);
         if (v == btn_nextTask) {
+            // Case: We are not in the last task
             if(studyConfig.size() > 1) {
                 final StudyConfigBean nextTask = studyConfig.get(1);
                 initializeEnabledState();
@@ -134,14 +138,16 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
                     launchNextExplainTaskActivity();
                 }
             } else {
-                LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
+                // Case: We are in the last task
+                // TODO Don't show likert questions in last task(user created pw)?
+                /*LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
                 lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onDismiss(DialogInterface dialog) {
+                    public void onDismiss(DialogInterface dialog) {*/
                         showStudyEndDialog();
-                    }
+            /*        }
                 });
-                lqd.show();
+                lqd.show();*/
             }
         } else if (v == btn_savePassword) {
             doSaveAction();
@@ -166,25 +172,33 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
     }
 
     private void doSaveAction() {
-        int actualNumberOfTouchEvents = KeyStrokeLogger.getInstance().getNumberOfEventsSinceLastClear();
-        int numberOfDesiredTouchEvents = studyConfig.get(0).getPwTask().size();
+        final StudyConfigBean currentTask = studyConfig.get(0);
 
-        String actualPasswordStringValue = et_password.getText().toString();
+        int numberOfDesiredTouchEvents = currentTask.getPwTask().size();
 
-        String desiredPasswordStringValue = studyConfig.get(0).getTaskPWString();
+        // Case: currentTask is not the 'user created pw task'
+        if (numberOfDesiredTouchEvents != 0) {
+            int actualNumberOfTouchEvents = KeyStrokeLogger.getInstance().getNumberOfEventsSinceLastClear();
 
-        if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
-            if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
-                savePasswordAction();
+            String desiredPasswordStringValue = currentTask.getTaskPWString();
+            String actualPasswordStringValue = et_password.getText().toString();
+
+            if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
+                if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
+                    savePasswordAction();
+                } else {
+                    KeyStrokeLogger.getInstance().clearKeyStrokeList();
+                    et_password.setText("");
+                    Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
+                }
             } else {
                 KeyStrokeLogger.getInstance().clearKeyStrokeList();
                 et_password.setText("");
-                Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_LONG).show();
             }
         } else {
-            KeyStrokeLogger.getInstance().clearKeyStrokeList();
-            et_password.setText("");
-            Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_LONG).show();
+            // Case: currentTask is the 'user created pw task' => no validation
+            savePasswordAction();
         }
     }
 
