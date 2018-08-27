@@ -127,9 +127,9 @@ public class StudyXMLParser {
                     if (hTimeString.equals(ATTR_VAL_TIME_LONG)) {
                         holdTime = KeyStrokeVisualizerView.MAX_HOLD_TIME_MS;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_SHORT)) {
-                        holdTime = KeyStrokeVisualizerView.MIN_FLIGHT_TIME_MS;
+                        holdTime = KeyStrokeVisualizerView.DEFAULT_HOLD_TIME_MS;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
-                        holdTime = 150;
+                        holdTime = KeyStrokeVisualizerView.DEFAULT_HOLD_TIME_MS;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported htime: " + hTimeString + "]");
                     }
@@ -141,9 +141,9 @@ public class StudyXMLParser {
                         if (fTimeString.equals(ATTR_VAL_TIME_LONG)) {
                             flightTime = KeyStrokeVisualizerView.MAX_FLIGHT_TIME_MS;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_SHORT)) {
-                            flightTime = KeyStrokeVisualizerView.MIN_FLIGHT_TIME_MS;
+                            flightTime = KeyStrokeVisualizerView.DEFAULT_FLIGHT_TIME_MS;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
-                            flightTime = 150;
+                            flightTime = KeyStrokeVisualizerView.DEFAULT_FLIGHT_TIME_MS;
                         } else {
                             throw new Exception("taskId: " + taskId + " [Unsupported ftime: " + fTimeString + "]");
                         }

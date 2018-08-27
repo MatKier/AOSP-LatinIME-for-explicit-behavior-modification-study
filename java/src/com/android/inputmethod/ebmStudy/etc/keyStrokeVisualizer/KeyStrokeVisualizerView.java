@@ -36,14 +36,15 @@ public class KeyStrokeVisualizerView extends View {
 
     private static final int CORNER_RADIUS = 15;
 
+
     private List<? extends SimpleKeyStrokeDataBean>  keyStrokeList;
 
-    public static final int MIN_HOLD_TIME_MS = 100;
-    public static final int MAX_HOLD_TIME_MS = 500;
+    public static final int DEFAULT_HOLD_TIME_MS = 80;
+    public static final int MAX_HOLD_TIME_MS = DEFAULT_HOLD_TIME_MS * 5;
     private static final int HOLD_TIME_SCALE = 4;
 
-    public static final int MIN_FLIGHT_TIME_MS = 100;
-    public static final int MAX_FLIGHT_TIME_MS = 1000;
+    public static final int DEFAULT_FLIGHT_TIME_MS = 260;
+    public static final int MAX_FLIGHT_TIME_MS = DEFAULT_FLIGHT_TIME_MS * 4;
     private static final int FLIGHT_TIME_SCALE = 10;
 
     private static final int PRESSURE_SCALE = 80;
@@ -89,8 +90,8 @@ public class KeyStrokeVisualizerView extends View {
             /* Move to the right (in relation to the flightTime)*/
             if (bean.getEventType().equals(StudyConstants.EVENT_TYPE_DOWN) && bean.getFlightTime() != -1) {
                 long fTime = bean.getFlightTime();
-                if (fTime < MIN_FLIGHT_TIME_MS) {
-                    currentX = currentX + MIN_FLIGHT_TIME_MS / FLIGHT_TIME_SCALE;
+                if (fTime < DEFAULT_FLIGHT_TIME_MS) {
+                    currentX = currentX + DEFAULT_FLIGHT_TIME_MS / FLIGHT_TIME_SCALE;
                 } else if (fTime > MAX_FLIGHT_TIME_MS) {
                     currentX = currentX + MAX_FLIGHT_TIME_MS / FLIGHT_TIME_SCALE;
                 } else {
@@ -100,7 +101,7 @@ public class KeyStrokeVisualizerView extends View {
                 /* Draw key shape */
                 int holdTime = (int) bean.getHoldTime();
                 int keyShapeWidth;
-                if (holdTime <= MIN_HOLD_TIME_MS) {
+                if (holdTime <= DEFAULT_HOLD_TIME_MS) {
                     keyShapeWidth = BASE_KEY_SHAPE_WIDTH;
                 } else if (holdTime >= MAX_HOLD_TIME_MS) {
                     keyShapeWidth = BASE_KEY_SHAPE_WIDTH + (MAX_HOLD_TIME_MS - 100) / HOLD_TIME_SCALE;
