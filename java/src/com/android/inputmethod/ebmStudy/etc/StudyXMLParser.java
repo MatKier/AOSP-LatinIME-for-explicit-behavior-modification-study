@@ -17,6 +17,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class StudyXMLParser {
+    public static final int DEFAULT_HOLD_TIME_MS = 80;
+    public static final int MAX_HOLD_TIME_MS = 300;
+    public static final int DEFAULT_FLIGHT_TIME_MS = 260;
+    public static final int MAX_FLIGHT_TIME_MS = 1000;
+
     private static final String TAG_TASK = "task";
     private static final String ATTR_TASK_ID = "taskId";
     private static final String ATTR_NUM_REPS = "numberOfReps";
@@ -125,11 +130,11 @@ public class StudyXMLParser {
                     String hTimeString = ((Element) letterNode).getAttribute(ATTR_HTIME);
                     int holdTime = 0;
                     if (hTimeString.equals(ATTR_VAL_TIME_LONG)) {
-                        holdTime = KeyStrokeVisualizerView.MAX_HOLD_TIME_MS;
+                        holdTime = MAX_HOLD_TIME_MS;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_SHORT)) {
-                        holdTime = KeyStrokeVisualizerView.DEFAULT_HOLD_TIME_MS;
+                        holdTime = DEFAULT_HOLD_TIME_MS;
                     } else if (hTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
-                        holdTime = KeyStrokeVisualizerView.DEFAULT_HOLD_TIME_MS;
+                        holdTime = DEFAULT_HOLD_TIME_MS;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported htime: " + hTimeString + "]");
                     }
@@ -139,11 +144,11 @@ public class StudyXMLParser {
                         String fTimeString = ((Element) letterNode).getAttribute(ATTR_FTIME);
                         flightTime = 0;
                         if (fTimeString.equals(ATTR_VAL_TIME_LONG)) {
-                            flightTime = KeyStrokeVisualizerView.MAX_FLIGHT_TIME_MS;
+                            flightTime = MAX_FLIGHT_TIME_MS;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_SHORT)) {
-                            flightTime = KeyStrokeVisualizerView.DEFAULT_FLIGHT_TIME_MS;
+                            flightTime = DEFAULT_FLIGHT_TIME_MS;
                         } else if (fTimeString.equals(ATTR_VAL_TIME_DEFAULT)) {
-                            flightTime = KeyStrokeVisualizerView.DEFAULT_FLIGHT_TIME_MS;
+                            flightTime = DEFAULT_FLIGHT_TIME_MS;
                         } else {
                             throw new Exception("taskId: " + taskId + " [Unsupported ftime: " + fTimeString + "]");
                         }
