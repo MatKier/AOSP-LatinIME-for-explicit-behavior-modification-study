@@ -125,7 +125,8 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
                 initializeEnabledState();
                 entryCounter = 0;
                 // if (currentTask.getGroupId() != nextTask.getGroupId()) {
-                if ((!currentTask.isIntroductionGroup()) && currentTask.getGroupId() != nextTask.getGroupId()) {
+                // TODO lkaunch likert question dialkog after evrey task
+                if ((!currentTask.isIntroductionGroup())) {
                     LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
                     lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
@@ -139,15 +140,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
                 }
             } else {
                 // Case: We are in the last task
-                // TODO Don't show likert questions in last task(user created pw)?
-                /*LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
-                lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {*/
-                        showStudyEndDialog();
-            /*        }
-                });
-                lqd.show();*/
+                showStudyEndDialog();
             }
         } else if (v == btn_savePassword) {
             doSaveAction();

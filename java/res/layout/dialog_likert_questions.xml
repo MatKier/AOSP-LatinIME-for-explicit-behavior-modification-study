@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Einschätzung:"
+        android:text="Einschätzung zur letzten Aufgabe:"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -295,6 +295,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Aufgabengruppe: "
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 

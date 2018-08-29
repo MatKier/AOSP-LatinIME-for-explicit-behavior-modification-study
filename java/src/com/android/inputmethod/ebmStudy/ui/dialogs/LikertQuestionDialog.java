@@ -84,14 +84,14 @@ public class LikertQuestionDialog extends Dialog implements View.OnClickListener
             int answer2 = sb_anserwer2.getProgress() + 1;
             int answer3 = sb_anserwer3.getProgress() + 1;
 
-            String filePath = KeyStrokeLogger.getTaskGroupPath(currentTask, pid);
+            String filePath = KeyStrokeLogger.getTaskPath(currentTask, pid);
 
             String csvHeader = tv_question1.getText() + "; " + tv_question2.getText() + "; " + tv_question3.getText();
             String csvAnswer = answer1 + "; " + answer2 + "; " + answer3;
 
             String csvString = csvHeader + "\n" + csvAnswer;
 
-            KeyStrokeLogger.writeLikertAnswersToCSVFile(filePath, currentTask.getSortingGroupId(), csvString, getContext());
+            KeyStrokeLogger.writeLikertAnswersToCSVFile(filePath, "G" + currentTask.getSortingGroupId() + "_T" + currentTask.getTaskId(), csvString, getContext());
 
             this.dismiss();
         } else {

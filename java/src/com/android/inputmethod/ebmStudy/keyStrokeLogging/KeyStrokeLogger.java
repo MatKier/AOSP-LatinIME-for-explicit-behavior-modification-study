@@ -155,11 +155,11 @@ public class KeyStrokeLogger {
      * Writes the String csvContet to a CSV file in /Documents/KeyStrokeLog/<path>
      * This should probably be placed somewhere else
      * @param path
-     * @param groupSortingId
+     * @param identifier
      * @param csvContent
      * @param context
      */
-    public static void writeLikertAnswersToCSVFile(String path, String groupSortingId, String csvContent, Context context) {
-        LogToFileHelper.writeLikertAnswersToCSV(path, groupSortingId, csvContent, context);
+    public static void writeLikertAnswersToCSVFile(String path, String identifier, String csvContent, Context context) {
+        LogToFileHelper.writeLikertAnswersToCSV(path, identifier, csvContent, context);
     }
 }

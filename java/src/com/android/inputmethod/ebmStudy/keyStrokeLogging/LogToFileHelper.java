@@ -37,11 +37,11 @@ class LogToFileHelper {
         }
     }
 
-    static void writeLikertAnswersToCSV(String path, String groupSortingId, String csvContent, Context context) {
+    static void writeLikertAnswersToCSV(String path, String identifier, String csvContent, Context context) {
         if (isExternalStorageWritable(context)) {
             try {
                 File file = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DOCUMENTS) + "/" + BASEDIRECTRORY + path, "likertAnswers" + groupSortingId + ".csv");
+                        Environment.DIRECTORY_DOCUMENTS) + "/" + BASEDIRECTRORY + path, "likertAnswers" + identifier + ".csv");
                 FileOutputStream stream = new FileOutputStream(file, true);
                 stream.write(csvContent.getBytes());
                 stream.flush();
