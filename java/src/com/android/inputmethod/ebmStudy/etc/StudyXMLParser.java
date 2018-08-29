@@ -105,9 +105,9 @@ public class StudyXMLParser {
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_RIGHT)) {
                         offSetX = 145;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_TOP)) {
-                        offSetY = 220;
-                    } else if (offsetString.equals(ATTR_VAL_OFFSET_BOTTOM)) {
                         offSetY = -220;
+                    } else if (offsetString.equals(ATTR_VAL_OFFSET_BOTTOM)) {
+                        offSetY = 220;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported offset: " + offsetString + "]");
                     }
