@@ -102,7 +102,7 @@ public class KeyStrokeLogger {
     }
 
     /**
-     * This is only usefull for the ExplainTask activity where one wants to remove all the
+     * This is only useful for the ExplainTask activity where one wants to remove all the
      * delete key events while the training edittext is empty
      */
     public void clearKeyStrokeListExceptForLastEventPair() {

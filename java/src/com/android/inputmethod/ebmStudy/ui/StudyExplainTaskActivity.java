@@ -92,7 +92,8 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
                 } else {
                     if (isFieldResettable) {
                         isFieldResettable = false;
-                        etTrainingField.setText("");
+                        //etTrainingField.setText("");
+                        clearFields();
                     }
                     charCount = 0;
 
@@ -188,8 +189,11 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
     }
 
     private void clearFields() {
+        final StudyConfigBean currentStudyTask = studyConfig.get(0);
+        String path = KeyStrokeLogger.getTaskPath(currentStudyTask, pid) + "/training";
+
+        KeyStrokeLogger.getInstance().writeToCSVFile(this, path, "training");
         etTrainingField.setText("");
-        KeyStrokeLogger.getInstance().clearKeyStrokeList();
 
         ksvView.setKeyStrokeList(null);
         ksvView.invalidate();
