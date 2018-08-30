@@ -115,7 +115,7 @@ public class StudyPreStudyActivity extends StudyAbstractActivity implements View
     public void onClick(View view) {
         // TODO replace if ever used again
         String path = "/" + "PreStudy" + "/" + "ID_" + pid + "/" + sp_selectPreStudyPw.getSelectedItem().toString();
-        KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
+        KeyStrokeLogger.getInstance().writeToCSVFile(this, path, "prestud");
         et_trainingField.setText("");
 
         ksvView.setKeyStrokeList(null);

@@ -25,6 +25,10 @@ import com.android.inputmethod.latin.R;
 import java.util.ArrayList;
 
 public class StudyTaskActivity extends StudyAbstractActivity implements View.OnClickListener {
+    private static final String ERROR_PREFIX_VALID = "valid";
+    private static final String ERROR_PREFIX_WRONG_TOUCH = "touchError";
+    private static final String ERROR_PREFIX_WRONG_KEYS = "keyError";
+
     private int entryCounter = 0;
 
     private String pid;
@@ -125,7 +129,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
                 initializeEnabledState();
                 entryCounter = 0;
                 // if (currentTask.getGroupId() != nextTask.getGroupId()) {
-                // TODO lkaunch likert question dialkog after evrey task
+                // TODO launch likert question dialkog after evrey task
                 if ((!currentTask.isIntroductionGroup())) {
                     LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
                     lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -178,20 +182,25 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
             if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
                 if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
-                    savePasswordAction();
+                    // TODO flag in der methode für identifizierung nutzten (valid, touchError, keyError)
+                    incrementProgressbar();
+                    savePasswordAction(ERROR_PREFIX_VALID);
                 } else {
-                    KeyStrokeLogger.getInstance().clearKeyStrokeList();
-                    et_password.setText("");
+//                    KeyStrokeLogger.getInstance().clearKeyStrokeList();
+//                    et_password.setText("");
+                    savePasswordAction(ERROR_PREFIX_WRONG_TOUCH);
                     Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
                 }
             } else {
-                KeyStrokeLogger.getInstance().clearKeyStrokeList();
-                et_password.setText("");
+//                KeyStrokeLogger.getInstance().clearKeyStrokeList();
+//                et_password.setText("");
+                savePasswordAction(ERROR_PREFIX_WRONG_KEYS);
                 Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_LONG).show();
             }
         } else {
             // Case: currentTask is the 'user created pw task' => no validation
-            savePasswordAction();
+            incrementProgressbar();
+            savePasswordAction(ERROR_PREFIX_VALID);
         }
     }
 
@@ -209,21 +218,23 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         startActivity(intent);
     }
 
-    private void savePasswordAction() {
+    private void savePasswordAction(String errorPrefix) {
         final StudyConfigBean currentStudyTask = studyConfig.get(0);
         String path = KeyStrokeLogger.getTaskPath(currentStudyTask, pid);
 
-        KeyStrokeLogger.getInstance().writeToCSVFile(this, path);
+        KeyStrokeLogger.getInstance().writeToCSVFile(this, path, errorPrefix);
         et_password.setText("");
-
-        entryCounter += 1;
-        setProgressCounter();
 
         if (entryCounter >= currentStudyTask.getNumberOfReps()) {
             et_password.setEnabled(false);
             btn_savePassword.setEnabled(false);
             btn_nextTask.setEnabled(true);
         }
+    }
+
+    private void incrementProgressbar() {
+        entryCounter += 1;
+        setProgressCounter();
     }
 
     private void setProgressCounter() {

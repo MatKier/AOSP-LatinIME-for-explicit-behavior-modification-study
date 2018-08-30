@@ -67,9 +67,9 @@ public class KeyStrokeLogger {
      * @param context
      * @param path    the file path after Documents/KeyStrokeLog
      */
-    public void writeToCSVFile(Context context, String path) {
+    public void writeToCSVFile(Context context, String path, String errorPrefix) {
         //if (isStudyActive()) {
-        LogToFileHelper.logToFile(context, keyStrokeDataList, path);
+        LogToFileHelper.logToFile(context, keyStrokeDataList, path, errorPrefix);
         keyStrokeDataList.clear();
         //}
     }

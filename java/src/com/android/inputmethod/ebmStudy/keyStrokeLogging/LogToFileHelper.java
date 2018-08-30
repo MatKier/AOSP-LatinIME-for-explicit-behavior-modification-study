@@ -55,9 +55,9 @@ class LogToFileHelper {
         }
     }
 
-    private static void writeDataListToFile(List<KeyStrokeDataBean> keyStrokeDataList, String path) throws IOException {
+    private static void writeDataListToFile(List<KeyStrokeDataBean> keyStrokeDataList, String path, String errorPrefix) throws IOException {
         createDirectory(path);
-        String filename = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filename = errorPrefix + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS) + "/" + BASEDIRECTRORY + path, filename + ".csv");
@@ -83,11 +83,11 @@ class LogToFileHelper {
         stream.close();
     }
 
-    static void logToFile(Context context, List<KeyStrokeDataBean> keyStrokeDataList, String path) {
+    static void logToFile(Context context, List<KeyStrokeDataBean> keyStrokeDataList, String path, String errorPrefix) {
         if (keyStrokeDataList != null && keyStrokeDataList.size() != 0) {
             if (isExternalStorageWritable(context)) {
                 try {
-                    writeDataListToFile(keyStrokeDataList, path);
+                    writeDataListToFile(keyStrokeDataList, path, errorPrefix);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(context, "Exception while writing file", Toast.LENGTH_LONG).show();
