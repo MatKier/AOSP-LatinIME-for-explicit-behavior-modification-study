@@ -2,7 +2,6 @@ package com.android.inputmethod.ebmStudy.etc;
 
 import android.content.Context;
 
-import com.android.inputmethod.ebmStudy.etc.keyStrokeVisualizer.KeyStrokeVisualizerView;
 import com.android.inputmethod.ebmStudy.keyStrokeLogging.SimpleKeyStrokeDataBean;
 
 import org.w3c.dom.Document;
@@ -12,6 +11,8 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,14 +51,32 @@ public class StudyXMLParser {
     private static final String ATTR_SORTING_GROUP_ID = "sortingGroupId";
     private static final String ATTR_SORTING_TASK_ID = "sortingTaskId";
 
+    private static final Map<String, Point> keyCordsMap = new HashMap<>();
 
-    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx, Integer xmlNo) throws Exception {
-        InputStream is;
-        if(xmlNo != null) {
-            is = ctx.getAssets().open("studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml");
-        } else {
-            is = ctx.getAssets().open("studyConfig/tasks_short.xml");
-        }
+    static {
+        keyCordsMap.put("f", new Point(576, 350));
+        keyCordsMap.put("o", new Point(1224, 130));
+        keyCordsMap.put("t", new Point(648, 130));
+        keyCordsMap.put("b", new Point(864, 570));
+        keyCordsMap.put("a", new Point(108, 350));
+        keyCordsMap.put("l", new Point(1332, 350));
+
+        keyCordsMap.put("p", new Point(1368, 130));
+        keyCordsMap.put("r", new Point(504, 130));
+        keyCordsMap.put("i", new Point(1080, 130));
+        keyCordsMap.put("n", new Point(1008, 570));
+        keyCordsMap.put("c", new Point(576, 570));
+        keyCordsMap.put("e", new Point(360, 130));
+        keyCordsMap.put("s", new Point(288, 350));
+
+        keyCordsMap.put("w", new Point(216, 130));
+        keyCordsMap.put("d", new Point(432, 350));
+    }
+
+
+    public static ArrayList<StudyConfigBean> parseStudyConfig(Context ctx, String xmlPath) throws Exception {
+        InputStream is = ctx.getAssets().open(xmlPath);
+
         DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = dBuilder.parse(is);
 
@@ -95,6 +114,9 @@ public class StudyXMLParser {
                 for (int j = 0; j < letterList.getLength(); j++) {
                     Node letterNode = letterList.item(j);
                     String keyChar = ((Element) letterNode).getAttribute(ATTR_CHAR);
+                    int keyCenterX = keyCordsMap.get(keyChar).getX();
+                    int keyCenterY = keyCordsMap.get(keyChar).getY();
+
                     if (keyChar.length() != 1) {
                         throw new Exception("taskId: " + taskId + " [Char length != 1: " + keyChar + "]");
                     }
@@ -106,13 +128,13 @@ public class StudyXMLParser {
                         offSetX = 0;
                         offSetY = 0;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_LEFT)) {
-                        offSetX = (-120 / 2);
+                        offSetX = (-120 / 2) + 15;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_RIGHT)) {
-                        offSetX = (120 / 2);
+                        offSetX = (120 / 2) - 15;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_TOP)) {
-                        offSetY = (-220 / 2);
+                        offSetY = (-220 / 2) + 30;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_BOTTOM)) {
-                        offSetY = (220 / 2);
+                        offSetY = (220 / 2) - 30;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported offset: " + offsetString + "]");
                     }
@@ -156,8 +178,8 @@ public class StudyXMLParser {
                         flightTime = -1;
                     }
 
-                    keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_DOWN, keyChar, offSetX, offSetY, -1, flightTime, area));
-                    keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_UP, keyChar, offSetX, offSetY, holdTime, -1, area));
+                    keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_DOWN, keyChar, keyCenterX, keyCenterY, offSetX, offSetY, -1, flightTime, area));
+                    keyStrokeTask.add(new SimpleKeyStrokeDataBean(StudyConstants.EVENT_TYPE_UP, keyChar, keyCenterX, keyCenterY, offSetX, offSetY, holdTime, -1, area));
                 }
                 studyConfigList.add(new StudyConfigBean(featureCount, groupId, groupName, sortingGroupId, isIntroductionGroup, taskId, sortingTaskId, numOfReps, keyStrokeTask));
             }

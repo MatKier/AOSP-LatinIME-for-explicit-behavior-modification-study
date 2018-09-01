@@ -162,4 +162,13 @@ public class KeyStrokeLogger {
     public static void writeLikertAnswersToCSVFile(String path, String identifier, String csvContent, Context context) {
         LogToFileHelper.writeLikertAnswersToCSV(path, identifier, csvContent, context);
     }
+
+    /**
+     * Static method for
+     * @param context
+     * @param path
+     */
+    public static void writeConfigTaskToCsvFile(Context context, List<SimpleKeyStrokeDataBean> keyStrokeDataList, String path) {
+        LogToFileHelper.logToFile(context, keyStrokeDataList, path, "target");
+    }
 }

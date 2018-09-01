@@ -55,7 +55,7 @@ class LogToFileHelper {
         }
     }
 
-    private static void writeDataListToFile(List<KeyStrokeDataBean> keyStrokeDataList, String path, String errorPrefix) throws IOException {
+    private static void writeDataListToFile(List<? extends SimpleKeyStrokeDataBean> keyStrokeDataList, String path, String errorPrefix) throws IOException {
         createDirectory(path);
         String filename = errorPrefix + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
@@ -65,7 +65,7 @@ class LogToFileHelper {
         FileOutputStream stream;
         if (!file.exists()) {
             stream = new FileOutputStream(file, true);
-            stream.write(KeyStrokeDataBean.getCSVHeader().getBytes());
+            stream.write(keyStrokeDataList.get(0).getCSVHeader().getBytes());
             // stream.flush();
         } else {
             stream = new FileOutputStream(file, true);
@@ -74,7 +74,7 @@ class LogToFileHelper {
 
         Log.d("writeData", "" + file.toString());
         StringBuilder buff = new StringBuilder();
-        for (KeyStrokeDataBean bean : keyStrokeDataList) {
+        for (SimpleKeyStrokeDataBean bean : keyStrokeDataList) {
             buff.append(bean.toCSVString());
         }
 
@@ -83,7 +83,7 @@ class LogToFileHelper {
         stream.close();
     }
 
-    static void logToFile(Context context, List<KeyStrokeDataBean> keyStrokeDataList, String path, String errorPrefix) {
+    static void logToFile(Context context, List<? extends SimpleKeyStrokeDataBean> keyStrokeDataList, String path, String errorPrefix) {
         if (keyStrokeDataList != null && keyStrokeDataList.size() != 0) {
             if (isExternalStorageWritable(context)) {
                 try {

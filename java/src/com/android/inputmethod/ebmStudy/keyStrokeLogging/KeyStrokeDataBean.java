@@ -5,8 +5,6 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
     private long eventTime;
     private int x;
     private int y;
-    private int keyCenterX;
-    private int keyCenterY;
     private float orientation;
     private float touchMinor;
     private float touchMajor;
@@ -17,13 +15,11 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
     KeyStrokeDataBean(long unixTimeStamp, String eventType, long eventTime, String keyValue, int x, int y, int offsetX,
                       int offsetY, int keyCenterX, int keyCenterY, float orientation, float touchMinor,
                       float touchMajor, float size, long holdTime, long flightTime, float pressure) {
-        super(eventType, keyValue, offsetX, offsetY, holdTime, flightTime, pressure);
+        super(eventType, keyValue, keyCenterX, keyCenterY, offsetX, offsetY, holdTime, flightTime, pressure);
         this.unixTimeStamp = unixTimeStamp;
         this.eventTime = eventTime;
         this.x = x;
         this.y = y;
-        this.keyCenterX = keyCenterX;
-        this.keyCenterY = keyCenterY;
         this.orientation = orientation;
         this.touchMinor = touchMinor;
         this.touchMajor = touchMajor;
@@ -44,7 +40,8 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
         this.longPressKey = longPressKey;
     }
 
-    static String getCSVHeader() {
+    @Override
+    String getCSVHeader() {
         return "unixTimeStamp; eventType; eventTime; keyValue; x; y; offsetX; offsetY; keyCenterX; keyCenterY; orientation;" +
                 " touchMinor; touchMajor; size; holdTime; flightTime; pressure; isLongPressed; longPressKey \n";
     }
@@ -53,9 +50,10 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
      * Returns a string with all the beans property values separated by a semicolon
      * @return
      */
+    @Override
     String toCSVString() {
         return unixTimeStamp + "; " + getEventType() + "; " + eventTime + "; " + getKeyValue() + "; " + x + "; " + y + "; " + getOffsetX()
-                + "; " + getOffsetY() + "; " + keyCenterX + "; " + keyCenterY + "; " + orientation + "; "
+                + "; " + getOffsetY() + "; " + getKeyCenterX() + "; " + getKeyCenterY() + "; " + orientation + "; "
                 + touchMinor + "; " + touchMajor + "; " + size + "; " + getHoldTime() + ";" + getFlightTime() +
                 ";" + getPressure() + "; " + isLongPressed + "; " + longPressKey + "\n";
     }

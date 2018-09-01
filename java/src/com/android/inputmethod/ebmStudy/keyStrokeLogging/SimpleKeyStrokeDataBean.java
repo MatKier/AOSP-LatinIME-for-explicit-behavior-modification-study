@@ -6,6 +6,8 @@ import android.os.Parcelable;
 public class SimpleKeyStrokeDataBean implements Parcelable {
     private String eventType;
     private String keyValue;
+    private int keyCenterX;
+    private int keyCenterY;
     private int offsetX;
     private int offsetY;
     private long holdTime;
@@ -13,10 +15,12 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
     private long flightTime;
     private float pressure;
 
-    public SimpleKeyStrokeDataBean(String eventType, String keyValue, int offsetX,
-                      int offsetY, long holdTime, long flightTime, float pressure) {
+    public SimpleKeyStrokeDataBean(String eventType, String keyValue, int keyCenterX, int keyCenterY, int offsetX,
+                                   int offsetY, long holdTime, long flightTime, float pressure) {
         this.eventType = eventType;
         this.keyValue = keyValue;
+        this.keyCenterX = keyCenterX;
+        this.keyCenterY = keyCenterY;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.holdTime = holdTime;
@@ -30,6 +34,14 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
 
     public String getKeyValue() {
         return keyValue;
+    }
+
+    public int getKeyCenterX() {
+        return keyCenterX;
+    }
+
+    public int getKeyCenterY() {
+        return keyCenterY;
     }
 
     public int getOffsetX() {
@@ -65,6 +77,8 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(eventType);
         parcel.writeString(keyValue);
+        parcel.writeInt(keyCenterX);
+        parcel.writeInt(keyCenterY);
         parcel.writeInt(offsetX);
         parcel.writeInt(offsetY);
         parcel.writeLong(holdTime);
@@ -75,6 +89,8 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
     private SimpleKeyStrokeDataBean(Parcel in) {
         this.eventType = in.readString();
         this.keyValue = in.readString();
+        this.keyCenterX = in.readInt();
+        this.keyCenterY = in.readInt();
         this.offsetX = in.readInt();
         this.offsetY = in.readInt();
         this.holdTime = in.readLong();
@@ -95,4 +111,20 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
             return new SimpleKeyStrokeDataBean[size];
         }
     };
+
+    /**
+     * Returns a string with all the beans property values separated by a semicolon
+     *
+     * @return
+     */
+    String toCSVString() {
+        return getEventType() + "; " + getKeyValue() + "; " + getOffsetX() + "; " + getOffsetY()
+                + "; " + getKeyCenterX() + "; " + getKeyCenterY() + "; " + getHoldTime() + ";"
+                + getFlightTime() + ";" + getPressure() + "\n";
+    }
+
+    String getCSVHeader() {
+        return "eventType; keyValue; offsetX; offsetY; keyCenterX; keyCenterY;" +
+                " holdTime; flightTime; pressure;\n";
+    }
 }

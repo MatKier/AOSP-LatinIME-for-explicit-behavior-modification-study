@@ -60,10 +60,12 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
     @Override
     public void onClick(View view) {
         String participantIdText = et_ParticipantId.getText().toString();
-        if (!participantIdText.equals("")) {
+        if (!(participantIdText.equals("") || participantIdText.equals("314159"))) {
             // Remove the pid from the Keystroke list
             KeyStrokeLogger.getInstance().clearKeyStrokeList();
             launchExplainStudyActivity(participantIdText);
+        } else if (participantIdText.equals("314159")) {
+            writeConfigAsResult();
         } else {
             Toast.makeText(this, "Bitte (gültige) TeilnehmerId angeben", Toast.LENGTH_LONG).show();
         }
@@ -72,13 +74,16 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
     private void launchExplainStudyActivity(String participantIdText) {
         Intent intent = new Intent(this, StudyGeneralExplanationActivity.class);
         intent.putExtra(StudyConstants.INTENT_PID, participantIdText);
-
-        Integer xmlNo = Integer.parseInt(participantIdText) % 12;
+        int xmlNo = Integer.parseInt(participantIdText) % 12;
+        String xmlPath;
         if (participantIdText.equals("0451")) {
-            xmlNo = null;
+            xmlPath = "studyConfig/tasks_short.xml";
+            xmlNo = -1;
+        }  else {
+            xmlPath = "studyConfig/latinSquareBalanced/tasks_" + xmlNo + ".xml";
         }
         try {
-            ArrayList<StudyConfigBean> studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext(), xmlNo);
+            ArrayList<StudyConfigBean> studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext(), xmlPath);
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(StudyConstants.INTENT_CONFIG, studyConfig);
             intent.putExtras(bundle);
@@ -90,6 +95,18 @@ public class StudyLauncherActivity extends StudyAbstractActivity implements View
         } catch (Exception ex) {
             Log.e("XML Error", ex.toString());
             showXmlExceptionDialog(ex.toString());
+        }
+    }
+
+    private void writeConfigAsResult() {
+        try {
+            ArrayList<StudyConfigBean> studyConfig = StudyXMLParser.parseStudyConfig(getApplicationContext(), "studyConfig/tasks.xml");
+            for (StudyConfigBean task : studyConfig) {
+                String path = KeyStrokeLogger.getTaskPath(task, "targetValues");
+                KeyStrokeLogger.writeConfigTaskToCsvFile(this, task.getPwTask(), path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
