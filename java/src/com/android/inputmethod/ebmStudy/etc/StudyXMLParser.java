@@ -128,13 +128,13 @@ public class StudyXMLParser {
                         offSetX = 0;
                         offSetY = 0;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_LEFT)) {
-                        offSetX = (-120 / 2) + 15;
+                        offSetX = (-120 / 2) + 20;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_RIGHT)) {
-                        offSetX = (120 / 2) - 15;
+                        offSetX = (120 / 2) - 20;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_TOP)) {
-                        offSetY = (-220 / 2) + 30;
+                        offSetY = (-220 / 2) + 40;
                     } else if (offsetString.equals(ATTR_VAL_OFFSET_BOTTOM)) {
-                        offSetY = (220 / 2) - 30;
+                        offSetY = (220 / 2) - 40;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported offset: " + offsetString + "]");
                     }
@@ -144,7 +144,7 @@ public class StudyXMLParser {
                     if (areaString.equals(ATTR_VAL_AREA_SMALL)) {
                         area = 0.20f;
                     } else if (areaString.equals(ATTR_VAL_AREA_BIG)) {
-                        area = 0.45f;
+                        area = 0.40f;
                     } else {
                         throw new Exception("taskId: " + taskId + " [Unsupported area: " + areaString + "]");
                     }
