@@ -157,6 +157,7 @@ public class StudyExplainTaskActivity extends StudyAbstractActivity implements V
             tvDescription.setText("Denken Sie sich ein eigenes 6-8 stelliges Verhaltensbiometrie-Passwort aus (nur Kleinbuchstaben).\n" +
                     "Passen Sie dabei mind. eine Eigenschaft an (offset, holdtime, flighttime, area).\n\n" +
                     "Sie können das Übungsfeld Nutzen, um die Eingabe Ihres Passwortes zu üben.\n\n" +
+                    "Notieren Sie ihr Passwort auf einem Stück Papier.\n\n"+
                     "Wenn Sie bereit sind, drücken sie den Button 'Aufgabe Starten' und geben Sie dann Ihr selbst ausgedachtes Passwort " + currentTask.getNumberOfReps() +
                     "-mal auf die gleiche Art und Weise ein.");
             ksvView.setVisibility(View.VISIBLE);

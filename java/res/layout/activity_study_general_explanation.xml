@@ -53,7 +53,7 @@
                 android:id="@+id/textViewGeneralDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text='Im Rahmen dieser Studie müssen Sie 48 Aufgaben bearbeiten. \n\nIm Zuge jeder Aufgabe müssen Sie ein Passwort sechs mal auf die in der Aufgabe vorgegebenen Art und Weiße eingeben.\n\nVariert wird dabei:\n- Die Auflagefläche des Daumens auf eine Taste (normal oder groß)\n- Die haltedauer einer Taste (normal und lang)\n- Die Zeit zwischen zwei Tastenanschlägen (normal und lang)\n- Der Versatz, d.h. wo die Taste gedrückt wird (oben, unten, rechts, links)\n\nDie Art und Weise auf die sie das Passwort eingeben müssen wird vor jeder Aufgabe mittels einer speziellen Notation erläutert.\n\nDrücken Sie hier für eine Erklärung dieser Notation\n\nBitte tippen Sie alle Passwörter nur mit dem rechten Daumen ein.'></TextView>
+                android:text='Im Rahmen dieser Studie müssen Sie 38 Aufgaben bearbeiten. \n\nIm Zuge jeder Aufgabe müssen Sie ein Passwort sechs mal auf die in der Aufgabe vorgegebenen Art und Weiße eingeben.\n\nVariert wird dabei:\n- Die Auflagefläche des Daumens auf eine Taste (normal oder groß)\n- Die haltedauer einer Taste (normal und lang)\n- Die Zeit zwischen zwei Tastenanschlägen (normal und lang)\n- Der Versatz, d.h. wo die Taste gedrückt wird (oben, unten, rechts, links)\n\nDie Art und Weise auf die sie das Passwort eingeben müssen wird vor jeder Aufgabe mittels einer speziellen Notation erläutert.\n\nDrücken Sie hier für eine Erklärung dieser Notation\n\nBitte tippen Sie alle Passwörter nur mit dem rechten Daumen ein.'></TextView>
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

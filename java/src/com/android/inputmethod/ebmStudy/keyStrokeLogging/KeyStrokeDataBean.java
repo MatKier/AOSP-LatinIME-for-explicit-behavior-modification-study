@@ -42,8 +42,8 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
 
     @Override
     String getCSVHeader() {
-        return "unixTimeStamp; eventType; eventTime; keyValue; x; y; offsetX; offsetY; keyCenterX; keyCenterY; orientation;" +
-                " touchMinor; touchMajor; size; holdTime; flightTime; pressure; isLongPressed; longPressKey \n";
+        return "unixTimeStamp;eventType;eventTime;keyValue;x;y;offsetX;offsetY;keyCenterX;keyCenterY;orientation;" +
+                "touchMinor;touchMajor;size;holdTime;flightTime;pressure;isLongPressed;longPressKey\n";
     }
 
     /**
@@ -52,10 +52,10 @@ public class KeyStrokeDataBean extends SimpleKeyStrokeDataBean{
      */
     @Override
     String toCSVString() {
-        return unixTimeStamp + "; " + getEventType() + "; " + eventTime + "; " + getKeyValue() + "; " + x + "; " + y + "; " + getOffsetX()
-                + "; " + getOffsetY() + "; " + getKeyCenterX() + "; " + getKeyCenterY() + "; " + orientation + "; "
-                + touchMinor + "; " + touchMajor + "; " + size + "; " + getHoldTime() + ";" + getFlightTime() +
-                ";" + getPressure() + "; " + isLongPressed + "; " + longPressKey + "\n";
+        return unixTimeStamp + ";" + getEventType() + ";" + eventTime + ";" + getKeyValue() + ";" + x + ";" + y + ";" + getOffsetX()
+                + ";" + getOffsetY() + ";" + getKeyCenterX() + ";" + getKeyCenterY() + ";" + orientation + ";"
+                + touchMinor + ";" + touchMajor + "; " + size + ";" + getHoldTime() + ";" + getFlightTime() +
+                ";" + getPressure() + ";" + isLongPressed + ";" + longPressKey + "\n";
     }
 
     @Override

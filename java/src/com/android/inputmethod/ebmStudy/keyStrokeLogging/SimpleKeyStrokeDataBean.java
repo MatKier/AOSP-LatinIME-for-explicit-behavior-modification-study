@@ -118,13 +118,13 @@ public class SimpleKeyStrokeDataBean implements Parcelable {
      * @return
      */
     String toCSVString() {
-        return getEventType() + "; " + getKeyValue() + "; " + getOffsetX() + "; " + getOffsetY()
-                + "; " + getKeyCenterX() + "; " + getKeyCenterY() + "; " + getHoldTime() + ";"
+        return getEventType() + ";" + getKeyValue() + ";" + getOffsetX() + ";" + getOffsetY()
+                + "; " + getKeyCenterX() + ";" + getKeyCenterY() + "; " + getHoldTime() + ";"
                 + getFlightTime() + ";" + getPressure() + "\n";
     }
 
     String getCSVHeader() {
-        return "eventType; keyValue; offsetX; offsetY; keyCenterX; keyCenterY;" +
-                " holdTime; flightTime; pressure;\n";
+        return "eventType;keyValue;offsetX;offsetY;keyCenterX;keyCenterY;" +
+                "holdTime;flightTime;pressure;\n";
     }
 }

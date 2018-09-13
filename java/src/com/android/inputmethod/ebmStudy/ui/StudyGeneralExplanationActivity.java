@@ -55,7 +55,7 @@ public class StudyGeneralExplanationActivity extends StudyAbstractActivity imple
         if(view == btn_startTaskExplanation) {
             launchExplainTaskActivity();
         } else if (view == tv_description) {
-            ExplainNotationDialog end = new ExplainNotationDialog(this, studyConfig.get(studyConfig.size() - 4).getPwTask());
+            ExplainNotationDialog end = new ExplainNotationDialog(this, studyConfig.get(studyConfig.size() - 3).getPwTask());
             end.show();
         }
     }

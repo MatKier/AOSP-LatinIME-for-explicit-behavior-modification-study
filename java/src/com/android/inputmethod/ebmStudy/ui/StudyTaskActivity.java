@@ -189,13 +189,13 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 //                    KeyStrokeLogger.getInstance().clearKeyStrokeList();
 //                    et_password.setText("");
                     savePasswordAction(ERROR_PREFIX_WRONG_TOUCH);
-                    Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Zu viele Tastenanschläge, bitte wiederholen", Toast.LENGTH_SHORT).show();
                 }
             } else {
 //                KeyStrokeLogger.getInstance().clearKeyStrokeList();
 //                et_password.setText("");
                 savePasswordAction(ERROR_PREFIX_WRONG_KEYS);
-                Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_SHORT).show();
             }
         } else {
             // Case: currentTask is the 'user created pw task' => no validation
