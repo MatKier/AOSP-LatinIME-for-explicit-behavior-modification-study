@@ -34,6 +34,9 @@ class KeyStrokeLoggingHelper {
             offsetX = x - keyCenterX;
             offsetY = y - keyCenterY;
         }
+//        if (key.getCode() == 108 || key.getCode() == 97) {
+//            offsetX = (int)(offsetX * 0.6682);
+//        }
 
         final int action = me.getActionMasked();
         String eventType;
