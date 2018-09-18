@@ -22,19 +22,19 @@
         android:key="gesture_input"
         android:title="@string/gesture_input"
         android:summary="@string/gesture_input_summary"
-        android:defaultValue="true"
-        android:persistent="true" />
+        android:defaultValue="false"
+        android:persistent="false" />
     <CheckBoxPreference
         android:key="pref_gesture_floating_preview_text"
         android:dependency="gesture_input"
         android:title="@string/gesture_floating_preview_text"
         android:summary="@string/gesture_floating_preview_text_summary"
-        android:defaultValue="true"
-        android:persistent="true" />
+        android:defaultValue="false"
+        android:persistent="false" />
     <CheckBoxPreference
         android:key="pref_gesture_preview_trail"
         android:dependency="gesture_input"
         android:title="@string/gesture_preview_trail"
-        android:defaultValue="true"
-        android:persistent="true" />
+        android:defaultValue="false"
+        android:persistent="false" />
 </PreferenceScreen>
