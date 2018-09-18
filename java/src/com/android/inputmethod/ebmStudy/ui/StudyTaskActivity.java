@@ -2,12 +2,15 @@ package com.android.inputmethod.ebmStudy.ui;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -124,12 +127,10 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
         final StudyConfigBean currentTask = studyConfig.get(0);
         if (v == btn_nextTask) {
             // Case: We are not in the last task
-            if(studyConfig.size() > 1) {
+            if (studyConfig.size() > 1) {
                 final StudyConfigBean nextTask = studyConfig.get(1);
                 initializeEnabledState();
                 entryCounter = 0;
-                // if (currentTask.getGroupId() != nextTask.getGroupId()) {
-                // TODO launch likert question dialkog after evrey task
                 if ((!currentTask.isIntroductionGroup())) {
                     LikertQuestionDialog lqd = new LikertQuestionDialog(this, currentTask, pid);
                     lqd.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -182,7 +183,6 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 
             if (actualPasswordStringValue.equals(desiredPasswordStringValue)) {
                 if ((actualNumberOfTouchEvents == numberOfDesiredTouchEvents)) {
-                    // TODO flag in der methode für identifizierung nutzten (valid, touchError, keyError)
                     incrementProgressbar();
                     savePasswordAction(ERROR_PREFIX_VALID);
                 } else {
@@ -195,7 +195,7 @@ public class StudyTaskActivity extends StudyAbstractActivity implements View.OnC
 //                KeyStrokeLogger.getInstance().clearKeyStrokeList();
 //                et_password.setText("");
                 savePasswordAction(ERROR_PREFIX_WRONG_KEYS);
-                Toast.makeText(this, "Passwort falssch \nDeine Eingabe: " + actualPasswordStringValue, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Falsche Eingabe: " + actualPasswordStringValue, Toast.LENGTH_SHORT).show();
             }
         } else {
             // Case: currentTask is the 'user created pw task' => no validation

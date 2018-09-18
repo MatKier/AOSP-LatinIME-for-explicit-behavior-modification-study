@@ -114,6 +114,7 @@
             android:name="com.android.inputmethod.ebmStudy.ui.StudyTaskActivity"
             android:icon="@drawable/ic_launcher_keyboard"
             android:label="Explicit behavior modification study"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".setup.SetupActivity"

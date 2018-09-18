@@ -33,6 +33,7 @@ public class StudyGeneralExplanationActivity extends StudyAbstractActivity imple
         tv_description.setOnClickListener(this);
 
         getExtras();
+        tv_description.setText(getString(R.string.general_explanation, studyConfig.size()));
     }
 
     private void getExtras() {
